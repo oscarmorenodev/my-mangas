@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541E71E2B96DD4E0078B50C /* Manga.swift */; };
 		554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822C2B962FDC009F3325 /* MyMangasApp.swift */; };
 		554A822F2B962FDC009F3325 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822E2B962FDC009F3325 /* ContentView.swift */; };
 		554A82312B962FDE009F3325 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554A82302B962FDE009F3325 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5541E71E2B96DD4E0078B50C /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		554A82292B962FDC009F3325 /* MyMangas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMangas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554A822C2B962FDC009F3325 /* MyMangasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangasApp.swift; sourceTree = "<group>"; };
 		554A822E2B962FDC009F3325 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5541E71D2B96DD290078B50C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5541E71E2B96DD4E0078B50C /* Manga.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		554A82202B962FDC009F3325 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +69,7 @@
 			children = (
 				554A822C2B962FDC009F3325 /* MyMangasApp.swift */,
 				554A822E2B962FDC009F3325 /* ContentView.swift */,
+				5541E71D2B96DD290078B50C /* Model */,
 				554A82302B962FDE009F3325 /* Assets.xcassets */,
 				554A82322B962FDE009F3325 /* Preview Content */,
 			);
@@ -145,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */,
 				554A822F2B962FDC009F3325 /* ContentView.swift in Sources */,
 				554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */,
 			);
