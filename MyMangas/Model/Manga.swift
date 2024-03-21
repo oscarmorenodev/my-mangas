@@ -1,6 +1,5 @@
 import Foundation
 
-// MARK: - Manga
 struct Manga {
     let demographics: [Demographic]
     let titleEnglish: String
@@ -20,30 +19,4 @@ struct Manga {
     let titleJapanese: String
     let sypnosis: String
     let volumes: Int
-}
-
-// MARK: - Author
-struct Author {
-    let role: String
-    let lastName: String
-    let firstName: String
-    let id: String
-}
-
-// MARK: - Demographic
-struct Demographic {
-    let id: String
-    let demographic: String
-}
-
-// MARK: - Genre
-struct Genre {
-    let genre: String
-    let id: String
-}
-
-// MARK: - Theme
-struct Theme {
-    let theme: String
-    let id: String
 }
