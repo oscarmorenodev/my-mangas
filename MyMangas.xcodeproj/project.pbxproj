@@ -93,7 +93,7 @@
 			children = (
 				554A822C2B962FDC009F3325 /* MyMangasApp.swift */,
 				554A822E2B962FDC009F3325 /* ContentView.swift */,
-				556FD1892BB9478F00F3CFA1 /* ViewModels */,
+				556FD1892BB9478F00F3CFA1 /* Features */,
 				558BF7802BAC7E9000986B3B /* Interactor */,
 				558BF7832BAC82E800986B3B /* Interface */,
 				5541E71D2B96DD290078B50C /* Models */,
@@ -111,12 +111,20 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		556FD1892BB9478F00F3CFA1 /* ViewModels */ = {
+		556FD1892BB9478F00F3CFA1 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				556FD1972BB9E33200F3CFA1 /* MangasList */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		556FD1972BB9E33200F3CFA1 /* MangasList */ = {
 			isa = PBXGroup;
 			children = (
 				556FD18A2BB947A100F3CFA1 /* MangasListViewModel.swift */,
 			);
-			path = ViewModels;
+			path = MangasList;
 			sourceTree = "<group>";
 		};
 		558BF7802BAC7E9000986B3B /* Interactor */ = {
