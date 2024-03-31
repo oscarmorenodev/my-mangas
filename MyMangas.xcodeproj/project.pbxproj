@@ -58,7 +58,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5541E71D2B96DD290078B50C /* Model */ = {
+		5541E71D2B96DD290078B50C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				5541E71E2B96DD4E0078B50C /* Manga.swift */,
@@ -67,7 +67,7 @@
 				558BF77B2BAC79A100986B3B /* Genre.swift */,
 				558BF77E2BAC79BC00986B3B /* Theme.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		554A82202B962FDC009F3325 = {
@@ -96,7 +96,7 @@
 				556FD1892BB9478F00F3CFA1 /* ViewModels */,
 				558BF7802BAC7E9000986B3B /* Interactor */,
 				558BF7832BAC82E800986B3B /* Interface */,
-				5541E71D2B96DD290078B50C /* Model */,
+				5541E71D2B96DD290078B50C /* Models */,
 				554A82302B962FDE009F3325 /* Assets.xcassets */,
 				554A82322B962FDE009F3325 /* Preview Content */,
 			);
