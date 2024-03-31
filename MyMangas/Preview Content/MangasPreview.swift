@@ -17,11 +17,11 @@ extension MangasListViewModel {
     static let preview = MangasListViewModel(interactor: PreviewData())
 }
 
-extension ContentView {
+extension MangasListView {
     static var preview: some View {
         let vm = MangasListViewModel.preview
         
-        return ContentView()
+        return MangasListView()
             .task {
                 _ = await vm.getMangas()
             }
