@@ -7,7 +7,7 @@ final class MangasListViewModel {
     var displayError = false
     var errorMessage = ""
     
-    init(interactor: DataInteractor = Network()) {
+    init(interactor: DataInteractor = DataService()) {
         self.interactor = interactor
     }
     

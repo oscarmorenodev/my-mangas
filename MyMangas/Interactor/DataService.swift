@@ -4,8 +4,8 @@ protocol DataInteractor {
     func getMangas() async throws -> Mangas
 }
 
-struct Network: DataInteractor {
-    static let shared = Network()
+struct DataService: DataInteractor {
+    static let shared = DataService()
     
     func getData<T:Decodable>(request: URLRequest, type: T.Type) async throws -> T where T: Decodable {
         let (data, response) = try await URLSession.shared.getData(for: request)

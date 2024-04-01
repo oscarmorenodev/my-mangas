@@ -4,7 +4,7 @@ struct Mangas: Decodable {
     let items: [Manga]
 }
 
-struct Manga: Identifiable, Decodable {
+struct Manga: Identifiable, Decodable, Hashable {
     let demographics: [Demographic]?
     let titleEnglish: String?
     let endDate: String?
