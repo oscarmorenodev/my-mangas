@@ -1,24 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(MangasListViewModel.self) var vm
+    
     var body: some View {
-        VStack {
-            Image(systemName: "book")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50)
-                .fontWeight(.semibold)
-                .foregroundStyle(.tint)
-                .padding()
-            Text("Welcome to MyMangas App!")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .fontDesign(.rounded)
-        }
-        .padding()
+        MangasListView()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView.preview
 }
