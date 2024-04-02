@@ -6,7 +6,7 @@ struct MyMangasApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppStateView()
                 .environment(vm)
         }
     }

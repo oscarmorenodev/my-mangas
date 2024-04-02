@@ -6,6 +6,7 @@ final class MangasListViewModel {
     var mangas = [Manga]()
     var displayError = false
     var errorMessage = ""
+    var appState: AppState = .splash
     
     init(interactor: DataInteractor = DataService()) {
         self.interactor = interactor

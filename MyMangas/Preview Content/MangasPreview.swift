@@ -38,10 +38,10 @@ extension Manga {
                                volumes: 42)
 }
 
-extension ContentView {
+extension MainView {
         static var preview: some View {
             let vm = MangasListViewModel.preview
-            return ContentView()
+            return MainView()
                 .task {
                     _ = await vm.getMangas()
                 }
