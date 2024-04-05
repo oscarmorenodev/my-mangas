@@ -31,7 +31,7 @@ struct MangasListView: View {
                 )
             }
         }
-        .animation(.spring, value: selected)
+        .animation(.default, value: selected)
     }
     
 }
