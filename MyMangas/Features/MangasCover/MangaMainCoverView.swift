@@ -2,12 +2,15 @@ import SwiftUI
 
 struct MangaMainCoverView: View {
     let cover: Image
+    let namespace: Namespace.ID
+    let mangaId: Int
     var detailViewMode: Bool = false
     
     var body: some View {
         VStack {
             cover
                 .resizable()
+                .matchedGeometryEffect(id: mangaId, in: namespace)
                 .scaledToFill()
                 .frame(width: detailViewMode ? 250 : 150,
                        height: detailViewMode ? 420 : 230)                .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -18,5 +21,7 @@ struct MangaMainCoverView: View {
 }
 
 #Preview {
-    MangaMainCoverView(cover: Image("DragonBallCover"))
+    MangaMainCoverView(cover: Image("DragonBallCover"), 
+                       namespace: Namespace().wrappedValue, 
+                       mangaId: 1)
 }

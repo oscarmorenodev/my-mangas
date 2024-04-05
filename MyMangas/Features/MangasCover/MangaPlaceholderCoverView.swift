@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MangaPlaceholderCoverView: View {
+    let namespace: Namespace.ID
+    let mangaId: Int
     var detailViewMode: Bool = false
 
     var body: some View {
@@ -22,5 +24,5 @@ struct MangaPlaceholderCoverView: View {
 }
 
 #Preview {
-    MangaPlaceholderCoverView()
+    MangaPlaceholderCoverView(namespace: Namespace().wrappedValue, mangaId: 1)
 }
