@@ -31,11 +31,12 @@
 		558BF78B2BAC84FE00986B3B /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558BF78A2BAC84FE00986B3B /* URL.swift */; };
 		559ED8F32B963031007581DF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 559ED8F22B963031007581DF /* README.md */; };
 		559ED8F52B96309A007581DF /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 559ED8F42B96309A007581DF /* .gitignore */; };
-		55BCF0CC2BBA70C00035468F /* MangasListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0CB2BBA70C00035468F /* MangasListCellView.swift */; };
-		55BCF0CE2BBA75E50035468F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0CD2BBA75E50035468F /* ImageService.swift */; };
-		55BCF0D02BBA776F0035468F /* MangasListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0CF2BBA776F0035468F /* MangasListCellViewModel.swift */; };
-		55BCF0D22BBA7C050035468F /* MangaListCellPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0D12BBA7C050035468F /* MangaListCellPlaceholderView.swift */; };
+		55BCF0CC2BBA70C00035468F /* MangaMainCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0CB2BBA70C00035468F /* MangaMainCoverView.swift */; };
+		55BCF0D22BBA7C050035468F /* MangaPlaceholderCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0D12BBA7C050035468F /* MangaPlaceholderCoverView.swift */; };
 		55BCF0D92BBA93A60035468F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF0D82BBA93A60035468F /* Constants.swift */; };
+		55E5D5682BC0498C0013E82B /* String+URLFormated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E5D5672BC0498C0013E82B /* String+URLFormated.swift */; };
+		55E5D56B2BC04F2E0013E82B /* MangasListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E5D56A2BC04F2E0013E82B /* MangasListCellView.swift */; };
+		55E5D56D2BC056600013E82B /* MangaCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E5D56C2BC056600013E82B /* MangaCoverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,11 +65,12 @@
 		558BF78A2BAC84FE00986B3B /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		559ED8F22B963031007581DF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		559ED8F42B96309A007581DF /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		55BCF0CB2BBA70C00035468F /* MangasListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasListCellView.swift; sourceTree = "<group>"; };
-		55BCF0CD2BBA75E50035468F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		55BCF0CF2BBA776F0035468F /* MangasListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasListCellViewModel.swift; sourceTree = "<group>"; };
-		55BCF0D12BBA7C050035468F /* MangaListCellPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListCellPlaceholderView.swift; sourceTree = "<group>"; };
+		55BCF0CB2BBA70C00035468F /* MangaMainCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaMainCoverView.swift; sourceTree = "<group>"; };
+		55BCF0D12BBA7C050035468F /* MangaPlaceholderCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaPlaceholderCoverView.swift; sourceTree = "<group>"; };
 		55BCF0D82BBA93A60035468F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		55E5D5672BC0498C0013E82B /* String+URLFormated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+URLFormated.swift"; sourceTree = "<group>"; };
+		55E5D56A2BC04F2E0013E82B /* MangasListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasListCellView.swift; sourceTree = "<group>"; };
+		55E5D56C2BC056600013E82B /* MangaCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaCoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			children = (
 				556FD1972BB9E33200F3CFA1 /* MangasList */,
 				5511AD8D2BBC400D0059BD62 /* MangaDetail */,
+				55BCF0CA2BBA70AE0035468F /* MangasCover */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -161,7 +164,7 @@
 		556FD1972BB9E33200F3CFA1 /* MangasList */ = {
 			isa = PBXGroup;
 			children = (
-				55BCF0CA2BBA70AE0035468F /* MangasListCell */,
+				55E5D5692BC04EFB0013E82B /* MangasListCell */,
 				556FD18A2BB947A100F3CFA1 /* MangasListViewModel.swift */,
 				556FD19E2BB9E3C700F3CFA1 /* MangasListView.swift */,
 			);
@@ -172,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				558BF7812BAC7F2D00986B3B /* DataService.swift */,
-				55BCF0CD2BBA75E50035468F /* ImageService.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -188,22 +190,39 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		55BCF0CA2BBA70AE0035468F /* MangasListCell */ = {
+		55BCF0CA2BBA70AE0035468F /* MangasCover */ = {
 			isa = PBXGroup;
 			children = (
-				55BCF0CB2BBA70C00035468F /* MangasListCellView.swift */,
-				55BCF0CF2BBA776F0035468F /* MangasListCellViewModel.swift */,
-				55BCF0D12BBA7C050035468F /* MangaListCellPlaceholderView.swift */,
+				55E5D56C2BC056600013E82B /* MangaCoverView.swift */,
+				55BCF0CB2BBA70C00035468F /* MangaMainCoverView.swift */,
+				55BCF0D12BBA7C050035468F /* MangaPlaceholderCoverView.swift */,
 			);
-			path = MangasListCell;
+			path = MangasCover;
 			sourceTree = "<group>";
 		};
 		55BCF0D72BBA93920035468F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				55E5D5662BC049680013E82B /* Extensions */,
 				55BCF0D82BBA93A60035468F /* Constants.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		55E5D5662BC049680013E82B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				55E5D5672BC0498C0013E82B /* String+URLFormated.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		55E5D5692BC04EFB0013E82B /* MangasListCell */ = {
+			isa = PBXGroup;
+			children = (
+				55E5D56A2BC04F2E0013E82B /* MangasListCellView.swift */,
+			);
+			path = MangasListCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,12 +300,15 @@
 			files = (
 				5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */,
 				5511AD922BBC48FA0059BD62 /* SplashView.swift in Sources */,
-				55BCF0CC2BBA70C00035468F /* MangasListCellView.swift in Sources */,
+				55E5D5682BC0498C0013E82B /* String+URLFormated.swift in Sources */,
+				55E5D56B2BC04F2E0013E82B /* MangasListCellView.swift in Sources */,
+				55BCF0CC2BBA70C00035468F /* MangaMainCoverView.swift in Sources */,
 				5511AD962BBC49A60059BD62 /* AppState.swift in Sources */,
 				558BF77A2BAC799200986B3B /* Demographic.swift in Sources */,
 				558BF7822BAC7F2D00986B3B /* DataService.swift in Sources */,
 				554A822F2B962FDC009F3325 /* MainView.swift in Sources */,
 				558BF77C2BAC79A100986B3B /* Genre.swift in Sources */,
+				55E5D56D2BC056600013E82B /* MangaCoverView.swift in Sources */,
 				556FD19D2BB9E3A600F3CFA1 /* MangasPreview.swift in Sources */,
 				556FD19F2BB9E3C700F3CFA1 /* MangasListView.swift in Sources */,
 				556FD18B2BB947A100F3CFA1 /* MangasListViewModel.swift in Sources */,
@@ -295,11 +317,9 @@
 				558BF7892BAC84CA00986B3B /* URLRequest.swift in Sources */,
 				554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */,
 				5511AD8F2BBC40240059BD62 /* MangaDetailView.swift in Sources */,
-				55BCF0CE2BBA75E50035468F /* ImageService.swift in Sources */,
 				558BF77F2BAC79BC00986B3B /* Theme.swift in Sources */,
 				55BCF0D92BBA93A60035468F /* Constants.swift in Sources */,
-				55BCF0D22BBA7C050035468F /* MangaListCellPlaceholderView.swift in Sources */,
-				55BCF0D02BBA776F0035468F /* MangasListCellViewModel.swift in Sources */,
+				55BCF0D22BBA7C050035468F /* MangaPlaceholderCoverView.swift in Sources */,
 				5511AD942BBC49630059BD62 /* AppStateView.swift in Sources */,
 				558BF7872BAC832200986B3B /* NetworkError.swift in Sources */,
 				558BF78B2BAC84FE00986B3B /* URL.swift in Sources */,

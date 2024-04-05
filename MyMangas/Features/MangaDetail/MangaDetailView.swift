@@ -3,15 +3,11 @@ import SwiftUI
 struct MangaDetailView: View {
     @Environment(MangasListViewModel.self) private var vm
     @Binding var selected: Manga?
-    @Binding var userInteraction: Bool
     @State private var loaded = false
-    let namespace: Namespace.ID
     private var manga: Manga!
     
-    init(selected: Binding<Manga?>, userInteraction: Binding<Bool>, namespace: Namespace.ID) {
+    init(selected: Binding<Manga?>) {
         _selected = selected
-        _userInteraction = userInteraction
-        self.namespace = namespace
         if let manga = selected.wrappedValue {
             self.manga = manga
         }
@@ -21,8 +17,8 @@ struct MangaDetailView: View {
         ZStack(alignment: .topTrailing) {
             ScrollView {
                 LazyVStack {
-                    MangasListCellView(manga: manga, namespace: namespace, coverFullView: true)
-                    Text(manga.titleEnglish ?? "")
+                    MangaCoverView(manga: manga, detailViewMode: true)
+                    Text(manga.title ?? "")
                         .font(.title)
                         .bold()
                     if let authors = manga.authors {
@@ -44,10 +40,6 @@ struct MangaDetailView: View {
             }
             Button {
                 selected = nil
-                userInteraction = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    userInteraction = true
-                }
             } label: {
                 Image(systemName: "xmark")
                     .symbolVariant(.circle)
@@ -67,6 +59,6 @@ struct MangaDetailView: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(.preview), userInteraction: .constant(false), namespace: Namespace().wrappedValue)
+    MangaDetailView(selected: .constant(.preview))
         .environment(MangasListViewModel.preview)
 }
