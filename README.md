@@ -8,4 +8,3 @@ The "My Mangas" app allows users to manage their own manga collection efficientl
 - **Collection Management**: Save mangas in your personal collection, indicating the volumes you own and your reading progress.
 - **Categorization and Filters**: Classify mangas based on various criteria such as genre, theme, and demographic, making it easier to search for new titles to explore.
 - **Friendly Interface**: Designed for iPhone, iPad, Watch, and Vision Pro, includes manga cover and data visualization for a richer experience.
-- **Data Persistence**: Save your collection both locally and in the cloud, ensuring your data is always available.
