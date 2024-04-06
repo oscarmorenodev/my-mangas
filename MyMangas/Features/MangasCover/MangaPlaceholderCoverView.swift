@@ -1,15 +1,17 @@
 import SwiftUI
 
-struct MangaListCellPlaceholderView: View {
-    let manga: Manga
+struct MangaPlaceholderCoverView: View {
     let namespace: Namespace.ID
-    
+    let mangaId: Int
+    var detailViewMode: Bool = false
+
     var body: some View {
         Image(systemName: SystemImage.placeholder.rawValue)
             .resizable()
             .scaledToFit()
             .padding()
-            .frame(width: 150, height: 230)
+            .frame(width: detailViewMode ? 250 : 150,
+                   height: detailViewMode ? 420 : 230)                .clipShape(RoundedRectangle(cornerRadius: 10))
             .foregroundStyle(Color.white.opacity(0.8))
             .background {
                 Rectangle()
@@ -22,6 +24,5 @@ struct MangaListCellPlaceholderView: View {
 }
 
 #Preview {
-    MangaListCellPlaceholderView(manga: .preview,
-                                 namespace: Namespace().wrappedValue)
+    MangaPlaceholderCoverView(namespace: Namespace().wrappedValue, mangaId: 1)
 }

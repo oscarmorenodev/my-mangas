@@ -1,36 +1,38 @@
 import SwiftUI
 
 struct MangasListCellView: View {
-    @State private var cellVM = MangasListCellViewModel()
     let manga: Manga
     let namespace: Namespace.ID
-    var coverFullView = false
     
     var body: some View {
         VStack {
-            if let cover = cellVM.image {
-                Image(uiImage: cover)
+            AsyncImage(url: manga.mainPicture?.formatedToUrl()) { cover in
+                cover
                     .resizable()
-                    .matchedGeometryEffect(id: "cover\(manga.id)", in: namespace)
                     .scaledToFill()
-                    .frame(width: coverFullView ? 250 : 150,
-                           height: coverFullView ? 420 : 230)
+                    .matchedGeometryEffect(id: manga.id, in: namespace)
+                    .frame(width: 150, height: 230)                .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
+                    .frame(height: 250)
+            } placeholder: {
+                Image(systemName: SystemImage.placeholder.rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .frame(width: 150, height: 230)                .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .foregroundStyle(Color.white.opacity(0.8))
+                    .background {
+                        Rectangle()
+                            .fill(Color.blue.opacity(0.5))
+                    }
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                    .frame(height: coverFullView ? 420 : 250)
-            } else {
-                MangaListCellPlaceholderView(manga: manga,
-                                             namespace: namespace)
+                    .frame(height: 250)
             }
-            if !coverFullView {
-                Text(manga.title ?? "")
-                    .font(.callout)
-                    .bold()
-                    .lineLimit(1)
-            }
-        }
-        .onAppear {
-            try? cellVM.getImage(url: manga.mainPicture ?? "")
+            Text(manga.title ?? "")
+                .font(.caption)
+                .bold()
+                .lineLimit(1)
         }
     }
 }

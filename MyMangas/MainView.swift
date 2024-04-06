@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     @Environment(MangasListViewModel.self) var vm
     
     var body: some View {
@@ -9,5 +9,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView.preview
+    MainView.preview
 }
