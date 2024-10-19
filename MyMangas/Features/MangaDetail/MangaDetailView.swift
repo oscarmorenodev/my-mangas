@@ -65,14 +65,12 @@ struct MangaDetailView: View {
             Button {
                 selected = nil
             } label: {
-                Image(systemName: "xmark")
-                    .symbolVariant(.circle)
-                    .symbolVariant(.fill)
+                Image(systemName: "xmark.circle.fill")
                     .font(.largeTitle)
             }
             .padding(.trailing)
             .buttonStyle(.plain)
-            .opacity(0.5)
+            .foregroundStyle(Color.primary.opacity(0.5))
             .offset(x: !loaded ? 100 : selected != nil ? 0 : 100)
         }
         .animation(.default, value: loaded)
