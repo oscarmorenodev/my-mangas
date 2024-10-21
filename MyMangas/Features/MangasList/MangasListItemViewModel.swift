@@ -4,7 +4,7 @@ struct MangasListItemViewModel: Identifiable, Hashable {
     let authors: [String]
     let synopsis: String
     let mainPicture: String
-    let isFavourite: Bool
+    var isFavourite: Bool
     
     init(manga: Manga) {
         id = manga.id
