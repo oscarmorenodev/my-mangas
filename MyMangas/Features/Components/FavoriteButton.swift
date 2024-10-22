@@ -1,6 +1,6 @@
 import SwiftUI
 
-fileprivate struct FavouriteButton: ViewModifier {
+fileprivate struct FavoriteButton: ViewModifier {
     @Environment(MangasListViewModel.self) private var vm
     @State var manga: MangasListItemViewModel
     @State var size: CGSize
@@ -32,10 +32,10 @@ fileprivate struct FavouriteButton: ViewModifier {
 }
 
 extension View {
-    func addFavouriteButton(manga: MangasListItemViewModel,
+    func addFavoriteButton(manga: MangasListItemViewModel,
                             size: CGSize,
                             offset: (x: CGFloat, y: CGFloat)) -> some View {
-        modifier(FavouriteButton(manga: manga,
+        modifier(FavoriteButton(manga: manga,
                                  size: size,
                                  offset: (x: offset.x, y: offset.y)))
     }

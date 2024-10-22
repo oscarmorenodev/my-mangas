@@ -15,7 +15,7 @@ struct MangasListView: View {
                         ForEach(vm.mangas) { manga in
                             MangasListCellView(manga: manga,
                                                namespace: namespace)
-                            .addFavouriteButton(manga: manga,
+                            .addFavoriteButton(manga: manga,
                                                 size: CGSize(width: 40, height: 40),
                                                 offset: (x: 70, y: 90))
                             .onTapGesture {
