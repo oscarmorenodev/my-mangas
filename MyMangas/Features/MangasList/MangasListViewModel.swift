@@ -27,4 +27,10 @@ final class MangasListViewModel {
         
         return mangas
     }
+    
+    func toogleFavourite(_ manga: MangasListItemViewModel) {
+        if let index = mangas.firstIndex(where: { $0.title == manga.title}) {
+            mangas[index].isFavourite.toggle()
+        }
+    }
 }

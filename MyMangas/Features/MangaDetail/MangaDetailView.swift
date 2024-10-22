@@ -27,6 +27,9 @@ struct MangaDetailView: View {
                             .frame(width: 250, height: 420)                .clipShape(RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                             .frame(height: 420)
+                            .addFavouriteButton(manga: manga,
+                                                size: CGSize(width: 70, height: 70),
+                                                offset: (x: 120, y: 190))
                     } placeholder: {
                         Image(systemName: SystemImage.placeholder.rawValue)
                             .resizable()
@@ -45,16 +48,16 @@ struct MangaDetailView: View {
                     Text(manga.title)
                         .font(.title)
                         .bold()
-                        VStack {
-                            Text("Authors")
-                                .bold()
-                            ForEach(manga.authors, id: \.self) {
-                                Text($0)
-                            }
+                    VStack {
+                        Text("Authors")
+                            .bold()
+                        ForEach(manga.authors, id: \.self) {
+                            Text($0)
                         }
-                        .padding()
+                    }
+                    .padding()
                     Text(manga.synopsis)
-                            .padding()
+                        .padding()
                 }
                 .padding(.horizontal)
             }
@@ -77,7 +80,7 @@ struct MangaDetailView: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(.preview), 
+    MangaDetailView(selected: .constant(.preview),
                     namespace: Namespace().wrappedValue)
     .environment(MangasListViewModel.preview)
 }
