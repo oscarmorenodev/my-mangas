@@ -4,14 +4,14 @@ struct MangasListItemViewModel: Identifiable, Hashable {
     let authors: [String]
     let synopsis: String
     let mainPicture: String
-    var isFavourite: Bool
+    var isFavorite: Bool
     
-    init(manga: Manga) {
+    init(manga: Manga, isFavorite: Bool = false) {
         id = manga.id
         title = manga.title ?? ""
         authors = manga.authors?.map { "\($0.firstName) \($0.lastName)" } ?? []
         synopsis = manga.sypnosis ?? ""
         mainPicture = manga.mainPicture ?? ""
-        isFavourite = false
+        self.isFavorite = isFavorite
     }
 }
