@@ -4,7 +4,18 @@ struct MainView: View {
     @Environment(MangasListViewModel.self) var vm
     
     var body: some View {
-        MangasListView()
+        TabView {
+            MangasListView()
+                .tabItem {
+                    Label("Explore",
+                          systemImage: "magnifyingglass")
+                }
+            MyLibraryView()
+                .tabItem {
+                    Label("My Library",
+                          systemImage: "books.vertical")
+                }
+        }
     }
 }
 
