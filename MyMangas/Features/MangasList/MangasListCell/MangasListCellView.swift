@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct MangasListCellView: View {
-    let manga: Manga
+    var manga: MangasListItemViewModel
     let namespace: Namespace.ID
     
     var body: some View {
         VStack {
-            AsyncImage(url: manga.mainPicture?.formatedToUrl()) { cover in
+            AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
                 cover
                     .resizable()
                     .scaledToFill()
@@ -29,7 +29,7 @@ struct MangasListCellView: View {
                     .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                     .frame(height: 250)
             }
-            Text(manga.title ?? "")
+            Text(manga.title)
                 .font(.caption)
                 .bold()
                 .lineLimit(1)
@@ -38,5 +38,6 @@ struct MangasListCellView: View {
 }
 
 #Preview {
-    MangasListCellView(manga: .preview, namespace: Namespace().wrappedValue)
+    MangasListCellView(manga: .preview,
+                       namespace: Namespace().wrappedValue)
 }

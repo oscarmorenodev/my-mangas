@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct MangaCoverView: View {
-    let manga: Manga
+    let manga: MangasListItemViewModel
     let namespace: Namespace.ID
     var detailViewMode: Bool = false
     
     var body: some View {
-        AsyncImage(url: manga.mainPicture?.formatedToUrl()) { cover in
+        AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
             cover
                 .resizable()
                 .scaledToFill()

@@ -2,12 +2,12 @@ import SwiftUI
 
 struct MangaDetailView: View {
     @Environment(MangasListViewModel.self) private var vm
-    @Binding var selected: Manga?
+    @Binding var selected: MangasListItemViewModel?
     @State private var loaded = false
     private var namespace: Namespace.ID
-    private var manga: Manga!
+    private var manga: MangasListItemViewModel!
     
-    init(selected: Binding<Manga?>, namespace: Namespace.ID) {
+    init(selected: Binding<MangasListItemViewModel?>, namespace: Namespace.ID) {
         _selected = selected
         self.namespace = namespace
         if let manga = selected.wrappedValue {
@@ -19,7 +19,7 @@ struct MangaDetailView: View {
         ZStack(alignment: .topTrailing) {
             ScrollView {
                 LazyVStack {
-                    AsyncImage(url: manga.mainPicture?.formatedToUrl()) { cover in
+                    AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
                         cover
                             .resizable()
                             .scaledToFill()
@@ -27,6 +27,9 @@ struct MangaDetailView: View {
                             .frame(width: 250, height: 420)                .clipShape(RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                             .frame(height: 420)
+                            .addFavoriteButton(manga: manga,
+                                               size: CGSize(width: 70, height: 70),
+                                               offset: (x: 120, y: 190))
                     } placeholder: {
                         Image(systemName: SystemImage.placeholder.rawValue)
                             .resizable()
@@ -42,23 +45,19 @@ struct MangaDetailView: View {
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                             .frame(height: 250)
                     }
-                    Text(manga.title ?? "")
+                    Text(manga.title)
                         .font(.title)
                         .bold()
-                    if let authors = manga.authors {
-                        VStack {
-                            Text("Authors")
-                                .bold()
-                            ForEach(authors) {
-                                Text("\($0.firstName) \($0.lastName)")
-                            }
+                    VStack {
+                        Text("Authors")
+                            .bold()
+                        ForEach(manga.authors, id: \.self) {
+                            Text($0)
                         }
+                    }
+                    .padding()
+                    Text(manga.synopsis)
                         .padding()
-                    }
-                    if let synopsis = manga.sypnosis {
-                        Text(synopsis)
-                            .padding()
-                    }
                 }
                 .padding(.horizontal)
             }
@@ -81,7 +80,7 @@ struct MangaDetailView: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(.preview), 
+    MangaDetailView(selected: .constant(.preview),
                     namespace: Namespace().wrappedValue)
     .environment(MangasListViewModel.preview)
 }
