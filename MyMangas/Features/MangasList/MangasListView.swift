@@ -14,9 +14,9 @@ struct MangasListView: View {
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.returnMangas(onlyFavorites)) { manga in
-                            MangasListCellView(manga: .constant(manga),
+                            MangasListCellView(manga: manga,
                                                namespace: namespace)
-                            .addFavoriteButton(manga: .constant(manga),
+                            .addFavoriteButton(manga: manga,
                                                 size: CGSize(width: 40, height: 40),
                                                 offset: (x: 70, y: 90))
                             .onTapGesture {

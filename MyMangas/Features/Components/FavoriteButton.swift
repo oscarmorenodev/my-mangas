@@ -2,15 +2,16 @@ import SwiftUI
 
 fileprivate struct FavoriteButton: ViewModifier {
     @Environment(MangasListViewModel.self) private var vm
-    @Binding var manga: MangasListItemViewModel
-    @State var size: CGSize
-    @State var offset: (x: CGFloat, y: CGFloat)
+    @State var manga: MangasListItemViewModel
+    let size: CGSize
+    let offset: (x: CGFloat, y: CGFloat)
     
     func body(content: Content) -> some View {
         content
             .overlay {
                 Button {
                     vm.toogleFavorite(manga)
+                    manga.isFavorite.toggle()
                 } label: {
                     ZStack {
                         Circle()
@@ -31,7 +32,7 @@ fileprivate struct FavoriteButton: ViewModifier {
 }
 
 extension View {
-    func addFavoriteButton(manga: Binding<MangasListItemViewModel>,
+    func addFavoriteButton(manga: MangasListItemViewModel,
                            size: CGSize,
                            offset: (x: CGFloat, y: CGFloat)) -> some View {
         modifier(FavoriteButton(manga: manga,

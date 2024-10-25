@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MangasListCellView: View {
-    @Binding var manga: MangasListItemViewModel
+    var manga: MangasListItemViewModel
     let namespace: Namespace.ID
     
     var body: some View {
@@ -38,6 +38,6 @@ struct MangasListCellView: View {
 }
 
 #Preview {
-    MangasListCellView(manga: .constant(.preview),
+    MangasListCellView(manga: .preview,
                        namespace: Namespace().wrappedValue)
 }
