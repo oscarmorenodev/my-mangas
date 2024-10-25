@@ -28,7 +28,8 @@ struct MangasListView: View {
                                 Button {
                                     vm.toogleFavorite(manga)
                                 } label: {
-                                    Label(manga.isFavorite ? "Remove favorite" : "Add favorite", systemImage: "heart")
+                                    Label(manga.isFavorite ? "Remove favorite" : "Add favorite",
+                                          systemImage: manga.isFavorite ? "heart.slash": "heart")
                                 }
                             }
                         }
