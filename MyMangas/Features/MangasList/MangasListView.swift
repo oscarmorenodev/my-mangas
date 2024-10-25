@@ -12,15 +12,24 @@ struct MangasListView: View {
         ZStack {
             NavigationStack {
                 ScrollView {
+                    if vm.returnMangas(onlyFavorites).isEmpty {
+                        Text("\n\nNo favorites mangas yet\n")
+                            .font(.headline)
+                        Text("Add favorites by continous tapping in list or detail")
+                    }
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.returnMangas(onlyFavorites)) { manga in
                             MangasListCellView(manga: manga,
                                                namespace: namespace)
-                            .addFavoriteButton(manga: manga,
-                                                size: CGSize(width: 40, height: 40),
-                                                offset: (x: 70, y: 90))
                             .onTapGesture {
                                 selected = manga
+                            }
+                            .contextMenu {
+                                Button {
+                                    vm.toogleFavorite(manga)
+                                } label: {
+                                    Label(manga.isFavorite ? "Remove favorite" : "Add favorite", systemImage: "heart")
+                                }
                             }
                         }
                     }
