@@ -16,20 +16,21 @@ struct MangasListView: View {
                         Text("\n\nNo favorites mangas yet\n")
                             .font(.headline)
                         Text("Add favorites by continous tapping in list or detail")
-                    }
-                    LazyVGrid(columns: [gridItem]) {
-                        ForEach(vm.returnMangas(onlyFavorites)) { manga in
-                            MangasListCellView(manga: manga,
-                                               namespace: namespace)
-                            .onTapGesture {
-                                selected = manga
-                            }
-                            .contextMenu {
-                                Button {
-                                    vm.toogleFavorite(manga)
-                                } label: {
-                                    Label(manga.isFavorite ? "Remove favorite" : "Add favorite",
-                                          systemImage: manga.isFavorite ? "heart.slash": "heart")
+                    } else {
+                        LazyVGrid(columns: [gridItem]) {
+                            ForEach(vm.returnMangas(onlyFavorites)) { manga in
+                                MangasListCellView(manga: manga,
+                                                   namespace: namespace)
+                                .onTapGesture {
+                                    selected = manga
+                                }
+                                .contextMenu {
+                                    Button {
+                                        vm.toogleFavorite(manga)
+                                    } label: {
+                                        Label(manga.isFavorite ? "Remove favorite" : "Add favorite",
+                                              systemImage: manga.isFavorite ? "heart.slash": "heart")
+                                    }
                                 }
                             }
                         }
