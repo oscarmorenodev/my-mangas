@@ -7,16 +7,18 @@ final class MangasListViewModel {
     var displayError = false
     var errorMessage = ""
     var appState: AppState = .splash
+    @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
         self.interactor = interactor
     }
     
-    func getMangas(page: Int = 1) async -> [MangasListItemViewModel] {
+    func getMangas() async {
+        page += 1
         do {
             let mangas = try await interactor.getMangas(page: page).items
             await MainActor.run {
-                self.mangas = mangas.map {MangasListItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangasListItemViewModel(manga: $0, isFavorite: false)}
             }
         } catch {
             await MainActor.run {
@@ -24,8 +26,6 @@ final class MangasListViewModel {
                 self.displayError.toggle()
             }
         }
-        
-        return mangas
     }
     
     func returnMangas(_ onlyFavorites: Bool = false) -> [MangasListItemViewModel] {
@@ -36,5 +36,13 @@ final class MangasListViewModel {
         if let index = mangas.firstIndex(where: { $0.title == manga.title}) {
             mangas[index].isFavorite.toggle()
         }
+    }
+    
+    func shouldLoadMore(manga: MangasListItemViewModel) -> Bool {
+        guard let index = mangas.firstIndex(where: { $0.id == manga.id }) else {
+            return false
+        }
+
+        return index + 2 == mangas.count
     }
 }

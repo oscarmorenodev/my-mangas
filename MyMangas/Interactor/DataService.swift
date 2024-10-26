@@ -21,7 +21,7 @@ struct DataService: DataInteractor {
         
     }
     
-    func getMangas(page: Int = 1) async throws -> Mangas {
+    func getMangas(page: Int) async throws -> Mangas {
         try await getData(request: .get(url: .getMangasUrl(page: page)), type: Mangas.self)
     }
 }

@@ -46,7 +46,7 @@ extension MainView {
         let vm = MangasListViewModel.preview
         return MainView()
             .task {
-                _ = await vm.getMangas()
+                await vm.getMangas()
             }
             .environment(vm)
     }

@@ -32,6 +32,11 @@ struct MangasListView: View {
                                               systemImage: manga.isFavorite ? "heart.slash": "heart")
                                     }
                                 }
+                                .task {
+                                    if vm.shouldLoadMore(manga: manga) && !onlyFavorites {
+                                        await vm.getMangas()
+                                    }
+                                }
                             }
                         }
                     }
