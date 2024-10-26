@@ -3,7 +3,7 @@ import SwiftUI
 struct PreviewData: DataInteractor {
     let urlMangasPreview = Bundle.main.url(forResource: "mangasPreview", withExtension: "json")!
     
-    func getMangas() async throws -> Mangas {
+    func getMangas(page: Int = 1) async throws -> Mangas {
         try loadPreviewData(url: urlMangasPreview)
     }
     

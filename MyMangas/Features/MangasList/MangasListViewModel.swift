@@ -12,9 +12,9 @@ final class MangasListViewModel {
         self.interactor = interactor
     }
     
-    func getMangas() async -> [MangasListItemViewModel] {
+    func getMangas(page: Int = 1) async -> [MangasListItemViewModel] {
         do {
-            let mangas = try await interactor.getMangas().items
+            let mangas = try await interactor.getMangas(page: page).items
             await MainActor.run {
                 self.mangas = mangas.map {MangasListItemViewModel(manga: $0, isFavorite: false)}
             }
