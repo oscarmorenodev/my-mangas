@@ -4,7 +4,6 @@ struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
     @State var selected: MangasListItemViewModel?
     @State var onlyFavorites = false
-    @Namespace var namespace
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
@@ -19,8 +18,7 @@ struct MangasListView: View {
                     } else {
                         LazyVGrid(columns: [gridItem]) {
                             ForEach(vm.returnMangas(onlyFavorites)) { manga in
-                                MangasListCellView(manga: manga,
-                                                   namespace: namespace)
+                                MangasListCellView(manga: manga)
                                 .onTapGesture {
                                     selected = manga
                                 }
@@ -45,7 +43,7 @@ struct MangasListView: View {
                 .overlay(
                     Group {
                         if selected != nil {
-                            MangaDetailView(selected: $selected, namespace: namespace)
+                            MangaDetailView(selected: $selected)
                         }
                     }
                 )

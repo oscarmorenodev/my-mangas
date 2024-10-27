@@ -4,12 +4,10 @@ struct MangaDetailView: View {
     @Environment(MangasListViewModel.self) private var vm
     @Binding var selected: MangasListItemViewModel?
     @State private var loaded = false
-    private var namespace: Namespace.ID
     private var manga: MangasListItemViewModel!
     
-    init(selected: Binding<MangasListItemViewModel?>, namespace: Namespace.ID) {
+    init(selected: Binding<MangasListItemViewModel?>) {
         _selected = selected
-        self.namespace = namespace
         if let manga = selected.wrappedValue {
             self.manga = manga
         }
@@ -23,7 +21,6 @@ struct MangaDetailView: View {
                         cover
                             .resizable()
                             .scaledToFill()
-                            .matchedGeometryEffect(id: manga.id, in: namespace)
                             .frame(width: 250, height: 420)                .clipShape(RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                             .frame(height: 420)
@@ -80,7 +77,6 @@ struct MangaDetailView: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(.preview),
-                    namespace: Namespace().wrappedValue)
+    MangaDetailView(selected: .constant(.preview))
     .environment(MangasListViewModel.preview)
 }

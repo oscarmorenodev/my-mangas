@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MangaCoverView: View {
     let manga: MangasListItemViewModel
-    let namespace: Namespace.ID
     var detailViewMode: Bool = false
     
     var body: some View {
@@ -32,5 +31,5 @@ struct MangaCoverView: View {
 }
 
 #Preview {
-    MangaCoverView(manga: .preview, namespace: Namespace().wrappedValue)
+    MangaCoverView(manga: .preview)
 }

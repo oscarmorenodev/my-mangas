@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MangasListCellView: View {
     var manga: MangasListItemViewModel
-    let namespace: Namespace.ID
     
     var body: some View {
         VStack {
@@ -10,7 +9,6 @@ struct MangasListCellView: View {
                 cover
                     .resizable()
                     .scaledToFill()
-                    .matchedGeometryEffect(id: manga.id, in: namespace)
                     .frame(width: 150, height: 230)                .clipShape(RoundedRectangle(cornerRadius: 10))
                     .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                     .frame(height: 250)
@@ -38,6 +36,5 @@ struct MangasListCellView: View {
 }
 
 #Preview {
-    MangasListCellView(manga: .preview,
-                       namespace: Namespace().wrappedValue)
+    MangasListCellView(manga: .preview)
 }
