@@ -4,6 +4,7 @@ struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
     @State var selected: MangasListItemViewModel?
     @State var onlyFavorites = false
+    @State var searchText = ""
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
@@ -37,6 +38,9 @@ struct MangasListView: View {
                                 }
                             }
                         }
+                        .addCustomSearchBar(searchText: $searchText,
+                                            placeholder: "Search manga...",
+                                            visible: selected == nil)
                     }
                 }
                 .opacity(selected == nil ? 1.0 : 0.0)
