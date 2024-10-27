@@ -1,7 +1,7 @@
 import Foundation
 
 protocol DataInteractor {
-    func getMangas() async throws -> Mangas
+    func getMangas(page: Int) async throws -> Mangas
 }
 
 struct DataService: DataInteractor {
@@ -21,7 +21,7 @@ struct DataService: DataInteractor {
         
     }
     
-    func getMangas() async throws -> Mangas {
-        try await getData(request: .get(url: .getMangas), type: Mangas.self)
+    func getMangas(page: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getMangasUrl(page: page)), type: Mangas.self)
     }
 }

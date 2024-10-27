@@ -14,7 +14,7 @@ struct SplashView: View {
         .ignoresSafeArea()
         .task {
             loading = true
-            _ = await vm.getMangas()
+            await vm.getMangas()
             loading = false
             vm.appState = .home
         }
