@@ -7,6 +7,10 @@ struct PreviewData: DataInteractor {
         try loadPreviewData(url: urlMangasPreview)
     }
     
+    func searchMangas(_ query: String) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
         let data = try Data(contentsOf: url)
         return try JSONDecoder().decode(T.self, from: data)
