@@ -28,7 +28,7 @@ struct MangasListCellView: View {
                     .frame(height: 250)
             }
             Text(manga.title)
-                .font(.caption)
+                .font(.callout)
                 .bold()
                 .lineLimit(1)
         }
