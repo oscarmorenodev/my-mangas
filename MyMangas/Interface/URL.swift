@@ -14,6 +14,15 @@ extension URL {
         return urlComponent.url!
     }
     
+    static func searchMangasUrl(_ query: String) -> URL {
+        let endpoint = "/search/mangasContains/\(query)"
+        let searchUrl = api.appending(path: endpoint)
+        var urlComponent = URLComponents(string: searchUrl.absoluteString)!
+        let queryItem = URLQueryItem(name: "query", value: query)
+        urlComponent.queryItems = [queryItem]
+        return urlComponent.url!
+    }
+    
     static func getPage(_ page: Int = 1) -> URLQueryItem {
         URLQueryItem(name: "page", value: String(page))
     }
