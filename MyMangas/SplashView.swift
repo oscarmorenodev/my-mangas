@@ -16,7 +16,7 @@ struct SplashView: View {
             loading = true
             await vm.getMangas()
             loading = false
-            vm.appState = .home
+            vm.appState = .loaded
         }
     }
 }

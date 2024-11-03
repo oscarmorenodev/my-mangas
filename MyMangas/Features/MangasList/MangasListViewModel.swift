@@ -6,7 +6,7 @@ final class MangasListViewModel {
     var mangas = [MangasListItemViewModel]()
     var displayError = false
     var errorMessage = ""
-    var appState: AppState = .splash
+    var appState: AppState = .loading
     @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
