@@ -1,4 +1,4 @@
 enum AppState {
-    case home
-    case splash
+    case loaded
+    case loading
 }

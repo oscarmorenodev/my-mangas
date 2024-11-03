@@ -6,9 +6,9 @@ struct AppStateView: View {
     var body: some View {
         VStack {
             switch vm.appState {
-            case .home:
+            case .loaded:
                 MainView()
-            case .splash:
+            case .loading:
                 SplashView()
             }
         }
