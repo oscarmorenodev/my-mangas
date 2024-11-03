@@ -38,9 +38,6 @@ struct MangasListView: View {
                                 }
                             }
                         }
-                        .addCustomSearchBar(searchText: $searchText,
-                                            placeholder: "Search manga...",
-                                            visible: selected == nil)
                     }
                 }
                 .opacity(selected == nil ? 1.0 : 0.0)

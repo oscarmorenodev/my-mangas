@@ -8,7 +8,12 @@ struct MainView: View {
             MangasListView()
                 .tabItem {
                     Label("Explore",
-                          systemImage: "magnifyingglass")
+                          systemImage: "book.fill")
+                }
+            MangasSearchView()
+                .tabItem {
+                    Label("Search",
+                            systemImage: "magnifyingglass")
                 }
             MangasListView(onlyFavorites: true)
                 .tabItem {
