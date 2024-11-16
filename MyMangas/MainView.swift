@@ -15,7 +15,7 @@ struct MainView: View {
                     Label("Search",
                             systemImage: "magnifyingglass")
                 }
-            MangasListView(onlyFavorites: true)
+            MangasFavoritesView()
                 .tabItem {
                     Label("My Library",
                           systemImage: "books.vertical")
