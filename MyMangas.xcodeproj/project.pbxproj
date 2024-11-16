@@ -193,10 +193,10 @@
 		558BF7832BAC82E800986B3B /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				558BF7842BAC830700986B3B /* URLSession.swift */,
 				558BF7862BAC832200986B3B /* NetworkError.swift */,
-				558BF7882BAC84CA00986B3B /* URLRequest.swift */,
 				558BF78A2BAC84FE00986B3B /* URL.swift */,
+				558BF7882BAC84CA00986B3B /* URLRequest.swift */,
+				558BF7842BAC830700986B3B /* URLSession.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
