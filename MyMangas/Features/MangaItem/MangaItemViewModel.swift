@@ -1,4 +1,4 @@
-struct MangasListItemViewModel: Identifiable, Hashable {
+struct MangaItemViewModel: Identifiable, Hashable {
     let id: Int
     let title: String
     let authors: [String]

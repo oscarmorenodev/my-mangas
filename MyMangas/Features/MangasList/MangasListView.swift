@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
-    @State var selected: MangasListItemViewModel?
+    @State var selected: MangaItemViewModel?
     @State var searchText = ""
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
@@ -13,7 +13,7 @@ struct MangasListView: View {
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.mangas) { manga in
-                                MangasListCellView(manga: manga)
+                                MangaItemView(manga: manga)
                                 .onTapGesture {
                                     selected = manga
                                 }

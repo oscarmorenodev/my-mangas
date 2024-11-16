@@ -17,8 +17,8 @@ struct PreviewData: DataInteractor {
     }
 }
 
-extension MangasListItemViewModel {
-    static let preview: MangasListItemViewModel = .init(
+extension MangaItemViewModel {
+    static let preview: MangaItemViewModel = .init(
         manga: Manga(demographics: [Demographic(id: "5E05BBF1-A72E-4231-9487-71CFE508F9F9",
                                                 demographic: "Shounen")],
                      titleEnglish: "Dragon Ball",
@@ -69,5 +69,16 @@ extension MangasListView {
                 _ = await vm.getMangas()
             }
             .environment(vm)
+    }
+}
+
+extension MangasSearchViewModel {
+    static let preview = MangasSearchViewModel(interactor: PreviewData())
+}
+
+extension MangasSearchView {
+    static var preview: some View {
+        let vm = MangasSearchViewModel.preview
+        return MangasSearchView(vm: .preview)
     }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @Environment(MangasListViewModel.self) var vm
+    @State var searchVM = MangasSearchViewModel()
     
     var body: some View {
         TabView {
@@ -10,7 +11,7 @@ struct MainView: View {
                     Label("Explore",
                           systemImage: "book.fill")
                 }
-            MangasSearchView()
+            MangasSearchView(vm:searchVM)
                 .tabItem {
                     Label("Search",
                             systemImage: "magnifyingglass")

@@ -3,7 +3,7 @@ import Foundation
 @Observable
 final class MangasListViewModel {
     let interactor: DataInteractor
-    var mangas = [MangasListItemViewModel]()
+    var mangas = [MangaItemViewModel]()
     var displayError = false
     var errorMessage = ""
     var appState: AppState = .loading
@@ -18,7 +18,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getMangas(page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangasListItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
             }
         } catch {
             await MainActor.run {
@@ -28,17 +28,17 @@ final class MangasListViewModel {
         }
     }
     
-    func returnMangas(_ onlyFavorites: Bool = false) -> [MangasListItemViewModel] {
+    func returnMangas(_ onlyFavorites: Bool = false) -> [MangaItemViewModel] {
         onlyFavorites ? mangas.filter {$0.isFavorite} : mangas
     }
     
-    func toogleFavorite(_ manga: MangasListItemViewModel) {
+    func toogleFavorite(_ manga: MangaItemViewModel) {
         if let index = mangas.firstIndex(where: { $0.title == manga.title}) {
             mangas[index].isFavorite.toggle()
         }
     }
     
-    func shouldLoadMore(manga: MangasListItemViewModel) -> Bool {
+    func shouldLoadMore(manga: MangaItemViewModel) -> Bool {
         guard let index = mangas.firstIndex(where: { $0.id == manga.id }) else {
             return false
         }

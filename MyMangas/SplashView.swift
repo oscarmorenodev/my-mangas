@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SplashView: View {
-    @Environment(MangasListViewModel.self) var vm
+    @Environment(MangasListViewModel.self) var listVM
     @State var loading = false
     
     var body: some View {
@@ -14,9 +14,9 @@ struct SplashView: View {
         .ignoresSafeArea()
         .task {
             loading = true
-            await vm.getMangas()
+            await listVM.getMangas()
             loading = false
-            vm.appState = .loaded
+            listVM.appState = .loaded
         }
     }
 }

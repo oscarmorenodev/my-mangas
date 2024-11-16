@@ -1,11 +1,16 @@
 import SwiftUI
 
 struct MangasSearchView: View {
+    @Bindable var vm: MangasSearchViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            Text("Search results for \(vm.searchText)")
+        }
+        .addCustomSearchBar(searchText: $vm.searchText, placeholder: "Search for a manga")
     }
 }
 
 #Preview {
-    MangasSearchView()
+    MangasSearchView(vm: .preview)
 }
