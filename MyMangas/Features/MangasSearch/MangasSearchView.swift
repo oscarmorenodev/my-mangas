@@ -5,9 +5,22 @@ struct MangasSearchView: View {
     
     var body: some View {
         NavigationView {
-            Text("Search results for \(vm.searchText)")
+            ScrollView {
+                ForEach(vm.searchResults) { manga in
+                    MangaItemView(manga: manga)
+                }
+            }
         }
         .addCustomSearchBar(searchText: $vm.searchText, placeholder: "Search for a manga")
+        .onChange(of: vm.searchText) {
+            if vm.searchText.isEmpty {
+                vm.searchResults.removeAll()
+            } else {
+                Task {
+                    await vm.searchMangas()
+                }
+            }
+        }
     }
 }
 

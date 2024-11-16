@@ -8,7 +8,9 @@ struct PreviewData: DataInteractor {
     }
     
     func searchMangas(_ query: String) async throws -> Mangas {
-        try loadPreviewData(url: urlMangasPreview)
+        let mangas: Mangas = try loadPreviewData(url: urlMangasPreview)
+        let filteredMangas = mangas.items.filter { $0.title?.localizedCaseInsensitiveContains(query) ?? false }
+        return Mangas(items: filteredMangas)
     }
     
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
@@ -78,7 +80,6 @@ extension MangasSearchViewModel {
 
 extension MangasSearchView {
     static var preview: some View {
-        let vm = MangasSearchViewModel.preview
         return MangasSearchView(vm: .preview)
     }
 }

@@ -7,7 +7,6 @@ final class MangasSearchViewModel {
     var searchResults = [MangaItemViewModel]()
     var displayError = false
     var errorMessage = ""
-    @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
         self.interactor = interactor
@@ -17,7 +16,7 @@ final class MangasSearchViewModel {
         do {
             let mangas = try await interactor.searchMangas(searchText).items
             await MainActor.run {
-                self.searchResults += mangas.map { MangaItemViewModel(manga: $0) }
+                self.searchResults = mangas.map { MangaItemViewModel(manga: $0) }
             }
         } catch {
             await MainActor.run {
