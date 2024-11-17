@@ -7,14 +7,20 @@ struct PreviewData: DataInteractor {
         try loadPreviewData(url: urlMangasPreview)
     }
     
+    func searchMangas(_ query: String, page: Int = 1) async throws -> Mangas {
+        let mangas: Mangas = try loadPreviewData(url: urlMangasPreview)
+        let filteredMangas = mangas.items.filter { $0.title?.localizedCaseInsensitiveContains(query) ?? false }
+        return Mangas(items: filteredMangas)
+    }
+    
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
         let data = try Data(contentsOf: url)
         return try JSONDecoder().decode(T.self, from: data)
     }
 }
 
-extension MangasListItemViewModel {
-    static let preview: MangasListItemViewModel = .init(
+extension MangaItemViewModel {
+    static let preview: MangaItemViewModel = .init(
         manga: Manga(demographics: [Demographic(id: "5E05BBF1-A72E-4231-9487-71CFE508F9F9",
                                                 demographic: "Shounen")],
                      titleEnglish: "Dragon Ball",
@@ -65,5 +71,15 @@ extension MangasListView {
                 _ = await vm.getMangas()
             }
             .environment(vm)
+    }
+}
+
+extension MangasSearchViewModel {
+    static let preview = MangasSearchViewModel(interactor: PreviewData())
+}
+
+extension MangasSearchView {
+    static var preview: some View {
+        return MangasSearchView(vm: .preview)
     }
 }

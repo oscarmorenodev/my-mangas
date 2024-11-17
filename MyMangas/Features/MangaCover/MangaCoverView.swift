@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MangaCoverView: View {
-    let manga: MangasListItemViewModel
+    let manga: MangaItemViewModel
     var detailViewMode: Bool = false
     
     var body: some View {

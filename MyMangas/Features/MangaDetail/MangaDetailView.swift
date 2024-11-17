@@ -2,11 +2,11 @@ import SwiftUI
 
 struct MangaDetailView: View {
     @Environment(MangasListViewModel.self) private var vm
-    @Binding var selected: MangasListItemViewModel?
+    @Binding var selected: MangaItemViewModel?
     @State private var loaded = false
-    private var manga: MangasListItemViewModel!
+    private var manga: MangaItemViewModel!
     
-    init(selected: Binding<MangasListItemViewModel?>) {
+    init(selected: Binding<MangaItemViewModel?>) {
         _selected = selected
         if let manga = selected.wrappedValue {
             self.manga = manga

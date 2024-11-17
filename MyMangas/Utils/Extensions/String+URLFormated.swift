@@ -2,6 +2,10 @@ import Foundation
 
 extension String {
     func formatedToUrl() -> URL {
-        URL(string: String(self.dropFirst().dropLast()))!
+        if self.isEmpty {
+            return URL(string: "https://fakeurl.com")!
+        } else {
+            return URL(string: String(self.dropFirst().dropLast()))!
+        }
     }
 }
