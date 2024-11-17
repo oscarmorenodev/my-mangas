@@ -7,7 +7,7 @@ struct PreviewData: DataInteractor {
         try loadPreviewData(url: urlMangasPreview)
     }
     
-    func searchMangas(_ query: String) async throws -> Mangas {
+    func searchMangas(_ query: String, page: Int = 1) async throws -> Mangas {
         let mangas: Mangas = try loadPreviewData(url: urlMangasPreview)
         let filteredMangas = mangas.items.filter { $0.title?.localizedCaseInsensitiveContains(query) ?? false }
         return Mangas(items: filteredMangas)

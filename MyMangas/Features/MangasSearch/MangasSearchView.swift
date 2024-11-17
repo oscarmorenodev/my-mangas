@@ -7,12 +7,20 @@ struct MangasSearchView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                ForEach(vm.searchResults) { manga in
-                    MangaItemView(manga: manga)
-                        .onTapGesture {
-                            selected = manga
-                        }
+                LazyVStack {
+                    ForEach(vm.searchResults, id: \.id) { manga in
+                        MangaItemView(manga: manga)
+                            .onTapGesture {
+                                selected = manga
+                            }
+                            .task {
+                                if vm.shouldLoadMore(manga: manga) {
+                                    await vm.loadMoreMangas()
+                                }
+                            }
+                    }
                 }
+                
             }
             .opacity(selected == nil ? 1.0 : 0.0)
             .overlay(
@@ -23,10 +31,13 @@ struct MangasSearchView: View {
                 }
             )
         }
-        .addCustomSearchBar(searchText: $vm.searchText, placeholder: "Search for a manga")
+        .addCustomSearchBar(
+            searchText: $vm.searchText,
+            placeholder: "Search for a manga"
+        )
         .onChange(of: vm.searchText) {
             if vm.searchText.isEmpty {
-                vm.searchResults.removeAll()
+                vm.cleanSearchResults()
             } else {
                 Task {
                     await vm.searchMangas()
