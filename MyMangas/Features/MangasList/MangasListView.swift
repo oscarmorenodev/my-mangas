@@ -4,12 +4,30 @@ struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
     @State var selected: MangaItemViewModel?
     @State var searchText = ""
+    @State var showFilters = false
+    @State var showBest = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
     var body: some View {
         ZStack {
             NavigationStack {
+                if showFilters {
+                    HStack {
+                        Button("Best", systemImage: showBest ? "star.fill" : "star") {
+                            showBest.toggle()
+                            vm.clearList()
+                            Task {
+                                if showBest {
+                                    await vm.getBestMangas()
+                                } else {
+                                    await vm.getMangas()
+                                }
+                                
+                            }
+                        }
+                    }
+                }
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.mangas) { manga in
@@ -30,6 +48,13 @@ struct MangasListView: View {
                                         await vm.getMangas()
                                     }
                                 }
+                        }
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Filters", systemImage: "line.3.horizontal.decrease") {
+                            showFilters.toggle()
                         }
                     }
                 }

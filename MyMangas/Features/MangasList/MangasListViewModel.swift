@@ -28,6 +28,21 @@ final class MangasListViewModel {
         }
     }
     
+    func getBestMangas() async {
+        do {
+            let mangas = try await interactor.getBestMangas(page: page).items
+            await MainActor.run {
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                page += 1
+            }
+        } catch {
+            await MainActor.run {
+                self.errorMessage = error.localizedDescription
+                self.displayError.toggle()
+            }
+        }
+    }
+    
     func returnMangas(_ onlyFavorites: Bool = false) -> [MangaItemViewModel] {
         onlyFavorites ? mangas.filter {$0.isFavorite} : mangas
     }
@@ -44,5 +59,10 @@ final class MangasListViewModel {
         }
 
         return index + 2 == mangas.count
+    }
+    
+    func clearList() {
+        mangas.removeAll()
+        page = 0
     }
 }
