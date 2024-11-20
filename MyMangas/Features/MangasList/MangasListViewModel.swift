@@ -7,6 +7,7 @@ final class MangasListViewModel {
     var displayError = false
     var errorMessage = ""
     var appState: AppState = .loading
+    var showBest = false
     @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
@@ -61,8 +62,20 @@ final class MangasListViewModel {
         return index + 2 == mangas.count
     }
     
-    func clearList() {
+    func toggleBestMangas() async {
+        showBest.toggle()
+        clearList()
+        if showBest {
+            await getBestMangas()
+        } else {
+            await getMangas()
+        }
+    }
+    
+    private func clearList() {
         mangas.removeAll()
         page = 0
     }
+    
+    
 }

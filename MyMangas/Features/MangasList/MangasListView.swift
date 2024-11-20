@@ -5,33 +5,16 @@ struct MangasListView: View {
     @State var selected: MangaItemViewModel?
     @State var searchText = ""
     @State var showFilters = false
-    @State var showBest = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
     var body: some View {
         ZStack {
             NavigationStack {
-                if showFilters {
-                    HStack {
-                        Button("Best", systemImage: showBest ? "star.fill" : "star") {
-                            showBest.toggle()
-                            vm.clearList()
-                            Task {
-                                if showBest {
-                                    await vm.getBestMangas()
-                                } else {
-                                    await vm.getMangas()
-                                }
-                                
-                            }
-                        }
-                    }
-                }
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.mangas) { manga in
-                                MangaItemView(manga: manga)
+                            MangaItemView(manga: manga)
                                 .onTapGesture {
                                     selected = manga
                                 }
@@ -53,20 +36,28 @@ struct MangasListView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Filters", systemImage: "line.3.horizontal.decrease") {
-                            showFilters.toggle()
+                        Button {
+                            Task {
+                                await vm.toggleBestMangas()
+                            }
+                        } label: {
+                            HStack{
+                                Text("Best mangas")
+                                Image(systemName: vm.showBest ? "star.fill" : "star")
+                            }
                         }
+                        .buttonStyle(.borderedProminent)
                     }
                 }
-                .opacity(selected == nil ? 1.0 : 0.0)
-                .overlay(
-                    Group {
-                        if selected != nil {
-                            MangaDetailView(selected: $selected)
-                        }
-                    }
-                )
             }
+            .opacity(selected == nil ? 1.0 : 0.0)
+            .overlay(
+                Group {
+                    if selected != nil {
+                        MangaDetailView(selected: $selected)
+                    }
+                }
+            )
         }
         .animation(.smooth(duration: 0.15), value: selected)
     }
