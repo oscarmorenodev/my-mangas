@@ -11,6 +11,21 @@ struct MangasListView: View {
     var body: some View {
         ZStack {
             NavigationStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        Task {
+                            await vm.toggleBestMangas()
+                        }
+                    } label: {
+                        HStack{
+                            Text(vm.showBest ? "No order" : "Order by best")
+                            Image(systemName: vm.showBest ? "line.3.horizontal" : "star.fill")
+                        }
+                    }
+                    Spacer()
+                }
+                .buttonStyle(.borderedProminent)
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.mangas) { manga in
@@ -35,18 +50,8 @@ struct MangasListView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            Task {
-                                await vm.toggleBestMangas()
-                            }
-                        } label: {
-                            HStack{
-                                Text("Best mangas")
-                                Image(systemName: vm.showBest ? "star.fill" : "star")
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
+                    ToolbarItem(placement: .topBarLeading) {
+                        
                     }
                 }
             }
