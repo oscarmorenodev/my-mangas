@@ -1,11 +1,21 @@
 import SwiftUI
 
 struct FilterButtonView: View {
+    let title: String
+    let action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            Button {
+                action()
+            } label: {
+                Text(title)
+            }
+        }
+        .buttonStyle(.borderedProminent)
     }
 }
 
 #Preview {
-    FilterButtonView()
+    FilterButtonView(title: "Filter", action: {})
 }

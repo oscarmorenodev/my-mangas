@@ -1,11 +1,27 @@
 import SwiftUI
 
 struct MangasFiltersView: View {
+    @Bindable var vm: MangasSearchViewModel
+    @Binding var showSheet: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            FilterButtonView(title: "Demographics") {
+                showSheet.toggle()
+            }
+            FilterButtonView(title: "Genres") {
+                showSheet.toggle()
+            }
+            FilterButtonView(title: "Themes") {
+                showSheet.toggle()
+            }
+            
+        }
+        .sheet(isPresented: $showSheet) {
+            
+        }
     }
 }
 
 #Preview {
-    MangasFiltersView()
+    MangasFiltersView(vm: .preview, showSheet: .constant(false))
 }
