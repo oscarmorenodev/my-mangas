@@ -49,11 +49,6 @@ struct MangasListView: View {
                         }
                     }
                 }
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        
-                    }
-                }
             }
             .opacity(selected == nil ? 1.0 : 0.0)
             .overlay(
