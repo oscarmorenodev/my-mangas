@@ -17,6 +17,18 @@ struct PreviewData: DataInteractor {
         return Mangas(items: filteredMangas)
     }
     
+    func getDemographics() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
+    }
+    
+    func getGenres() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
+    }
+    
+    func getThemes() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
+    }
+    
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
         let data = try Data(contentsOf: url)
         return try JSONDecoder().decode(T.self, from: data)
@@ -86,4 +98,8 @@ extension MangasSearchView {
     static var preview: some View {
         return MangasSearchView(vm: .preview)
     }
+}
+
+extension MangasSearchViewModel {
+    static let filterValuesPreview = ["Filter value 1", "Filter value 2", "Filter value 3"]
 }
