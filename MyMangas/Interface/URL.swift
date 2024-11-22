@@ -11,6 +11,18 @@ extension URL {
         getMangasUrl(endpoint: .bestMangas, page: page)
     }
     
+    static func getDemographicsUrl() -> URL {
+        getFilterUrl(endpoint: .demographics)
+    }
+    
+    static func getGenresUrl() -> URL {
+        getFilterUrl(endpoint: .genres)
+    }
+    
+    static func getThemesUrl() -> URL {
+        getFilterUrl(endpoint: .themes)
+    }
+    
     static func searchMangasUrl(_ query: String, page: Int) -> URL {
         let endpoint = "/search/mangasContains/\(query)"
         let searchUrl = api.appending(path: endpoint)
@@ -37,5 +49,9 @@ private extension URL {
             urlComponents.queryItems = [queryItem]
         }
         return urlComponents.url!
+    }
+    
+    static func getFilterUrl(endpoint: Endpoint) -> URL {
+        api.appending(path: endpoint.rawValue)
     }
 }
