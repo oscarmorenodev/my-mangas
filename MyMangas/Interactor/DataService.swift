@@ -34,4 +34,16 @@ struct DataService: DataInteractor {
     func searchMangas(_ query: String, page: Int) async throws -> Mangas {
         try await getData(request: .get(url: .searchMangasUrl(query, page: page)), type: Mangas.self)
     }
+    
+    func getDemographics() async throws -> [Demographic] {
+        try await getData(request: .get(url: .getDemographicsUrl()), type: [Demographic].self)
+    }
+    
+    func getGenres() async throws -> [Genre] {
+        try await getData(request: .get(url: .getGenresUrl()), type: [Genre].self)
+    }
+    
+    func getThemes() async throws -> [Theme] {
+        try await getData(request: .get(url: .getThemesUrl()), type: [Theme].self)
+    }
 }
