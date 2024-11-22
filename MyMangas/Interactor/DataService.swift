@@ -4,6 +4,9 @@ protocol DataInteractor {
     func getListMangas(page: Int) async throws -> Mangas
     func getBestMangas(page: Int) async throws -> Mangas
     func searchMangas(_ query: String, page: Int) async throws -> Mangas
+    func getDemographics() async throws -> [Demographic]
+    func getGenres() async throws -> [Genre]
+    func getThemes() async throws -> [Theme]
 }
 
 struct DataService: DataInteractor {
