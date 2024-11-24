@@ -192,6 +192,7 @@
 		556FD1972BB9E33200F3CFA1 /* MangasList */ = {
 			isa = PBXGroup;
 			children = (
+				55E096F52CEF7FD7006C055D /* MangasFilters */,
 				556FD18A2BB947A100F3CFA1 /* MangasListViewModel.swift */,
 				556FD19E2BB9E3C700F3CFA1 /* MangasListView.swift */,
 			);
@@ -231,7 +232,6 @@
 		55B6B09A2CD74BE500CE5E7B /* MangasSearch */ = {
 			isa = PBXGroup;
 			children = (
-				55E096F52CEF7FD7006C055D /* MangasFilters */,
 				55B6B0A12CD74CA100CE5E7B /* MangasSearchView.swift */,
 				55F5A7C72CE8C2A800610FCA /* MangasSearchViewModel.swift */,
 			);
