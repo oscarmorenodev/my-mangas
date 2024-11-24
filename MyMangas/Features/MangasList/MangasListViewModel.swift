@@ -17,17 +17,14 @@ final class MangasListViewModel {
     }
     
     func getMangas() async {
-        page += 1
         do {
             let mangas = try await interactor.getListMangas(page: page).items
             await MainActor.run {
                 self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                page += 1
             }
         } catch {
-            await MainActor.run {
-                self.errorMessage = error.localizedDescription
-                self.displayError.toggle()
-            }
+            await handleError(error)
         }
     }
     
@@ -39,10 +36,43 @@ final class MangasListViewModel {
                 page += 1
             }
         } catch {
+            await handleError(error)
+        }
+    }
+    
+    func getMangasByDemographic(demographic: String) async {
+        do {
+            let mangas = try await interactor.getListMangasByDemographic(demographic: demographic, page: page).items
             await MainActor.run {
-                self.errorMessage = error.localizedDescription
-                self.displayError.toggle()
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                page += 1
             }
+        } catch {
+            await handleError(error)
+        }
+    }
+    
+    func getMangasByGenre(genre: String) async {
+        do {
+            let mangas = try await interactor.getListMangasByGenre(genre: genre, page: page).items
+            await MainActor.run {
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                page += 1
+            }
+        } catch {
+            await handleError(error)
+        }
+    }
+    
+    func getMangasByTheme(theme: String) async {
+        do {
+            let mangas = try await interactor.getListMangasByTheme(theme: theme, page: page).items
+            await MainActor.run {
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                page += 1
+            }
+        } catch {
+            await handleError(error)
         }
     }
     
