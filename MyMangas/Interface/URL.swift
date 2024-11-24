@@ -7,20 +7,32 @@ extension URL {
         getMangasUrl(endpoint: .listMangas, page: page)
     }
     
-    static func getBestMangasUrl(page: Int) -> URL {
+    static func getListBestMangasUrl(page: Int) -> URL {
         getMangasUrl(endpoint: .bestMangas, page: page)
     }
     
+    static func getListMangasByDemographicUrl(demographic: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByDemographic, category: demographic, page: page)
+    }
+    
+    static func getListMangasByGenreUrl(genre: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByGenre, category: genre, page: page)
+    }
+    
+    static func getListMangasByThemeUrl(theme: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByTheme, category: theme, page: page)
+    }
+    
     static func getDemographicsUrl() -> URL {
-        getFilterUrl(endpoint: .demographics)
+        getCategoryUrl(endpoint: .demographics)
     }
     
     static func getGenresUrl() -> URL {
-        getFilterUrl(endpoint: .genres)
+        getCategoryUrl(endpoint: .genres)
     }
     
     static func getThemesUrl() -> URL {
-        getFilterUrl(endpoint: .themes)
+        getCategoryUrl(endpoint: .themes)
     }
     
     static func searchMangasUrl(_ query: String, page: Int) -> URL {
@@ -40,9 +52,12 @@ extension URL {
 }
 
 private extension URL {
-    static func getMangasUrl(endpoint: Endpoint, page: Int?) -> URL {
+    static func getMangasUrl(endpoint: Endpoint, category: String? = nil, page: Int?) -> URL {
         let endpoint = endpoint.rawValue
-        let mangasUrl = api.appending(path: endpoint)
+        var mangasUrl = api.appending(path: endpoint)
+        if let category {
+            mangasUrl.append(component: category)
+        }
         var urlComponents = URLComponents(string: mangasUrl.absoluteString)!
         if let page {
             let queryItem = URLQueryItem(name: "page", value: String(page))
@@ -51,7 +66,7 @@ private extension URL {
         return urlComponents.url!
     }
     
-    static func getFilterUrl(endpoint: Endpoint) -> URL {
+    static func getCategoryUrl(endpoint: Endpoint) -> URL {
         api.appending(path: endpoint.rawValue)
     }
 }
