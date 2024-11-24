@@ -10,9 +10,12 @@ struct FilterButtonView: View {
                 action()
             } label: {
                 Text(title)
+                    .frame(maxWidth: .infinity)
             }
         }
         .buttonStyle(.borderedProminent)
+        .padding(5)
+        
     }
 }
 

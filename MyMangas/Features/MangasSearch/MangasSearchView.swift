@@ -3,16 +3,9 @@ import SwiftUI
 struct MangasSearchView: View {
     @Bindable var vm: MangasSearchViewModel
     @State var selected: MangaItemViewModel?
-    @State var showFilters: Bool = false
-    @State var showSheet: Bool = false
     
     var body: some View {
         NavigationStack {
-            if showFilters {
-                VStack {
-                    MangasFiltersView(vm: vm, showSheet: $showSheet)
-                }
-            }
             ScrollView {
                 LazyVStack {
                     ForEach(vm.searchResults, id: \.id) { manga in
@@ -28,13 +21,6 @@ struct MangasSearchView: View {
                     }
                 }
                 
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Filters", systemImage: "line.3.horizontal.decrease.circle") {
-                        showFilters.toggle()
-                    }
-                }
             }
             .opacity(selected == nil ? 1.0 : 0.0)
             .overlay(

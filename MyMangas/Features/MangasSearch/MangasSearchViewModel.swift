@@ -7,8 +7,6 @@ final class MangasSearchViewModel {
     var searchResults = [MangaItemViewModel]()
     var displayError = false
     var errorMessage = ""
-    var filter: Filter = .demographic
-    var filterValues = [String]()
     @ObservationIgnored var page = 1
     @ObservationIgnored var isLoadingMore = false
     
@@ -55,52 +53,6 @@ final class MangasSearchViewModel {
     func cleanSearchResults() {
         searchResults.removeAll()
         page = 1
-    }
-    
-    func getFilterContent(filter: Filter) async {
-        if filter == .demographic {
-            self.filter = .demographic
-            await getDemographics()
-        } else if filter == .genre {
-            self.filter = .genre
-            await getGenres()
-        } else if filter == .theme {
-            self.filter = .theme
-            await getThemes()
-        }
-    }
-    
-    func getDemographics() async {
-        do {
-            let demographics = try await interactor.getDemographics().sorted()
-            await MainActor.run {
-                self.filterValues = demographics
-            }
-        } catch {
-            await handleError(error)
-        }
-    }
-    
-    func getGenres() async {
-        do {
-            let genres = try await interactor.getGenres().sorted()
-            await MainActor.run {
-                self.filterValues = genres
-            }
-        } catch {
-            await handleError(error)
-        }
-    }
-        
-    func getThemes() async {
-        do {
-            let themes = try await interactor.getThemes().sorted()
-            await MainActor.run {
-                self.filterValues = themes
-            }
-        } catch {
-            await handleError(error)
-        }
     }
     
     private func handleError(_ error: any Error) async {
