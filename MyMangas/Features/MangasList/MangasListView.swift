@@ -14,7 +14,7 @@ struct MangasListView: View {
             NavigationStack {
                 if showFilters {
                     VStack {
-                        MangasFiltersView(showSheet: $showSheet)
+                        MangasCategoriesView(showSheet: $showSheet)
                             .environment(vm)
                     }
                 }

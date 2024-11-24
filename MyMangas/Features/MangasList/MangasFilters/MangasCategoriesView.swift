@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MangasFiltersView: View {
+struct MangasCategoriesView: View {
     @Environment(MangasListViewModel.self) var vm
     @Binding var showSheet: Bool
     var body: some View {
@@ -34,7 +34,7 @@ struct MangasFiltersView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            List(vm.filterValues, id: \.self) {
+            List(vm.categoryValues, id: \.self) {
                 Text($0)
             }
         }
@@ -42,5 +42,5 @@ struct MangasFiltersView: View {
 }
 
 #Preview {
-    MangasFiltersView(showSheet: .constant(false))
+    MangasCategoriesView(showSheet: .constant(false))
 }

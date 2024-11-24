@@ -8,8 +8,8 @@ final class MangasListViewModel {
     var errorMessage = ""
     var appState: AppState = .loading
     var showBest = false
-    var filter: Filter = .demographic
-    var filterValues = [String]()
+    var category: Category = .demographic
+    var categoryValues = [String]()
     @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
@@ -79,15 +79,15 @@ final class MangasListViewModel {
         page = 0
     }
     
-    func getFilterContent(filter: Filter) async {
+    func getFilterContent(filter: Category) async {
         if filter == .demographic {
-            self.filter = .demographic
+            self.category = .demographic
             await getDemographics()
         } else if filter == .genre {
-            self.filter = .genre
+            self.category = .genre
             await getGenres()
         } else if filter == .theme {
-            self.filter = .theme
+            self.category = .theme
             await getThemes()
         }
     }
@@ -96,7 +96,7 @@ final class MangasListViewModel {
         do {
             let demographics = try await interactor.getDemographics().sorted()
             await MainActor.run {
-                self.filterValues = demographics
+                self.categoryValues = demographics
             }
         } catch {
             await handleError(error)
@@ -107,7 +107,7 @@ final class MangasListViewModel {
         do {
             let genres = try await interactor.getGenres().sorted()
             await MainActor.run {
-                self.filterValues = genres
+                self.categoryValues = genres
             }
         } catch {
             await handleError(error)
@@ -118,7 +118,7 @@ final class MangasListViewModel {
         do {
             let themes = try await interactor.getThemes().sorted()
             await MainActor.run {
-                self.filterValues = themes
+                self.categoryValues = themes
             }
         } catch {
             await handleError(error)
