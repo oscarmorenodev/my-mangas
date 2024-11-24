@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PreviewData: DataInteractor {
+    
     let urlMangasPreview = Bundle.main.url(forResource: "mangasPreview", withExtension: "json")!
     
     func getListMangas(page: Int = 1) async throws -> Mangas {
@@ -8,6 +9,18 @@ struct PreviewData: DataInteractor {
     }
     
     func getBestMangas(page: Int = 1) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas {
         try loadPreviewData(url: urlMangasPreview)
     }
     

@@ -3,6 +3,9 @@ import Foundation
 protocol DataInteractor {
     func getListMangas(page: Int) async throws -> Mangas
     func getBestMangas(page: Int) async throws -> Mangas
+    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas
+    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas
+    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas
     func searchMangas(_ query: String, page: Int) async throws -> Mangas
     func getDemographics() async throws -> [String]
     func getGenres() async throws -> [String]
@@ -31,7 +34,19 @@ struct DataService: DataInteractor {
     }
     
     func getBestMangas(page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getBestMangasUrl(page: page)), type: Mangas.self)
+        try await getData(request: .get(url: .getListBestMangasUrl(page: page)), type: Mangas.self)
+    }
+    
+    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByDemographicUrl(demographic: demographic, page: page)), type: Mangas.self)
+    }
+    
+    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByGenreUrl(genre: genre, page: page)), type: Mangas.self)
+    }
+    
+    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByThemeUrl(theme: theme, page: page)), type: Mangas.self)
     }
     
     func searchMangas(_ query: String, page: Int) async throws -> Mangas {
