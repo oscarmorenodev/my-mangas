@@ -3,15 +3,36 @@ import Foundation
 let api = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
 
 extension URL {
-    static func getMangasUrl(page: Int?) -> URL {
-        let endpoint = "/list/mangas"
-        let mangasUrl = api.appending(path: endpoint)
-        var urlComponents = URLComponents(string: mangasUrl.absoluteString)!
-        if let page {
-            let queryItem = URLQueryItem(name: "page", value: String(page))
-            urlComponents.queryItems = [queryItem]
-        }
-        return urlComponents.url!
+    static func getListMangasUrl(page: Int) -> URL {
+        getMangasUrl(endpoint: .listMangas, page: page)
+    }
+    
+    static func getListBestMangasUrl(page: Int) -> URL {
+        getMangasUrl(endpoint: .bestMangas, page: page)
+    }
+    
+    static func getListMangasByDemographicUrl(demographic: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByDemographic, category: demographic, page: page)
+    }
+    
+    static func getListMangasByGenreUrl(genre: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByGenre, category: genre, page: page)
+    }
+    
+    static func getListMangasByThemeUrl(theme: String, page: Int) -> URL {
+        getMangasUrl(endpoint: .listByTheme, category: theme, page: page)
+    }
+    
+    static func getDemographicsUrl() -> URL {
+        getCategoryUrl(endpoint: .demographics)
+    }
+    
+    static func getGenresUrl() -> URL {
+        getCategoryUrl(endpoint: .genres)
+    }
+    
+    static func getThemesUrl() -> URL {
+        getCategoryUrl(endpoint: .themes)
     }
     
     static func searchMangasUrl(_ query: String, page: Int) -> URL {
@@ -27,5 +48,25 @@ extension URL {
     
     static func getPage(_ page: Int = 1) -> URLQueryItem {
         URLQueryItem(name: "page", value: String(page))
+    }
+}
+
+private extension URL {
+    static func getMangasUrl(endpoint: Endpoint, category: String? = nil, page: Int?) -> URL {
+        let endpoint = endpoint.rawValue
+        var mangasUrl = api.appending(path: endpoint)
+        if let category {
+            mangasUrl.append(component: category)
+        }
+        var urlComponents = URLComponents(string: mangasUrl.absoluteString)!
+        if let page {
+            let queryItem = URLQueryItem(name: "page", value: String(page))
+            urlComponents.queryItems = [queryItem]
+        }
+        return urlComponents.url!
+    }
+    
+    static func getCategoryUrl(endpoint: Endpoint) -> URL {
+        api.appending(path: endpoint.rawValue)
     }
 }

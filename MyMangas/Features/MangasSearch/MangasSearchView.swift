@@ -5,7 +5,7 @@ struct MangasSearchView: View {
     @State var selected: MangaItemViewModel?
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 LazyVStack {
                     ForEach(vm.searchResults, id: \.id) { manga in

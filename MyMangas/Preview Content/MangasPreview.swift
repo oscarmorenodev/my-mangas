@@ -1,9 +1,26 @@
 import SwiftUI
 
 struct PreviewData: DataInteractor {
+    
     let urlMangasPreview = Bundle.main.url(forResource: "mangasPreview", withExtension: "json")!
     
-    func getMangas(page: Int = 1) async throws -> Mangas {
+    func getListMangas(page: Int = 1) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getBestMangas(page: Int = 1) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas {
+        try loadPreviewData(url: urlMangasPreview)
+    }
+    
+    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas {
         try loadPreviewData(url: urlMangasPreview)
     }
     
@@ -11,6 +28,18 @@ struct PreviewData: DataInteractor {
         let mangas: Mangas = try loadPreviewData(url: urlMangasPreview)
         let filteredMangas = mangas.items.filter { $0.title?.localizedCaseInsensitiveContains(query) ?? false }
         return Mangas(items: filteredMangas)
+    }
+    
+    func getDemographics() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
+    }
+    
+    func getGenres() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
+    }
+    
+    func getThemes() async throws -> [String] {
+        MangasSearchViewModel.filterValuesPreview
     }
     
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
@@ -25,16 +54,16 @@ extension MangaItemViewModel {
                                                 demographic: "Shounen")],
                      titleEnglish: "Dragon Ball",
                      endDate: "1995-05-23T00:00:00Z",
-                     genres: [Genre(genre: "Action", id: "72C8E862-334F-4F00-B8EC-E1E4125BB7CD"),
-                              Genre(genre: "Adventure", id: "BE70E289-D414-46A9-8F15-928EAFBC5A32"),
-                              Genre(genre: "Comedy", id: "F974BCB6-B002-44A6-A224-90D1E50595A2"),
-                              Genre(genre: "Sci-Fi", id: "2DEDC015-82DA-4EF4-B983-F0F58C8F689E")],
+                     genres: [Genre(id: "72C8E862-334F-4F00-B8EC-E1E4125BB7CD", genre: "Action"),
+                              Genre(id: "BE70E289-D414-46A9-8F15-928EAFBC5A32", genre: "Adventure"),
+                              Genre(id: "F974BCB6-B002-44A6-A224-90D1E50595A2", genre: "Comedy"),
+                              Genre(id: "2DEDC015-82DA-4EF4-B983-F0F58C8F689E", genre: "Sci-Fi")],
                      authors: [Author(role: "Story & Art", lastName: "Toriyama", firstName: "Akira", id: "998C1B16-E3DB-47D1-8157-8389B5345D03")],
                      id: 42,
                      url: "https://myanimelist.net/manga/42/Dragon_Ball",
                      startDate: "1984-11-20T00:00:00Z",
-                     themes: [Theme(theme: "Martial Arts", id: "ADC7CBC8-36B9-4E52-924A-4272B7B2CB2C"),
-                              Theme(theme: "Super Power", id: "472FB2AE-13C0-4EEE-9A45-A7B75AC5DC29")],
+                     themes: [Theme(id: "ADC7CBC8-36B9-4E52-924A-4272B7B2CB2C", theme: "Martial Arts"),
+                              Theme(id: "472FB2AE-13C0-4EEE-9A45-A7B75AC5DC29", theme: "Super Power")],
                      background: "Dragon Ball has become one of the most successful manga series of all time, with over 230 million copies sold worldwide with 157 million in Japan alone, making it the third all-time best selling manga as of 2015, and the #1 manga series not currently publishing. The series is often credited for the \"Golden Age of Jump\" where the magazine's circulation was at its highest. VIZ Media serialized the manga in English from March 1998 to March 2005 in monthly comic book anthology format; and was later collected into traditional tankobon format volumes from March 12, 2003 to June 6, 2006. To closer follow the English anime localization, the series is split; in which volumes 17-42 are titled Dragon Ball Z and renumbered as volumes 1-26. Other releases by VIZ include the large format VIZ Big Edition, kanzenban cover based 3-in-1 Edition, and a Full Color Edition of chapters 195-245. Other English publishers include Madman Entertainment in Australia/New Zealand, and the now defunct Gollancz Manga (distribution rights transferred to VIZ) in the United Kingdom. The series is also published in Spanish by Planet DeAgostini Cómics and in French by Glénat Editions.",
                      chapters: 520,
                      title: "Dragon Ball",
@@ -74,6 +103,18 @@ extension MangasListView {
     }
 }
 
+extension MangasCategoriesView {
+    static var preview: some View {
+        let vm = MangasListViewModel.preview
+        
+        return MangasListView()
+            .task {
+                _ = await vm.getMangas()
+            }
+            .environment(vm)
+    }
+}
+
 extension MangasSearchViewModel {
     static let preview = MangasSearchViewModel(interactor: PreviewData())
 }
@@ -82,4 +123,8 @@ extension MangasSearchView {
     static var preview: some View {
         return MangasSearchView(vm: .preview)
     }
+}
+
+extension MangasSearchViewModel {
+    static let filterValuesPreview = ["Filter value 1", "Filter value 2", "Filter value 3"]
 }

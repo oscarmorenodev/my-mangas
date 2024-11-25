@@ -21,10 +21,7 @@ final class MangasSearchViewModel {
                 self.searchResults = mangas.map { MangaItemViewModel(manga: $0) }
             }
         } catch {
-            await MainActor.run {
-                self.errorMessage = error.localizedDescription
-                self.displayError.toggle()
-            }
+            await handleError(error)
         }
     }
     
@@ -58,4 +55,10 @@ final class MangasSearchViewModel {
         page = 1
     }
     
+    private func handleError(_ error: any Error) async {
+        await MainActor.run {
+            self.errorMessage = error.localizedDescription
+            self.displayError.toggle()
+        }
+    }
 }
