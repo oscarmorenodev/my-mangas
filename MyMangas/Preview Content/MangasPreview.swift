@@ -103,6 +103,18 @@ extension MangasListView {
     }
 }
 
+extension MangasCategoriesView {
+    static var preview: some View {
+        let vm = MangasListViewModel.preview
+        
+        return MangasListView()
+            .task {
+                _ = await vm.getMangas()
+            }
+            .environment(vm)
+    }
+}
+
 extension MangasSearchViewModel {
     static let preview = MangasSearchViewModel(interactor: PreviewData())
 }

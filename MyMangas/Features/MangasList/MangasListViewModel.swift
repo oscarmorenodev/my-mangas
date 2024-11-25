@@ -4,16 +4,28 @@ import Foundation
 final class MangasListViewModel {
     let interactor: DataInteractor
     var mangas = [MangaItemViewModel]()
+    var demographics = [String]()
+    var genres = [String]()
+    var themes = [String]()
     var displayError = false
     var errorMessage = ""
     var appState: AppState = .loading
     var showBest = false
     var category: Category = .demographic
     var categoryValues = [String]()
+    var selectedCategory = ""
+    
     @ObservationIgnored var page: Int = 0
     
     init(interactor: DataInteractor = DataService()) {
         self.interactor = interactor
+    }
+    
+    func fetchData() async {
+        await getMangas()
+        await getDemographics()
+        await getGenres()
+        await getThemes()
     }
     
     func getMangas() async {
@@ -104,7 +116,7 @@ final class MangasListViewModel {
         }
     }
     
-    private func clearList() {
+    func clearList() {
         mangas.removeAll()
         page = 0
     }
@@ -126,7 +138,7 @@ final class MangasListViewModel {
         do {
             let demographics = try await interactor.getDemographics().sorted()
             await MainActor.run {
-                self.categoryValues = demographics
+                self.demographics = demographics
             }
         } catch {
             await handleError(error)
@@ -137,7 +149,7 @@ final class MangasListViewModel {
         do {
             let genres = try await interactor.getGenres().sorted()
             await MainActor.run {
-                self.categoryValues = genres
+                self.genres = genres
             }
         } catch {
             await handleError(error)
@@ -148,7 +160,7 @@ final class MangasListViewModel {
         do {
             let themes = try await interactor.getThemes().sorted()
             await MainActor.run {
-                self.categoryValues = themes
+                self.themes = themes
             }
         } catch {
             await handleError(error)

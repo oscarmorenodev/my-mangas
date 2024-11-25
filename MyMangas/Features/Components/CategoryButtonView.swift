@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FilterButtonView: View {
+struct CategoryButtonView: View {
     let title: String
     let action: () -> Void
     
@@ -13,12 +13,10 @@ struct FilterButtonView: View {
                     .frame(maxWidth: .infinity)
             }
         }
-        .buttonStyle(.borderedProminent)
-        .padding(5)
-        
+        .buttonStyle(.borderedProminent)        
     }
 }
 
 #Preview {
-    FilterButtonView(title: "Filter", action: {})
+    CategoryButtonView(title: "Filter", action: {})
 }

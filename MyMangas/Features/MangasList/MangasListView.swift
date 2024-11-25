@@ -6,6 +6,7 @@ struct MangasListView: View {
     @State var searchText = ""
     @State var showFilters = false
     @State var showSheet: Bool = false
+    @State var selectedCategory = ""
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
@@ -14,7 +15,7 @@ struct MangasListView: View {
             NavigationStack {
                 if showFilters {
                     VStack {
-                        MangasCategoriesView(showSheet: $showSheet)
+                        MangasCategoriesView(selectedCategory: $selectedCategory)
                             .environment(vm)
                     }
                 }
