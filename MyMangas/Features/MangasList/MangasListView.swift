@@ -7,6 +7,7 @@ struct MangasListView: View {
     @State var showFilters = false
     @State var showSheet: Bool = false
     @State var selectedCategory = ""
+    @State var loading = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
@@ -15,9 +16,13 @@ struct MangasListView: View {
             NavigationStack {
                 if showFilters {
                     VStack {
-                        MangasCategoriesView(selectedCategory: $selectedCategory)
+                        MangasCategoriesView(selectedCategory: $selectedCategory, loading: $loading)
                             .environment(vm)
                     }
+                }
+                if loading {
+                    LoadingView(loading: $loading)
+                        .offset(y: 200)
                 }
                 ScrollView {
                     LazyVGrid(columns: [gridItem]) {
