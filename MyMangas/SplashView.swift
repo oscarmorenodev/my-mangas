@@ -6,10 +6,7 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
-            ProgressView()
-                .controlSize(.extraLarge)
-                .tint(.cyan)
-                .opacity(loading ? 1.0 : 0.0)
+            LoadingView(loading: $loading)
         }
         .ignoresSafeArea()
         .task {
