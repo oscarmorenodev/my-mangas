@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct SplashView: View {
-    @Environment(MangasListViewModel.self) var listVM
+    @Environment(MangasListViewModel.self) var mangasListViewModel
+    @Environment(AppStateManager.self) var appStateManager
     @State var loading = false
+    @State var logged = false
     
     var body: some View {
         ZStack {
@@ -11,9 +13,9 @@ struct SplashView: View {
         .ignoresSafeArea()
         .task {
             loading = true
-            await listVM.fetchData()
+            await mangasListViewModel.fetchData()
             loading = false
-            listVM.appState = .loaded
+            appStateManager.state = logged ? .logged : .nonLogged
         }
     }
 }

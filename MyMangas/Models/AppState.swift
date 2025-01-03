@@ -1,4 +1,6 @@
 enum AppState {
-    case loaded
     case loading
+    case logged
+    case nonLogged
+    case signup
 }

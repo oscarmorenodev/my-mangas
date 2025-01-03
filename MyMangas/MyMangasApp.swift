@@ -2,12 +2,16 @@ import SwiftUI
 
 @main
 struct MyMangasApp: App {
-    @State var vm = MangasListViewModel()
+    @State var mangasListViewModel = MangasListViewModel()
+    @State var appStateManager = AppStateManager()
+    @State var loginPresenter = LoginPresenter()
     
     var body: some Scene {
         WindowGroup {
             AppStateView()
-                .environment(vm)
+                .environment(mangasListViewModel)
+                .environment(appStateManager)
+                .environment(loginPresenter)
         }
     }
 }
