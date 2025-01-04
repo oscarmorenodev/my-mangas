@@ -7,4 +7,5 @@ enum Endpoint: String {
     case listByTheme = "/list/mangaByTheme"
     case themes = "/list/themes"
     case listMangas = "/list/mangas"
+    case users = "/users"
 }
