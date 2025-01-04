@@ -8,4 +8,13 @@ extension URLRequest {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         return request
     }
+    
+    static func post(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 60
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("sLGH38NhEJ0_anlIWwhsz1-LarClEohiAHQqayF0FY", forHTTPHeaderField: "App-Token")
+        return request
+    }
 }
