@@ -12,6 +12,8 @@
 		5511AD942BBC49630059BD62 /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511AD932BBC49630059BD62 /* AppStateView.swift */; };
 		5511AD962BBC49A60059BD62 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511AD952BBC49A60059BD62 /* AppState.swift */; };
 		551740862D290F15004648E0 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551740852D290F11004648E0 /* Users.swift */; };
+		5517408C2D291D63004648E0 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5517408B2D291D63004648E0 /* Config.xcconfig */; };
+		5517408F2D291F3E004648E0 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5517408E2D291F30004648E0 /* ApiKey.swift */; };
 		5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541E71E2B96DD4E0078B50C /* Manga.swift */; };
 		554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822C2B962FDC009F3325 /* MyMangasApp.swift */; };
 		554A822F2B962FDC009F3325 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822E2B962FDC009F3325 /* MainView.swift */; };
@@ -62,6 +64,9 @@
 		5511AD932BBC49630059BD62 /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
 		5511AD952BBC49A60059BD62 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		551740852D290F11004648E0 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		5517408B2D291D63004648E0 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		5517408D2D291DC4004648E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5517408E2D291F30004648E0 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		5541E71E2B96DD4E0078B50C /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		554A82292B962FDC009F3325 /* MyMangas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMangas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554A822C2B962FDC009F3325 /* MyMangasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangasApp.swift; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 			children = (
 				554A822B2B962FDC009F3325 /* MyMangas */,
 				559ED8F42B96309A007581DF /* .gitignore */,
+				5517408B2D291D63004648E0 /* Config.xcconfig */,
 				559ED8F22B963031007581DF /* README.md */,
 				554A822A2B962FDC009F3325 /* Products */,
 			);
@@ -163,6 +169,7 @@
 		554A822B2B962FDC009F3325 /* MyMangas */ = {
 			isa = PBXGroup;
 			children = (
+				5517408D2D291DC4004648E0 /* Info.plist */,
 				554A822C2B962FDC009F3325 /* MyMangasApp.swift */,
 				5511AD932BBC49630059BD62 /* AppStateView.swift */,
 				55F270102D28465900FDF5F0 /* AppStateManager.swift */,
@@ -268,8 +275,9 @@
 		55BCF0D72BBA93920035468F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				55E5D5662BC049680013E82B /* Extensions */,
+				5517408E2D291F30004648E0 /* ApiKey.swift */,
 				55BCF0D82BBA93A60035468F /* Constants.swift */,
+				55E5D5662BC049680013E82B /* Extensions */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -386,6 +394,7 @@
 				559ED8F32B963031007581DF /* README.md in Resources */,
 				554A82342B962FDE009F3325 /* Preview Assets.xcassets in Resources */,
 				556FD19C2BB9E3A600F3CFA1 /* mangasPreview.json in Resources */,
+				5517408C2D291D63004648E0 /* Config.xcconfig in Resources */,
 				554A82312B962FDE009F3325 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +422,7 @@
 				55EE85B32CEBA1D400091D68 /* Endpoint.swift in Sources */,
 				55847D5F2CF502BB0018DCAE /* LoadingView.swift in Sources */,
 				554A822F2B962FDC009F3325 /* MainView.swift in Sources */,
+				5517408F2D291F3E004648E0 /* ApiKey.swift in Sources */,
 				558BF77C2BAC79A100986B3B /* Genre.swift in Sources */,
 				55E5D56D2BC056600013E82B /* MangaCoverView.swift in Sources */,
 				556FD19D2BB9E3A600F3CFA1 /* MangasPreview.swift in Sources */,
@@ -447,6 +457,7 @@
 /* Begin XCBuildConfiguration section */
 		554A82352B962FDE009F3325 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -510,6 +521,7 @@
 		};
 		554A82362B962FDE009F3325 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -566,6 +578,7 @@
 		};
 		554A82382B962FDE009F3325 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -575,6 +588,8 @@
 				DEVELOPMENT_TEAM = FW8P39ZPC3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyMangas/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -596,6 +611,7 @@
 		};
 		554A82392B962FDE009F3325 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -605,6 +621,8 @@
 				DEVELOPMENT_TEAM = FW8P39ZPC3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyMangas/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

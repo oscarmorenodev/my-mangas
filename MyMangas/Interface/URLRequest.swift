@@ -14,7 +14,7 @@ extension URLRequest {
         request.timeoutInterval = 60
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("sLGH38NhEJ0_anlIWwhsz1-LarClEohiAHQqayF0FY", forHTTPHeaderField: "App-Token")
+        request.setValue(ApiKey.getCreateUserKey(), forHTTPHeaderField: "App-Token")
         return request
     }
 }
