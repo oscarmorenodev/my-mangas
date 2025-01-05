@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SignupView: View {
     @Environment(AppStateManager.self) var appStateManager
-    @State private var username: String = ""
+    @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     
@@ -12,7 +12,7 @@ struct SignupView: View {
                 .font(.largeTitle)
                 .padding(.vertical, 100)
             VStack {
-                TextField("Username", text: $username)
+                TextField("Email", text: $email)
                     .autocorrectionDisabled()
                 TextField("Password", text: $password)
                     .autocorrectionDisabled()

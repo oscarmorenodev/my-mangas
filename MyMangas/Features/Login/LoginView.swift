@@ -3,7 +3,7 @@ import SwiftUI
 struct LoginView: View {
     @Environment(AppStateManager.self) var appStateManager
     @Environment(LoginPresenter.self) var presenter
-    @State private var username: String = ""
+    @State private var email: String = ""
     @State private var password: String = ""
     @State private var showAlert = false
     
@@ -13,9 +13,9 @@ struct LoginView: View {
                 .font(.largeTitle)
                 .padding(.vertical, 100)
             VStack {
-                TextField("Username", text: $username)
+                TextField("Email", text: $email)
                     .autocorrectionDisabled()
-                    .textContentType(.username)
+                    .textContentType(.emailAddress)
                     .textInputAutocapitalization(.never)
                 SecureField("Password", text: $password)
                     .autocorrectionDisabled()
@@ -24,7 +24,7 @@ struct LoginView: View {
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 50)
             Button {
-                if presenter.validateLogin(username: username, password: password) {
+                if presenter.validateLogin(email: email, password: password) {
                     appStateManager.state = .logged
                 } else {
                     showAlert = true
@@ -36,9 +36,9 @@ struct LoginView: View {
             .padding(.top, 50)
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"),
-                      message: Text("Invalid username or password"),
+                      message: Text("Invalid email or password"),
                       dismissButton: .default(Text("OK")) {
-                    username = ""
+                    email = ""
                     password = ""
                 })
             }
