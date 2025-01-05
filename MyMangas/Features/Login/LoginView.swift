@@ -18,8 +18,6 @@ struct LoginView: View {
                     .textContentType(.emailAddress)
                     .textInputAutocapitalization(.never)
                 SecureField("Password", text: $password)
-                    .autocorrectionDisabled()
-                    .textContentType(.password)
             }
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 50)

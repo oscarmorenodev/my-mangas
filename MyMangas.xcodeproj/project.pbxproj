@@ -14,6 +14,7 @@
 		551740862D290F15004648E0 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551740852D290F11004648E0 /* Users.swift */; };
 		5517408C2D291D63004648E0 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5517408B2D291D63004648E0 /* Config.xcconfig */; };
 		5517408F2D291F3E004648E0 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5517408E2D291F30004648E0 /* ApiKey.swift */; };
+		551740912D2A5F72004648E0 /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551740902D2A5F72004648E0 /* SignupPresenter.swift */; };
 		5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541E71E2B96DD4E0078B50C /* Manga.swift */; };
 		554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822C2B962FDC009F3325 /* MyMangasApp.swift */; };
 		554A822F2B962FDC009F3325 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822E2B962FDC009F3325 /* MainView.swift */; };
@@ -67,6 +68,7 @@
 		5517408B2D291D63004648E0 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5517408D2D291DC4004648E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5517408E2D291F30004648E0 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
+		551740902D2A5F72004648E0 /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
 		5541E71E2B96DD4E0078B50C /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		554A82292B962FDC009F3325 /* MyMangas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMangas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554A822C2B962FDC009F3325 /* MyMangasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangasApp.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				55F2700A2D283FE800FDF5F0 /* SignupView.swift */,
+				551740902D2A5F72004648E0 /* SignupPresenter.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				556FD19D2BB9E3A600F3CFA1 /* MangasPreview.swift in Sources */,
 				556FD19F2BB9E3C700F3CFA1 /* MangasListView.swift in Sources */,
 				55F5A7C82CE8C2B000610FCA /* MangasSearchViewModel.swift in Sources */,
+				551740912D2A5F72004648E0 /* SignupPresenter.swift in Sources */,
 				556FD18B2BB947A100F3CFA1 /* MangasListViewModel.swift in Sources */,
 				558BF7852BAC830700986B3B /* URLSession.swift in Sources */,
 				55AF471B2CC83AFA0033807D /* FavoriteButton.swift in Sources */,
