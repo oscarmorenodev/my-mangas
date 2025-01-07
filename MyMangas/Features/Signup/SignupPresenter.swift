@@ -6,8 +6,8 @@ class SignupPresenter {
         validateCredentialsFormat(email, password) && validateCredentialsAreNotEmpty(email, password)
     }
     
-    func createUser (_ email: String, _ password: String) -> Users {
-        Users(email: email, password: password)
+    func createUser (_ email: String, _ password: String) {
+        let user = Users(email: email, password: password)
     }
     private func validateCredentialsAreNotEmpty (_ email: String, _ password: String) -> Bool {
         if email.isEmpty || password.isEmpty {
