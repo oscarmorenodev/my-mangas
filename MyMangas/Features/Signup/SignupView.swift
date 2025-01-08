@@ -28,8 +28,10 @@ struct SignupView: View {
             .padding(.horizontal, 50)
             Button {
                 if presenter.validateCredentials(email, password) {
-                    presenter.createUser(email, password)
-                    activeAlert = .success
+                    Task {
+                        email = await presenter.createUser(email, password).email
+                        activeAlert = .success
+                    }
                 } else {
                     activeAlert = .failure
                 }

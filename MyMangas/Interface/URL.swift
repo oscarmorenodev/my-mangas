@@ -2,6 +2,7 @@ import Foundation
 
 let api = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
 
+// MARK: Mangas
 extension URL {
     static func getListMangasUrl(page: Int) -> URL {
         getMangasUrl(endpoint: .listMangas, page: page)
@@ -51,6 +52,15 @@ extension URL {
     }
 }
 
+// MARK: Users
+extension URL {
+    static func createUser() -> URL {
+        api.appending(path: Endpoint.users.rawValue)
+    }
+}
+
+
+// MARK: Private
 private extension URL {
     static func getMangasUrl(endpoint: Endpoint, category: String? = nil, page: Int?) -> URL {
         let endpoint = endpoint.rawValue
