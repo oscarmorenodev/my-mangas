@@ -30,12 +30,13 @@ struct SignupView: View {
                 if presenter.validateCredentials(email, password) {
                     Task {
                         email = await presenter.createUser(email, password).email
-                        activeAlert = .success
                     }
+                    activeAlert = .success
+                    showAlert = true
                 } else {
                     activeAlert = .failure
+                    showAlert = true
                 }
-                showAlert = true
             } label: {
                 Text("Create user")
             }
@@ -45,7 +46,7 @@ struct SignupView: View {
                 switch activeAlert {
                 case .success:
                     Alert(title: Text("Success"),
-                          message: Text("User with email \(email) created"),
+                          message: Text("User created successfully"),
                           dismissButton: .default(Text("OK")) {
                         appStateManager.state = .nonLogged
                     })
@@ -57,7 +58,6 @@ struct SignupView: View {
                         password = ""
                         confirmPassword = ""
                     })
-                    
                 }
             }
             Spacer()
