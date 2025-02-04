@@ -9,7 +9,6 @@ final class MangasListViewModel {
     var themes = [String]()
     var displayError = false
     var errorMessage = ""
-    var appState: AppState = .loading
     var showBest = false
     var category: Category = .demographic
     var categoryValues = [String]()

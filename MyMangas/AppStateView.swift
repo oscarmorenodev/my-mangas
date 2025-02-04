@@ -1,15 +1,19 @@
 import SwiftUI
 
 struct AppStateView: View {
-    @Environment(MangasListViewModel.self) var vm
+    @Environment(AppStateManager.self) var appStateManager
     
     var body: some View {
         VStack {
-            switch vm.appState {
-            case .loaded:
+            switch appStateManager.state {
+            case .logged:
                 MainView()
             case .loading:
                 SplashView()
+            case .nonLogged:
+                LoginView()
+            case .signup:
+                SignupView()
             }
         }
     }
@@ -17,5 +21,4 @@ struct AppStateView: View {
 
 #Preview {
     AppStateView()
-        .environment(MangasListViewModel())
 }

@@ -10,8 +10,10 @@ protocol DataInteractor {
     func getDemographics() async throws -> [String]
     func getGenres() async throws -> [String]
     func getThemes() async throws -> [String]
+    func createUser(user: Users) async throws -> Users
 }
 
+// MARK: Generic methods
 struct DataService: DataInteractor {
     static let shared = DataService()
     
@@ -26,9 +28,33 @@ struct DataService: DataInteractor {
         } else {
             throw NetworkError.status(response.statusCode)
         }
-        
     }
     
+    func postData<T:Encodable, U: Decodable>(request: URLRequest, payload: T, responseType: U.Type) async throws -> U {
+        var request = request
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(payload)
+        } catch {
+            throw NetworkError.encode(error)
+        }
+        
+        let (data, response) = try await URLSession.shared.getData(for: request)
+        
+        guard response.statusCode == 201 else {
+            throw NetworkError.status(response.statusCode)
+        }
+        
+        do {
+            return try JSONDecoder().decode(responseType, from: data)
+        } catch {
+            throw NetworkError.decode(error)
+        }
+    }
+}
+
+// MARK: GET Methods
+extension DataService {
     func getListMangas(page: Int) async throws -> Mangas {
         try await getData(request: .get(url: .getListMangasUrl(page: page)), type: Mangas.self)
     }
@@ -63,5 +89,12 @@ struct DataService: DataInteractor {
     
     func getThemes() async throws -> [String] {
         try await getData(request: .get(url: .getThemesUrl()), type: [String].self)
+    }
+}
+
+// MARK: POST Methods
+extension DataService {
+    func createUser(user: Users) async throws -> Users {
+        try await postData(request: .post(url: .createUser()), payload: user, responseType: Users.self)
     }
 }

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct PreviewData: DataInteractor {
-    
     let urlMangasPreview = Bundle.main.url(forResource: "mangasPreview", withExtension: "json")!
     
     func getListMangas(page: Int = 1) async throws -> Mangas {
@@ -45,6 +44,10 @@ struct PreviewData: DataInteractor {
     func loadPreviewData<T>(url: URL) throws -> T where T: Decodable {
         let data = try Data(contentsOf: url)
         return try JSONDecoder().decode(T.self, from: data)
+    }
+    
+    func createUser(user: Users) async throws -> Users {
+        Users(email: "usercreatedok@test.com", password: "12345678")
     }
 }
 
