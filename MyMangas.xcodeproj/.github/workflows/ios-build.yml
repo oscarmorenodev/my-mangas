@@ -15,11 +15,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create Config file
+      - name: Create and verify Config file
         env:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
         run: |
+          # Create the config file
           echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > Config.xcconfig
+          
+          # Verify file exists and has content
+          if [ -f "Config.xcconfig" ]; then
+            echo "Config file created successfully"
+            ls -la Config.xcconfig
+            cat Config.xcconfig
+          else
+            echo "Error: Config file was not created"
+            exit 1
+          fi
+          
+          # Ensure file has correct permissions
+          chmod 644 Config.xcconfig
 
       - name: Set Default Scheme
         run: |
@@ -38,4 +52,9 @@ jobs:
           if [ $scheme = default ]; then scheme=$(cat default); fi
           if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
+          
+          # Show workspace structure before build
+          echo "Workspace structure:"
+          ls -R
+          
           xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
