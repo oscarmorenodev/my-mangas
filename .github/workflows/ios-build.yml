@@ -1,4 +1,4 @@
-name: iOS starter workflow
+name: iOS Build
 
 on:
   push:
@@ -8,57 +8,24 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Build iOS app
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup build environment
-        run: |
-          WORKSPACE_PATH="/Users/runner/work/my-mangas/my-mangas"
-          sudo mkdir -p /Volumes/workspace/{repository,DerivedData,tmp}
-          sudo chown -R $USER /Volumes/workspace
-          # Create symbolic link from the expected path to the actual repository
-          sudo ln -sf "$WORKSPACE_PATH" /Volumes/workspace/repository
-          
-      - name: Create and verify Config file
+      - name: Create Config file
         env:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
         run: |
-          # Create config file inside MyMangas directory
           echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > MyMangas/Config.xcconfig
-          
-          # Verify file exists and has content
-          if [ -f "MyMangas/Config.xcconfig" ]; then
-            echo "Config file created successfully"
-            ls -la MyMangas/Config.xcconfig
-            cat MyMangas/Config.xcconfig
-          else
-            echo "Error: Config file was not created"
-            exit 1
-          fi
-          
-          chmod 644 MyMangas/Config.xcconfig
-          
-          echo "Project structure:"
-          ls -la MyMangas/
 
       - name: Build
-        env:
-          scheme: "MyMangas"
         run: |
           xcodebuild build \
-            -scheme "$scheme" \
+            -scheme "MyMangas" \
             -project MyMangas.xcodeproj \
             -destination "generic/platform=iOS" \
-            -derivedDataPath /Volumes/workspace/DerivedData \
-            -resultBundleVersion 3 \
-            -resultBundlePath /Volumes/workspace/resultbundle.xcresult \
-            -resultStreamPath /Volumes/workspace/tmp/resultBundleStream.json \
-            -IDEPostProgressNotifications=YES \
             CODE_SIGN_IDENTITY=- \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            COMPILER_INDEX_STORE_ENABLE=NO \
-            -hideShellScriptEnvironment
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
