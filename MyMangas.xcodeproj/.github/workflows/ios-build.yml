@@ -19,7 +19,7 @@ jobs:
         env:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
         run: |
-          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > MyMangas/Config.xcconfig
+          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > Config.xcconfig
 
       - name: Set Default Scheme
         run: |
