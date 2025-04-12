@@ -19,25 +19,35 @@ jobs:
         env:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
         run: |
-          # Create the config file in root directory
-          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > ./Config.xcconfig
+          # Get absolute path of workspace
+          WORKSPACE_PATH=$(pwd)
+          echo "Workspace path: $WORKSPACE_PATH"
+          
+          # Create the config file with absolute path reference
+          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > "$WORKSPACE_PATH/Config.xcconfig"
           
           # Verify file exists and has content
-          if [ -f "./Config.xcconfig" ]; then
-            echo "Config file created successfully"
-            ls -la ./Config.xcconfig
-            cat ./Config.xcconfig
+          if [ -f "$WORKSPACE_PATH/Config.xcconfig" ]; then
+            echo "Config file created successfully at: $WORKSPACE_PATH/Config.xcconfig"
+            ls -la "$WORKSPACE_PATH/Config.xcconfig"
+            cat "$WORKSPACE_PATH/Config.xcconfig"
           else
             echo "Error: Config file was not created"
             exit 1
           fi
           
           # Ensure file has correct permissions
-          chmod 644 ./Config.xcconfig
+          chmod 644 "$WORKSPACE_PATH/Config.xcconfig"
+          
+          # Create symlink in expected location
+          mkdir -p /Volumes/workspace/repository
+          ln -sf "$WORKSPACE_PATH/Config.xcconfig" /Volumes/workspace/repository/Config.xcconfig
           
           # Show project structure for verification
           echo "Project structure:"
           ls -la
+          echo "Symlink verification:"
+          ls -la /Volumes/workspace/repository/
           echo "Info.plist contents:"
           cat MyMangas/Info.plist
 
@@ -53,6 +63,7 @@ jobs:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
         run: |
+          WORKSPACE_PATH=$(pwd)
           device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
           if [ $scheme = default ]; then scheme=$(cat default); fi
           if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
@@ -66,5 +77,5 @@ jobs:
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -destination "platform=$platform,name=$device" \
-            -xcconfig "./Config.xcconfig" \
-            CONFIGURATION_BUILD_DIR="build"
+            -xcconfig "$WORKSPACE_PATH/Config.xcconfig" \
+            CONFIGURATION_BUILD_DIR="$WORKSPACE_PATH/build"
