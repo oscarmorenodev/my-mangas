@@ -49,6 +49,10 @@ struct PreviewData: DataInteractor {
     func createUser(user: Users) async throws -> Users {
         Users(email: "usercreatedok@test.com", password: "12345678")
     }
+    
+    func login(email: String, password: String) async throws -> String {
+        "FQ8tHe+2mZ7tZ/ZFs5LgJ58X5M15Vjav"
+    }
 }
 
 extension MangaItemViewModel {

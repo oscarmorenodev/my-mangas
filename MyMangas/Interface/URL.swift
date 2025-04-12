@@ -57,6 +57,10 @@ extension URL {
     static func createUser() -> URL {
         api.appending(path: Endpoint.users.rawValue)
     }
+    
+    static func login() -> URL {
+        api.appending(path: Endpoint.login.rawValue)
+    }
 }
 
 

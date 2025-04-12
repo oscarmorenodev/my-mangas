@@ -24,6 +24,7 @@ class SignupPresenter {
         }
         return Users(email: "", password: "")
     }
+    
     private func validateCredentialsAreNotEmpty (_ email: String, _ password: String) -> Bool {
         if email.isEmpty || password.isEmpty {
             false

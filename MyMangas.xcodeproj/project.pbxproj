@@ -12,9 +12,10 @@
 		5511AD942BBC49630059BD62 /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511AD932BBC49630059BD62 /* AppStateView.swift */; };
 		5511AD962BBC49A60059BD62 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511AD952BBC49A60059BD62 /* AppState.swift */; };
 		551740862D290F15004648E0 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551740852D290F11004648E0 /* Users.swift */; };
-		5517408C2D291D63004648E0 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5517408B2D291D63004648E0 /* Config.xcconfig */; };
 		5517408F2D291F3E004648E0 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5517408E2D291F30004648E0 /* ApiKey.swift */; };
 		551740912D2A5F72004648E0 /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551740902D2A5F72004648E0 /* SignupPresenter.swift */; };
+		552AA06F2DAAA196004899A5 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AA06E2DAAA196004899A5 /* TokenManager.swift */; };
+		552AA0732DAADB78004899A5 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 552AA0722DAADB78004899A5 /* Config.xcconfig */; };
 		5541E71F2B96DD4E0078B50C /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541E71E2B96DD4E0078B50C /* Manga.swift */; };
 		554A822D2B962FDC009F3325 /* MyMangasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822C2B962FDC009F3325 /* MyMangasApp.swift */; };
 		554A822F2B962FDC009F3325 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A822E2B962FDC009F3325 /* MainView.swift */; };
@@ -65,10 +66,11 @@
 		5511AD932BBC49630059BD62 /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
 		5511AD952BBC49A60059BD62 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		551740852D290F11004648E0 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		5517408B2D291D63004648E0 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5517408D2D291DC4004648E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5517408E2D291F30004648E0 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		551740902D2A5F72004648E0 /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
+		552AA06E2DAAA196004899A5 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		552AA0722DAADB78004899A5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5541E71E2B96DD4E0078B50C /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		554A82292B962FDC009F3325 /* MyMangas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMangas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554A822C2B962FDC009F3325 /* MyMangasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangasApp.swift; sourceTree = "<group>"; };
@@ -154,7 +156,6 @@
 			children = (
 				554A822B2B962FDC009F3325 /* MyMangas */,
 				559ED8F42B96309A007581DF /* .gitignore */,
-				5517408B2D291D63004648E0 /* Config.xcconfig */,
 				559ED8F22B963031007581DF /* README.md */,
 				554A822A2B962FDC009F3325 /* Products */,
 			);
@@ -183,6 +184,7 @@
 				5541E71D2B96DD290078B50C /* Models */,
 				55BCF0D72BBA93920035468F /* Utils */,
 				554A82302B962FDE009F3325 /* Assets.xcassets */,
+				552AA0722DAADB78004899A5 /* Config.xcconfig */,
 				554A82322B962FDE009F3325 /* Preview Content */,
 			);
 			path = MyMangas;
@@ -235,9 +237,10 @@
 		558BF7832BAC82E800986B3B /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				558BF7862BAC832200986B3B /* NetworkError.swift */,
-				558BF78A2BAC84FE00986B3B /* URL.swift */,
 				55EE85B22CEBA1D400091D68 /* Endpoint.swift */,
+				558BF7862BAC832200986B3B /* NetworkError.swift */,
+				552AA06E2DAAA196004899A5 /* TokenManager.swift */,
+				558BF78A2BAC84FE00986B3B /* URL.swift */,
 				558BF7882BAC84CA00986B3B /* URLRequest.swift */,
 				558BF7842BAC830700986B3B /* URLSession.swift */,
 			);
@@ -397,7 +400,7 @@
 				559ED8F32B963031007581DF /* README.md in Resources */,
 				554A82342B962FDE009F3325 /* Preview Assets.xcassets in Resources */,
 				556FD19C2BB9E3A600F3CFA1 /* mangasPreview.json in Resources */,
-				5517408C2D291D63004648E0 /* Config.xcconfig in Resources */,
+				552AA0732DAADB78004899A5 /* Config.xcconfig in Resources */,
 				554A82312B962FDE009F3325 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +449,7 @@
 				55B6B09E2CD74C5100CE5E7B /* SearchBar.swift in Sources */,
 				558BF77F2BAC79BC00986B3B /* Theme.swift in Sources */,
 				551740862D290F15004648E0 /* Users.swift in Sources */,
+				552AA06F2DAAA196004899A5 /* TokenManager.swift in Sources */,
 				55BCF0D92BBA93A60035468F /* Constants.swift in Sources */,
 				55E096FA2CEF802D006C055D /* MangasCategoriesView.swift in Sources */,
 				55BCF0D22BBA7C050035468F /* MangaPlaceholderCoverView.swift in Sources */,
@@ -461,7 +465,7 @@
 /* Begin XCBuildConfiguration section */
 		554A82352B962FDE009F3325 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
+			baseConfigurationReference = 552AA0722DAADB78004899A5 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -525,7 +529,7 @@
 		};
 		554A82362B962FDE009F3325 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
+			baseConfigurationReference = 552AA0722DAADB78004899A5 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -582,7 +586,7 @@
 		};
 		554A82382B962FDE009F3325 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
+			baseConfigurationReference = 552AA0722DAADB78004899A5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -615,7 +619,7 @@
 		};
 		554A82392B962FDE009F3325 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5517408B2D291D63004648E0 /* Config.xcconfig */;
+			baseConfigurationReference = 552AA0722DAADB78004899A5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

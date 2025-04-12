@@ -6,6 +6,7 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showAlert = false
+    @State private var isLoading = false
     
     var body: some View {
         VStack {
@@ -22,19 +23,29 @@ struct LoginView: View {
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 50)
             Button {
-                if presenter.validateLogin(email: email, password: password) {
-                    appStateManager.state = .logged
-                } else {
-                    showAlert = true
+                Task {
+                    isLoading = true
+                    if await presenter.login(email: email, password: password) {
+                        appStateManager.state = .logged
+                    } else {
+                        showAlert = true
+                    }
+                    isLoading = false
                 }
             } label: {
-                Text("Login")
+                if isLoading {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Text("Login")
+                }
             }
             .buttonStyle(.borderedProminent)
+            .disabled(isLoading)
             .padding(.top, 50)
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"),
-                      message: Text("Invalid email or password"),
+                      message: Text("User or password incorrect"),
                       dismissButton: .default(Text("OK")) {
                     email = ""
                     password = ""
@@ -44,6 +55,7 @@ struct LoginView: View {
             Button("Not account yet? Sign up") {
                 appStateManager.state = .signup
             }
+            .disabled(isLoading)
         }
     }
 }
