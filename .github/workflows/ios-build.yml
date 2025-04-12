@@ -62,4 +62,9 @@ jobs:
           echo "Project structure before build:"
           ls -R
           
-          xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          xcodebuild build-for-testing \
+            -scheme "$scheme" \
+            -"$filetype_parameter" "$file_to_build" \
+            -destination "platform=$platform,name=$device" \
+            -xcconfig "./Config.xcconfig" \
+            CONFIGURATION_BUILD_DIR="build"
