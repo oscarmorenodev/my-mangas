@@ -29,7 +29,7 @@ jobs:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
         run: |
           cd /Volumes/workspace/repository
-          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > Config.xcconfig
+          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > MyMangas/Config.xcconfig
           
           # Verify file exists and has content
           if [ -f "Config.xcconfig" ]; then
