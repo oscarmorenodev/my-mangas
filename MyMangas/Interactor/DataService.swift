@@ -46,7 +46,7 @@ struct DataService: DataInteractor {
             throw NetworkError.status(response.statusCode)
         }
         
-        if let token = String(data: data, encoding: .utf8) {
+        if let token = String(data: data, encoding: .utf8), !token.isEmpty {
             return token as! U
         }
         
