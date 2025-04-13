@@ -4,7 +4,6 @@ struct SplashView: View {
     @Environment(MangasListViewModel.self) var mangasListViewModel
     @Environment(AppStateManager.self) var appStateManager
     @State var loading = false
-    @State var logged = false
     
     var body: some View {
         ZStack {
@@ -13,9 +12,12 @@ struct SplashView: View {
         .ignoresSafeArea()
         .task {
             loading = true
+            
             await mangasListViewModel.fetchData()
+            
+            await appStateManager.checkTokenStatus()
+            
             loading = false
-            appStateManager.state = logged ? .logged : .nonLogged
         }
     }
 }
