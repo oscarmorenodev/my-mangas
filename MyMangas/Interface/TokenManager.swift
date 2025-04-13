@@ -1,5 +1,4 @@
 import Foundation
-import Security
 
 class TokenManager {
     private static let service = "com.mymanga.auth"
