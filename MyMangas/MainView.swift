@@ -22,6 +22,11 @@ struct MainView: View {
                     Label("My Library",
                           systemImage: "books.vertical")
                 }
+            UserView()
+                .tabItem {
+                    Label("User",
+                          systemImage: "person.fill")
+                }
         }
         .onAppear {
             Task {
