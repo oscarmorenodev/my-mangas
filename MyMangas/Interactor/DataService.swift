@@ -12,6 +12,7 @@ protocol DataInteractor {
     func getThemes() async throws -> [String]
     func createUser(user: Users) async throws -> Users
     func login(email: String, password: String) async throws -> String
+    func renewToken() async throws -> String
 }
 
 // MARK: Generic methods
@@ -115,5 +116,22 @@ extension DataService {
         let loginResponse = try await postData(request: request, payload: "", responseType: String.self)
         try TokenManager.saveToken(loginResponse)
         return loginResponse
+    }
+    
+    func renewToken() async throws -> String {
+        guard let currentToken = try TokenManager.getToken() else {
+            throw TokenError.tokenNotFound
+        }
+        
+        var request = URLRequest.post(url: .renewToken())
+        request.setValue("Bearer \(currentToken)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let newToken = try await postData(request: request, payload: "", responseType: String.self)
+            try TokenManager.saveToken(newToken)
+            return newToken
+        } catch {
+            throw TokenError.renewalFailed
+        }
     }
 }

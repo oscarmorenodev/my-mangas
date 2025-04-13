@@ -9,4 +9,5 @@ enum Endpoint: String {
     case listMangas = "/list/mangas"
     case users = "/users"
     case login = "/users/login"
+    case renewToken = "/users/renew"
 }

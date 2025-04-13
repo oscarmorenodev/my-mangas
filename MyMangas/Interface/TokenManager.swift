@@ -1,5 +1,4 @@
 import Foundation
-import Security
 
 class TokenManager {
     private static let service = "com.mymanga.auth"
@@ -58,10 +57,4 @@ class TokenManager {
             throw TokenError.deletionFailed
         }
     }
-}
-
-enum TokenError: Error {
-    case saveFailed
-    case retrievalFailed
-    case deletionFailed
 } 

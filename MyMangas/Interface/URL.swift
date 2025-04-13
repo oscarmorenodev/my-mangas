@@ -61,6 +61,10 @@ extension URL {
     static func login() -> URL {
         api.appending(path: Endpoint.login.rawValue)
     }
+    
+    static func renewToken() -> URL {
+        api.appending(path: Endpoint.renewToken.rawValue)
+    }
 }
 
 

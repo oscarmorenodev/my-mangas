@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @Environment(MangasListViewModel.self) var vm
+    @Environment(AppStateManager.self) var appStateManager
     @State var searchVM = MangasSearchViewModel()
     
     var body: some View {
@@ -21,6 +22,11 @@ struct MainView: View {
                     Label("My Library",
                           systemImage: "books.vertical")
                 }
+        }
+        .onAppear {
+            Task {
+                await appStateManager.checkTokenStatus()
+            }
         }
     }
 }
