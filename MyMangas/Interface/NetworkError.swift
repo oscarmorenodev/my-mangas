@@ -20,3 +20,32 @@ enum NetworkError: Error, CustomStringConvertible {
         }
     }
 }
+
+enum TokenError: Error, CustomStringConvertible {
+    case tokenNotFound
+    case tokenExpired
+    case renewalFailed
+    case invalidToken
+    case saveFailed
+    case retrievalFailed
+    case deletionFailed
+    
+    public var description: String {
+        switch self {
+        case .tokenNotFound:
+            "ERROR: Token not found in keychain"
+        case .tokenExpired:
+            "ERROR: Token has expired"
+        case .renewalFailed:
+            "ERROR: Failed to renew token"
+        case .invalidToken:
+            "ERROR: Invalid token format"
+        case .saveFailed:
+            "ERROR: Failed to save token in keychain"
+        case .retrievalFailed:
+            "ERROR: Failed to retrieve token from keychain"
+        case .deletionFailed:
+            "ERROR: Failed to delete token from keychain"
+        }
+    }
+}

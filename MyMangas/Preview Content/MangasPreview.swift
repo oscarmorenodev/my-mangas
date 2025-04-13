@@ -53,6 +53,10 @@ struct PreviewData: DataInteractor {
     func login(email: String, password: String) async throws -> String {
         "FQ8tHe+2mZ7tZ/ZFs5LgJ58X5M15Vjav"
     }
+    
+    func renewToken() async throws -> String {
+        "4Z+UtklF34pzrK9bdq5LOKRS1pcBhXwv"
+    }
 }
 
 extension MangaItemViewModel {
