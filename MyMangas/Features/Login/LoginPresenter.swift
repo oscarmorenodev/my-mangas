@@ -32,10 +32,3 @@ final class LoginPresenter {
         NotificationCenter.default.post(name: .userLoggedOut, object: nil)
     }
 }
-
-// MARK: - Preview
-extension LoginPresenter {
-    static var preview: LoginPresenter {
-        LoginPresenter()
-    }
-}

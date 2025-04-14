@@ -62,4 +62,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environment(AppStateManager.preview)
+        .environment(LoginPresenter.preview)
 }
