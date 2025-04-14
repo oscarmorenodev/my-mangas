@@ -75,4 +75,6 @@ enum ActiveAlert {
 
 #Preview {
     SignupView()
+        .environment(AppStateManager.preview)
+        .environment(SignupPresenter.preview)
 }

@@ -139,3 +139,15 @@ extension MangasSearchView {
 extension MangasSearchViewModel {
     static let filterValuesPreview = ["Filter value 1", "Filter value 2", "Filter value 3"]
 }
+
+extension AppStateManager {
+    static let preview = AppStateManager()
+}
+
+extension LoginPresenter {
+    static var preview = LoginPresenter()
+}
+
+extension SignupPresenter {
+    static var preview = SignupPresenter()
+}

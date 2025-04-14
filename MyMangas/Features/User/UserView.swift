@@ -17,4 +17,5 @@ struct UserView: View {
 
 #Preview {
     UserView()
+        .environment(AppStateManager.preview)
 }

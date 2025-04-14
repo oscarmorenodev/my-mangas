@@ -21,4 +21,8 @@ struct AppStateView: View {
 
 #Preview {
     AppStateView()
+        .environment(AppStateManager.preview)
+        .environment(MangasListViewModel.preview)
+        .environment(LoginPresenter.preview)
+        .environment(SignupPresenter.preview)
 }
