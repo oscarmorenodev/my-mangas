@@ -35,6 +35,14 @@ extension URL {
     static func getThemesUrl() -> URL {
         getCategoryUrl(endpoint: .themes)
     }
+
+    static func mangaCollectionUrl() -> URL {
+        getMangaCollectionUrl(endpoint: .mangaCollection)
+    }
+    
+    static func mangaCollectionByIdUrl(mangaId: Int) -> URL {
+        getMangaCollectionUrl(endpoint: .mangaCollection, id: mangaId)
+    }
     
     static func searchMangasUrl(_ query: String, page: Int) -> URL {
         let endpoint = "/search/mangasContains/\(query)"
@@ -86,5 +94,13 @@ private extension URL {
     
     static func getCategoryUrl(endpoint: Endpoint) -> URL {
         api.appending(path: endpoint.rawValue)
+    }
+    
+    static func getMangaCollectionUrl(endpoint: Endpoint, id: Int? = nil) -> URL {
+        if let id {
+            return api.appending(path: endpoint.rawValue + String(id))
+        } else {
+            return api.appending(path: endpoint.rawValue)
+        }
     }
 }

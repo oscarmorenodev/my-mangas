@@ -5,9 +5,10 @@ enum Endpoint: String {
     case listByDemographic = "/list/mangaByDemographic"
     case listByGenre = "/list/mangaByGenre"
     case listByTheme = "/list/mangaByTheme"
-    case themes = "/list/themes"
     case listMangas = "/list/mangas"
-    case users = "/users"
     case login = "/users/login"
+    case mangaCollection = "/collection/manga"
     case renewToken = "/users/renew"
+    case themes = "/list/themes"
+    case users = "/users"
 }
