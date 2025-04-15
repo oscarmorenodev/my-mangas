@@ -57,6 +57,25 @@ struct PreviewData: DataInteractor {
     func renewToken() async throws -> String {
         "4Z+UtklF34pzrK9bdq5LOKRS1pcBhXwv"
     }
+    
+    func addOrUpdateMangaCollection(_ manga: UserMangaCollectionRequest) async throws {
+      // No preview, only for testing
+    }
+    
+    func getCollection() async throws -> [UserMangaCollectionRequest] {
+        [UserMangaCollectionRequest.preview]
+    }
+    
+    func getMangaFromCollection(id: Int) async throws -> UserMangaCollectionRequest {
+        guard id == UserMangaCollectionRequest.preview.manga else {
+            throw CollectionError.mangaNotFound
+        }
+        return UserMangaCollectionRequest.preview
+    }
+    
+    func deleteMangaFromCollection(id: Int) async throws {
+        // No preview, only for testing
+    }
 }
 
 extension MangaItemViewModel {
@@ -150,4 +169,13 @@ extension LoginPresenter {
 
 extension SignupPresenter {
     static var preview = SignupPresenter()
+}
+
+extension UserMangaCollectionRequest {
+    static let preview: UserMangaCollectionRequest = .init(
+        manga: MangaItemViewModel.preview.id,
+        completeCollection: true,
+        volumesOwned: [40, 41, 42],
+        readingVolume: 42
+    )
 }

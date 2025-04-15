@@ -49,3 +49,11 @@ enum TokenError: Error, CustomStringConvertible {
         }
     }
 }
+
+enum CollectionError: Error, CustomStringConvertible {
+    case mangaNotFound
+    
+    public var description: String {
+        "ERROR: Manga not found"
+    }
+}
