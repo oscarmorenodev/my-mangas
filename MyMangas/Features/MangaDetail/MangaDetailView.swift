@@ -24,7 +24,7 @@ struct MangaDetailView: View {
                             .frame(width: 250, height: 420)                .clipShape(RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                             .frame(height: 420)
-                            .addFavoriteButton(manga: manga,
+                            .addToCollectionButton(manga: manga,
                                                size: CGSize(width: 70, height: 70),
                                                offset: (x: 120, y: 190))
                     } placeholder: {

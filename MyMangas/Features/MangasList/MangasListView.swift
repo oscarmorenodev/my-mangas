@@ -33,10 +33,10 @@ struct MangasListView: View {
                                 }
                                 .contextMenu {
                                     Button {
-                                        vm.toogleFavorite(manga)
+                                        vm.toggleAddedToCollection(manga)
                                     } label: {
-                                        Label(manga.isFavorite ? "Remove favorite" : "Add favorite",
-                                              systemImage: manga.isFavorite ? "heart.slash": "heart")
+                                        Label(manga.inCollection ? "Remove from collection" : "Add to collection",
+                                              systemImage: manga.inCollection ? "heart.slash": "heart")
                                     }
                                 }
                                 .task {

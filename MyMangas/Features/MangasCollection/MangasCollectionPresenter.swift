@@ -1,7 +1,7 @@
 import Foundation
 
 @Observable
-final class MangaCollectionPresenter {
+final class MangasCollectionPresenter {
     var mangas = [UserMangaCollectionRequest]()
     var displayError = false
     var errorMessage = ""

@@ -19,7 +19,7 @@ fileprivate struct FavoriteButton: ViewModifier {
                                    height: size.height)
                             .tint(.white)
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                        Image(systemName: manga.isFavorite ? "heart.fill" : "heart")
+                        Image(systemName: manga.inCollection ? "heart.fill" : "heart")
                             .resizable()
                             .frame(width: size.width/2,
                                    height: size.height/2)
@@ -35,7 +35,7 @@ fileprivate struct FavoriteButton: ViewModifier {
 }
 
 extension View {
-    func addFavoriteButton(manga: MangaItemViewModel,
+    func addToCollectionButton(manga: MangaItemViewModel,
                            size: CGSize,
                            offset: (x: CGFloat, y: CGFloat)) -> some View {
         modifier(FavoriteButton(manga: manga,
