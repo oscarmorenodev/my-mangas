@@ -1,6 +1,6 @@
 import SwiftUI
 
-fileprivate struct FavoriteButton: ViewModifier {
+fileprivate struct AddToCollectionButton: ViewModifier {
     @Environment(MangasListViewModel.self) private var vm
     let manga: MangaItemViewModel
     @State private var showCollectionForm = false
@@ -19,11 +19,11 @@ fileprivate struct FavoriteButton: ViewModifier {
                                    height: size.height)
                             .tint(.white)
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                        Image(systemName: manga.inCollection ? "heart.fill" : "heart")
+                        Image(systemName: manga.inCollection ? "minus.circle.fill" : "plus.circle.fill")
                             .resizable()
-                            .frame(width: size.width/2,
-                                   height: size.height/2)
-                            .tint(.red)
+                            .frame(width: size.width,
+                                   height: size.height)
+                            .tint(.blue)
                     }
                 }
                 .offset(x: offset.x, y: offset.y)
@@ -38,7 +38,7 @@ extension View {
     func addToCollectionButton(manga: MangaItemViewModel,
                            size: CGSize,
                            offset: (x: CGFloat, y: CGFloat)) -> some View {
-        modifier(FavoriteButton(manga: manga,
+        modifier(AddToCollectionButton(manga: manga,
                                 size: size,
                                 offset: (x: offset.x, y: offset.y)))
     }
