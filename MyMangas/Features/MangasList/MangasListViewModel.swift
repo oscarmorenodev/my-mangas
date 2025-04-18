@@ -16,7 +16,7 @@ final class MangasListViewModel {
     
     @ObservationIgnored var page: Int = 0
     
-    init(interactor: DataInteractor = DataService()) {
+    init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
     }
     

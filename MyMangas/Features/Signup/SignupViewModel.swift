@@ -6,7 +6,7 @@ final class SignupViewModel {
     var displayError = false
     var errorMessage = ""
     
-    init(interactor: DataInteractor = DataService()) {
+    init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
     }
     

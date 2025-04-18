@@ -17,7 +17,7 @@ final class MangaAddToCollectionFormViewModel: ObservableObject {
     let numberOfVolumes: Int
     let interactor: DataInteractor
     
-    init(mangaId: Int, numberOfVolumes: Int, interactor: DataInteractor = DataService()) {
+    init(mangaId: Int, numberOfVolumes: Int, interactor: DataInteractor = DataService.shared) {
         self.mangaId = mangaId
         self.numberOfVolumes = numberOfVolumes
         self.interactor = interactor
