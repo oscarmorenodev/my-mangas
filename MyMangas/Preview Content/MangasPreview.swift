@@ -163,12 +163,12 @@ extension AppStateManager {
     static let preview = AppStateManager()
 }
 
-extension LoginPresenter {
-    static var preview = LoginPresenter()
+extension LoginViewModel {
+    static var preview = LoginViewModel()
 }
 
-extension SignupPresenter {
-    static var preview = SignupPresenter()
+extension SignupViewModel {
+    static var preview = SignupViewModel()
 }
 
 extension UserMangaCollectionRequest {

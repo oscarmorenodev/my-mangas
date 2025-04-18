@@ -4,8 +4,8 @@ import SwiftUI
 struct MyMangasApp: App {
     @State var mangasListViewModel = MangasListViewModel()
     @State var appStateManager = AppStateManager()
-    @State var loginPresenter = LoginPresenter()
-    @State var signupPresenter = SignupPresenter()
+    @State var loginPresenter = LoginViewModel()
+    @State var signupPresenter = SignupViewModel()
     
     var body: some Scene {
         WindowGroup {
