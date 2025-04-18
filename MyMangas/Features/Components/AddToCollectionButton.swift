@@ -19,7 +19,7 @@ fileprivate struct AddToCollectionButton: ViewModifier {
                                    height: size.height)
                             .tint(.white)
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                        Image(systemName: manga.inCollection ? "minus.circle.fill" : "plus.circle.fill")
+                        Image(systemName: "books.vertical.circle.fill")
                             .resizable()
                             .frame(width: size.width,
                                    height: size.height)
