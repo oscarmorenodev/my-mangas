@@ -31,14 +31,6 @@ struct MangasListView: View {
                                 .onTapGesture {
                                     selected = manga
                                 }
-                                .contextMenu {
-                                    Button {
-                                        vm.toggleAddedToCollection(manga)
-                                    } label: {
-                                        Label(manga.inCollection ? "Remove from collection" : "Add to collection",
-                                              systemImage: manga.inCollection ? "heart.slash": "heart")
-                                    }
-                                }
                                 .task {
                                     if vm.shouldLoadMore(manga: manga) {
                                         await vm.getMangas()

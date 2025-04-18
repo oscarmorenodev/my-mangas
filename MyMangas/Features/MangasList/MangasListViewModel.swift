@@ -91,12 +91,6 @@ final class MangasListViewModel {
         onlyInCollection ? mangas.filter {$0.inCollection} : mangas
     }
     
-    func toggleAddedToCollection(_ manga: MangaItemViewModel) {
-        if let index = mangas.firstIndex(where: { $0.title == manga.title}) {
-            mangas[index].inCollection.toggle()
-        }
-    }
-    
     func shouldLoadMore(manga: MangaItemViewModel) -> Bool {
         guard let index = mangas.firstIndex(where: { $0.id == manga.id }) else {
             return false
