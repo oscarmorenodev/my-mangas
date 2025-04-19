@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MangaItemView: View {
-    var manga: MangaItemViewModel
+    var manga: MangaItem
     
     var body: some View {
         VStack {
@@ -36,5 +36,5 @@ struct MangaItemView: View {
 }
 
 #Preview {
-    MangaItemView(manga: .preview)
+    MangaItemView.preview
 }

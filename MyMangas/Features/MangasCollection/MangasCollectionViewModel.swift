@@ -2,7 +2,7 @@ import Foundation
 
 @Observable
 final class MangasCollectionViewModel {
-    var mangas = [UserMangaCollectionRequest]()
+    var mangas = [MangaCollectionItemViewModel]()
     var displayError = false
     var errorMessage = ""
     
@@ -16,7 +16,7 @@ final class MangasCollectionViewModel {
         do {
             let collection = try await interactor.getCollection()
             await MainActor.run {
-                self.mangas = collection
+                self.mangas = collection.map{ MangaCollectionItemViewModel(manga: $0.manga, completeCollection: $0.completeCollection, volumesOwned: $0.volumesOwned, readingVolume: $0.readingVolume)}
             }
         } catch {
             await handleError(error)

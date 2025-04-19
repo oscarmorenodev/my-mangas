@@ -2,11 +2,11 @@ import SwiftUI
 
 struct MangaDetailView: View {
     @Environment(MangasListViewModel.self) private var vm
-    @Binding var selected: MangaItemViewModel?
+    @Binding var selected: MangaItem?
     @State private var loaded = false
-    private var manga: MangaItemViewModel!
+    private var manga: MangaItem!
     
-    init(selected: Binding<MangaItemViewModel?>) {
+    init(selected: Binding<MangaItem?>) {
         _selected = selected
         if let manga = selected.wrappedValue {
             self.manga = manga
@@ -77,6 +77,5 @@ struct MangaDetailView: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(.preview))
-    .environment(MangasListViewModel.preview)
+    MangaDetailView.preview
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 fileprivate struct AddToCollectionButton: ViewModifier {
     @Environment(MangasListViewModel.self) private var vm
-    let manga: MangaItemViewModel
+    let manga: MangaItem
     @State private var showCollectionForm = false
     let size: CGSize
     let offset: (x: CGFloat, y: CGFloat)
@@ -35,7 +35,7 @@ fileprivate struct AddToCollectionButton: ViewModifier {
 }
 
 extension View {
-    func addToCollectionButton(manga: MangaItemViewModel,
+    func addToCollectionButton(manga: MangaItem,
                            size: CGSize,
                            offset: (x: CGFloat, y: CGFloat)) -> some View {
         modifier(AddToCollectionButton(manga: manga,

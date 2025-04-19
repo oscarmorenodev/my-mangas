@@ -30,7 +30,7 @@ struct MangasSearchView: View {
                 .overlay(
                     Group {
                         if selected != nil {
-                            MangaDetailView(selected: $selected)
+                            MangaDetailView(selected: .constant(selected))
                         }
                     }
                 )

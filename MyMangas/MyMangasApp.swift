@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct MyMangasApp: App {
     @State var mangasListViewModel = MangasListViewModel()
+    @State var mangasCollectionViewModel = MangasCollectionViewModel()
     @State var appStateManager = AppStateManager()
     @State var loginPresenter = LoginViewModel()
     @State var signupPresenter = SignupViewModel()
@@ -11,6 +12,7 @@ struct MyMangasApp: App {
         WindowGroup {
             AppStateView()
                 .environment(mangasListViewModel)
+                .environment(mangasCollectionViewModel)
                 .environment(appStateManager)
                 .environment(loginPresenter)
                 .environment(signupPresenter)

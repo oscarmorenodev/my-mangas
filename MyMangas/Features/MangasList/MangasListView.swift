@@ -2,10 +2,10 @@ import SwiftUI
 
 struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
-    @State var selected: MangaItemViewModel?
+    @State private var selected: MangaItemViewModel?
+    @State private var loading = false
     @State var showFilters = false
     @State var selectedCategory = ""
-    @State var loading = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     
@@ -48,8 +48,8 @@ struct MangasListView: View {
             .opacity(selected == nil ? 1.0 : 0.0)
             .overlay(
                 Group {
-                    if selected != nil {
-                        MangaDetailView(selected: $selected)
+                    if let selected {
+                        MangaDetailView(selected: .constant(selected))
                     }
                 }
             )

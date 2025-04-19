@@ -14,8 +14,8 @@ protocol DataInteractor {
     func login(email: String, password: String) async throws -> String
     func renewToken() async throws -> String
     func addOrUpdateMangaCollection(_ manga: UserMangaCollectionRequest) async throws
-    func getCollection() async throws -> [UserMangaCollectionRequest]
-    func getMangaFromCollection(id: Int) async throws -> UserMangaCollectionRequest
+    func getCollection() async throws -> [UserMangaCollectionResponse]
+    func getMangaFromCollection(id: Int) async throws -> Manga
     func deleteMangaFromCollection(id: Int) async throws
 }
 
@@ -111,14 +111,14 @@ extension DataService {
         try await getData(request: .get(url: .getThemesUrl()), type: [String].self)
     }
     
-    func getCollection() async throws -> [UserMangaCollectionRequest] {
+    func getCollection() async throws -> [UserMangaCollectionResponse] {
         let request = try getAuthenticatedRequest(request: .get(url: .mangaCollectionUrl()))
-        return try await getData(request: request, type: [UserMangaCollectionRequest].self)
+        return try await getData(request: request, type: [UserMangaCollectionResponse].self)
     }
     
-    func getMangaFromCollection(id: Int) async throws -> UserMangaCollectionRequest {
+    func getMangaFromCollection(id: Int) async throws -> Manga {
         let request = try getAuthenticatedRequest(request: .get(url: .mangaCollectionByIdUrl(mangaId: id)))
-        return try await getData(request: request, type: UserMangaCollectionRequest.self)
+        return try await getData(request: request, type: Manga.self)
     }
 }
 

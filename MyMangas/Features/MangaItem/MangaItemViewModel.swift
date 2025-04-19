@@ -1,4 +1,13 @@
-struct MangaItemViewModel: Identifiable, Hashable {
+protocol MangaItem {
+    var id: Int { get }
+    var title: String { get }
+    var authors: [String] { get }
+    var synopsis: String { get }
+    var mainPicture: String { get }
+    var volumes: Int { get }
+}
+
+struct MangaItemViewModel: Identifiable, Hashable, MangaItem {
     let id: Int
     let title: String
     let authors: [String]
@@ -15,5 +24,9 @@ struct MangaItemViewModel: Identifiable, Hashable {
         mainPicture = manga.mainPicture ?? ""
         volumes = manga.volumes ?? 1
         self.inCollection = inCollection
+    }
+    
+    static func == (lhs: MangaItemViewModel, rhs: MangaItemViewModel) -> Bool {
+        lhs.id == rhs.id
     }
 }
