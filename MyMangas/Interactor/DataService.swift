@@ -13,6 +13,10 @@ protocol DataInteractor {
     func createUser(user: Users) async throws -> Users
     func login(email: String, password: String) async throws -> String
     func renewToken() async throws -> String
+    func addOrUpdateMangaCollection(_ manga: UserMangaCollectionRequest) async throws
+    func getCollection() async throws -> [UserMangaCollectionResponse]
+    func getMangaFromCollection(id: Int) async throws -> Manga
+    func deleteMangaFromCollection(id: Int) async throws
 }
 
 // MARK: Generic methods
@@ -57,6 +61,16 @@ struct DataService: DataInteractor {
             throw NetworkError.decode(error)
         }
     }
+    
+    private func getAuthenticatedRequest(request: URLRequest) throws -> URLRequest {
+        guard let token = try TokenManager.getToken() else {
+            throw TokenError.tokenNotFound
+        }
+        
+        var authenticatedRequest = request
+        authenticatedRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return authenticatedRequest
+    }
 }
 
 // MARK: GET Methods
@@ -96,6 +110,16 @@ extension DataService {
     func getThemes() async throws -> [String] {
         try await getData(request: .get(url: .getThemesUrl()), type: [String].self)
     }
+    
+    func getCollection() async throws -> [UserMangaCollectionResponse] {
+        let request = try getAuthenticatedRequest(request: .get(url: .mangaCollectionUrl()))
+        return try await getData(request: request, type: [UserMangaCollectionResponse].self)
+    }
+    
+    func getMangaFromCollection(id: Int) async throws -> Manga {
+        let request = try getAuthenticatedRequest(request: .get(url: .mangaCollectionByIdUrl(mangaId: id)))
+        return try await getData(request: request, type: Manga.self)
+    }
 }
 
 // MARK: POST Methods
@@ -119,19 +143,22 @@ extension DataService {
     }
     
     func renewToken() async throws -> String {
-        guard let currentToken = try TokenManager.getToken() else {
-            throw TokenError.tokenNotFound
-        }
-        
-        var request = URLRequest.post(url: .renewToken())
-        request.setValue("Bearer \(currentToken)", forHTTPHeaderField: "Authorization")
-        
-        do {
-            let newToken = try await postData(request: request, payload: "", responseType: String.self)
-            try TokenManager.saveToken(newToken)
-            return newToken
-        } catch {
-            throw TokenError.renewalFailed
-        }
+        let request = try getAuthenticatedRequest(request: .post(url: .renewToken()))
+        let newToken = try await postData(request: request, payload: "", responseType: String.self)
+        try TokenManager.saveToken(newToken)
+        return newToken
+    }
+    
+    func addOrUpdateMangaCollection(_ manga: UserMangaCollectionRequest) async throws {
+        let request = try getAuthenticatedRequest(request: .post(url: .mangaCollectionUrl()))
+        _ = try await postData(request: request, payload: manga, responseType: UserMangaCollectionRequest.self)
+    }
+}
+
+// MARK: Collection DELETE Methods
+extension DataService {
+    func deleteMangaFromCollection(id: Int) async throws {
+        let request = try getAuthenticatedRequest(request: .delete(url: .mangaCollectionByIdUrl(mangaId: id)))
+        let (_, _) = try await URLSession.shared.getData(for: request)
     }
 }

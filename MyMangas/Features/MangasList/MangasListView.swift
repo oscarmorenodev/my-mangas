@@ -2,14 +2,11 @@ import SwiftUI
 
 struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
-    @State var selected: MangaItemViewModel?
-    @State var searchText = ""
+    @State private var selected: MangaItemViewModel?
+    @State private var loading = false
     @State var showFilters = false
-    @State var showSheet: Bool = false
     @State var selectedCategory = ""
-    @State var loading = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
-    
     
     var body: some View {
         ZStack {
@@ -31,14 +28,6 @@ struct MangasListView: View {
                                 .onTapGesture {
                                     selected = manga
                                 }
-                                .contextMenu {
-                                    Button {
-                                        vm.toogleFavorite(manga)
-                                    } label: {
-                                        Label(manga.isFavorite ? "Remove favorite" : "Add favorite",
-                                              systemImage: manga.isFavorite ? "heart.slash": "heart")
-                                    }
-                                }
                                 .task {
                                     if vm.shouldLoadMore(manga: manga) {
                                         await vm.getMangas()
@@ -56,18 +45,17 @@ struct MangasListView: View {
                 }
             }
             .opacity(selected == nil ? 1.0 : 0.0)
-            .overlay(
-                Group {
-                    if selected != nil {
-                        MangaDetailView(selected: $selected)
-                    }
-                }
-            )
+            
+            if selected != nil {
+                MangaDetailView(selected: $selected)
+                    .transition(.opacity)
+            }
         }
         .animation(.smooth(duration: 0.15), value: selected)
     }
 }
 
 #Preview {
-    MangasListView.preview
+    MangasListView()
+        .environment(MangasListViewModel())
 }

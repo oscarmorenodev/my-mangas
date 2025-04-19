@@ -16,7 +16,7 @@ final class MangasListViewModel {
     
     @ObservationIgnored var page: Int = 0
     
-    init(interactor: DataInteractor = DataService()) {
+    init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
     }
     
@@ -31,7 +31,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getListMangas(page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
                 page += 1
             }
         } catch {
@@ -43,7 +43,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getBestMangas(page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
                 page += 1
             }
         } catch {
@@ -55,7 +55,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getListMangasByDemographic(demographic: demographic, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
                 page += 1
             }
         } catch {
@@ -67,7 +67,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getListMangasByGenre(genre: genre, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
                 page += 1
             }
         } catch {
@@ -79,7 +79,7 @@ final class MangasListViewModel {
         do {
             let mangas = try await interactor.getListMangasByTheme(theme: theme, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, isFavorite: false)}
+                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
                 page += 1
             }
         } catch {
@@ -87,14 +87,8 @@ final class MangasListViewModel {
         }
     }
     
-    func returnMangas(_ onlyFavorites: Bool = false) -> [MangaItemViewModel] {
-        onlyFavorites ? mangas.filter {$0.isFavorite} : mangas
-    }
-    
-    func toogleFavorite(_ manga: MangaItemViewModel) {
-        if let index = mangas.firstIndex(where: { $0.title == manga.title}) {
-            mangas[index].isFavorite.toggle()
-        }
+    func returnMangas(_ onlyInCollection: Bool = false) -> [MangaItemViewModel] {
+        onlyInCollection ? mangas.filter {$0.inCollection} : mangas
     }
     
     func shouldLoadMore(manga: MangaItemViewModel) -> Bool {

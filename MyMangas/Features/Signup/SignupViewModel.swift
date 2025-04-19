@@ -1,12 +1,12 @@
 import Foundation
 
 @Observable
-class SignupPresenter {
+final class SignupViewModel {
     let interactor: DataInteractor
     var displayError = false
     var errorMessage = ""
     
-    init(interactor: DataInteractor = DataService()) {
+    init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
     }
     

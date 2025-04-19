@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct MainView: View {
-    @Environment(MangasListViewModel.self) var vm
     @Environment(AppStateManager.self) var appStateManager
     @State var searchVM = MangasSearchViewModel()
     
@@ -17,7 +16,7 @@ struct MainView: View {
                     Label("Search",
                             systemImage: "magnifyingglass")
                 }
-            MangasFavoritesView()
+            MangasCollectionView()
                 .tabItem {
                     Label("My Library",
                           systemImage: "books.vertical")

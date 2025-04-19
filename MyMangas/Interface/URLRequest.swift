@@ -17,4 +17,12 @@ extension URLRequest {
         request.setValue(ApiKey.getCreateUserKey(), forHTTPHeaderField: "App-Token")
         return request
     }
+    
+    static func delete(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 60
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        return request
+    }
 }

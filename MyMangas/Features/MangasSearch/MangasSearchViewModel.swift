@@ -10,7 +10,7 @@ final class MangasSearchViewModel {
     @ObservationIgnored var page = 1
     @ObservationIgnored var isLoadingMore = false
     
-    init(interactor: DataInteractor = DataService()) {
+    init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
     }
     

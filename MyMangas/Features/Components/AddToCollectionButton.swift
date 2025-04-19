@@ -1,8 +1,9 @@
 import SwiftUI
 
-fileprivate struct FavoriteButton: ViewModifier {
+fileprivate struct AddToCollectionButton: ViewModifier {
     @Environment(MangasListViewModel.self) private var vm
-    @State var manga: MangaItemViewModel
+    let manga: MangaItem
+    @State private var showCollectionForm = false
     let size: CGSize
     let offset: (x: CGFloat, y: CGFloat)
     
@@ -10,8 +11,7 @@ fileprivate struct FavoriteButton: ViewModifier {
         content
             .overlay {
                 Button {
-                    vm.toogleFavorite(manga)
-                    manga.isFavorite.toggle()
+                    showCollectionForm = true
                 } label: {
                     ZStack {
                         Circle()
@@ -19,23 +19,26 @@ fileprivate struct FavoriteButton: ViewModifier {
                                    height: size.height)
                             .tint(.white)
                             .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                        Image(systemName: manga.isFavorite ? "heart.fill" : "heart")
+                        Image(systemName: "books.vertical.circle.fill")
                             .resizable()
-                            .frame(width: size.width/2,
-                                   height: size.height/2)
-                            .tint(.red)
+                            .frame(width: size.width,
+                                   height: size.height)
+                            .tint(.blue)
                     }
                 }
                 .offset(x: offset.x, y: offset.y)
+            }
+            .sheet(isPresented: $showCollectionForm) {
+                MangaAddToCollectionFormView(mangaId: manga.id, numberOfVolumes: manga.volumes)
             }
     }
 }
 
 extension View {
-    func addFavoriteButton(manga: MangaItemViewModel,
+    func addToCollectionButton(manga: MangaItem,
                            size: CGSize,
                            offset: (x: CGFloat, y: CGFloat)) -> some View {
-        modifier(FavoriteButton(manga: manga,
+        modifier(AddToCollectionButton(manga: manga,
                                 size: size,
                                 offset: (x: offset.x, y: offset.y)))
     }
