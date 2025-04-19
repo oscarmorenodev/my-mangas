@@ -44,6 +44,15 @@ struct MangaAddToCollectionFormView: View {
                     }
                 }
                 
+                Section("Remove of collection") {
+                    Button("Remove of collection", role: .destructive) {
+                        Task {
+                            await vm.removeOfCollection(id: vm.mangaId)
+                            dismiss()
+                        }
+                    }
+                }
+                
                 if let error = vm.error {
                     Section {
                         Text(error)

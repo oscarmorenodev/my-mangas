@@ -98,7 +98,7 @@ private extension URL {
     
     static func getMangaCollectionUrl(endpoint: Endpoint, id: Int? = nil) -> URL {
         if let id {
-            return api.appending(path: endpoint.rawValue + String(id))
+            return api.appending(path: endpoint.rawValue + "/" + String(id))
         } else {
             return api.appending(path: endpoint.rawValue)
         }

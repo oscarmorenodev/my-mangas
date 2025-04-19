@@ -37,4 +37,12 @@ final class MangaAddToCollectionFormViewModel: ObservableObject {
             self.error = error.localizedDescription
         }
     }
-} 
+    
+    func removeOfCollection(id: Int) async {
+        do {
+            try await interactor.deleteMangaFromCollection(id: id)
+        } catch {
+            self.error = error.localizedDescription
+        }
+    }
+}
