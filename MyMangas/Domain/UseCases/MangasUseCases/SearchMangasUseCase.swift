@@ -1,6 +1,6 @@
 import Foundation
 
-struct SearchMangaUseCase {
+struct SearchMangasUseCase {
     private let repository: MangaRepositoryProtocol
     
     init(repository: MangaRepositoryProtocol = MangaRepository()) {

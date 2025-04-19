@@ -2,23 +2,27 @@ import Foundation
 
 @Observable
 final class MangasSearchViewModel {
-    let interactor: DataInteractor
+    private let searchMangasUseCase: SearchMangasUseCase
     var searchText = ""
     var searchResults = [MangaItemViewModel]()
     var displayError = false
     var errorMessage = ""
     @ObservationIgnored var page = 1
     @ObservationIgnored var isLoadingMore = false
+    @ObservationIgnored private var loadedIds = Set<String>()
     
-    init(interactor: DataInteractor = DataService.shared) {
-        self.interactor = interactor
+    init(searchMangaUseCase: SearchMangasUseCase = SearchMangasUseCase()) {
+        self.searchMangasUseCase = searchMangaUseCase
     }
     
     func searchMangas() async {
         do {
-            let mangas = try await interactor.searchMangas(searchText, page: 1).items
+            let mangas = try await searchMangasUseCase.execute(query: searchText, page: 1).items
             await MainActor.run {
-                self.searchResults = mangas.map { MangaItemViewModel(manga: $0) }
+                self.loadedIds.removeAll()
+                self.searchResults.removeAll()
+                self.page = 1
+                appendUniqueMangas(mangas)
             }
         } catch {
             await handleError(error)
@@ -31,16 +35,24 @@ final class MangasSearchViewModel {
         defer { isLoadingMore = false }
         
         do {
-            let mangas = try await interactor.searchMangas(searchText, page: page + 1).items
+            let mangas = try await searchMangasUseCase.execute(query: searchText, page: page + 1).items
             await MainActor.run {
-                self.searchResults.append(contentsOf: mangas.map { MangaItemViewModel(manga: $0) })
+                appendUniqueMangas(mangas)
                 self.page += 1
             }
         } catch {
-            await MainActor.run {
-                self.errorMessage = error.localizedDescription
-                self.displayError.toggle()
-            }
+            await handleError(error)
+        }
+    }
+    
+    private func appendUniqueMangas(_ newMangas: [Manga]) {
+        let uniqueMangas = newMangas.filter { manga in
+            !loadedIds.contains(String(manga.id))
+        }
+        
+        uniqueMangas.forEach { manga in
+            loadedIds.insert(String(manga.id))
+            searchResults.append(MangaItemViewModel(manga: manga))
         }
     }
     
@@ -52,6 +64,7 @@ final class MangasSearchViewModel {
     
     func cleanSearchResults() {
         searchResults.removeAll()
+        loadedIds.removeAll()
         page = 1
     }
     

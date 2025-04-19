@@ -147,7 +147,7 @@ extension MangasCategoriesView {
 }
 
 extension MangasSearchViewModel {
-    static let preview = MangasSearchViewModel(interactor: PreviewData())
+    static let preview = MangasSearchViewModel()
 }
 
 extension MangasSearchView {
