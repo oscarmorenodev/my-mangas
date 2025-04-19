@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MangaDetailView<T: MangaItem>: View {
-    @Environment(MangasListViewModel.self) private var vm
+    @State private var viewModel = MangaDetailViewModel()
     @Binding var selected: T?
     @State private var loaded = false
     
@@ -51,6 +51,17 @@ struct MangaDetailView<T: MangaItem>: View {
                         Text(manga.synopsis)
                             .padding()
                     }
+                    
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .padding()
+                    }
+                    
+                    if let error = viewModel.error {
+                        Text("Error: \(error.localizedDescription)")
+                            .foregroundColor(.red)
+                            .padding()
+                    }
                 }
                 .padding(.horizontal)
             }
@@ -68,11 +79,13 @@ struct MangaDetailView<T: MangaItem>: View {
         .animation(.smooth(duration: 0.15), value: loaded)
         .onAppear {
             loaded = true
+            if let manga = selected {
+                viewModel.loadMangaDetail(mangaId: manga.id)
+            }
         }
     }
 }
 
 #Preview {
     MangaDetailView(selected: .constant(MangaItemViewModel.preview))
-        .environment(MangasListViewModel.preview)
 }

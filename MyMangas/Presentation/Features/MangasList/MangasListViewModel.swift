@@ -2,7 +2,11 @@ import Foundation
 
 @Observable
 final class MangasListViewModel {
-    let interactor: DataInteractor
+    private let getMangaListPageUseCase: GetMangaListPageUseCase
+    private let getMangaListBestUseCase: GetMangaListBestUseCase
+    private let getMangaListDemographicUseCase: GetMangaListDemographicUseCase
+    private let getMangaListGenreUseCase: GetMangaListGenreUseCase
+    private let getMangaListThemeUseCase: GetMangaListThemeUseCase
     var mangas = [MangaItemViewModel]()
     var demographics = [String]()
     var genres = [String]()
@@ -18,8 +22,16 @@ final class MangasListViewModel {
     @ObservationIgnored var page: Int = 0
     @ObservationIgnored private var loadedIds = Set<String>()
     
-    init(interactor: DataInteractor = DataService.shared) {
-        self.interactor = interactor
+    init(getMangaListPageUseCase: GetMangaListPageUseCase = GetMangaListPageUseCase(),
+         getMangaListBestUseCase: GetMangaListBestUseCase = GetMangaListBestUseCase(),
+         getMangaListDemographicUseCase: GetMangaListDemographicUseCase = GetMangaListDemographicUseCase(),
+         getMangaListGenreUseCase: GetMangaListGenreUseCase = GetMangaListGenreUseCase(),
+         getMangaListThemeUseCase: GetMangaListThemeUseCase = GetMangaListThemeUseCase()) {
+        self.getMangaListPageUseCase = getMangaListPageUseCase
+        self.getMangaListBestUseCase = getMangaListBestUseCase
+        self.getMangaListDemographicUseCase = getMangaListDemographicUseCase
+        self.getMangaListGenreUseCase = getMangaListGenreUseCase
+        self.getMangaListThemeUseCase = getMangaListThemeUseCase
     }
     
     func fetchData() async {
@@ -34,7 +46,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await interactor.getListMangas(page: page).items
+            let mangas = try await getMangaListPageUseCase.execute(page: page).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -51,7 +63,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await interactor.getBestMangas(page: page).items
+            let mangas = try await getMangaListBestUseCase.execute(page: page).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -64,11 +76,9 @@ final class MangasListViewModel {
     }
     
     func getMangasByDemographic(demographic: String) async {
-        guard !isLoading else { return }
         isLoading = true
-        
         do {
-            let mangas = try await interactor.getListMangasByDemographic(demographic: demographic, page: page).items
+            let mangas = try await getMangaListDemographicUseCase.getMangasByDemograhpic(demographic: demographic, page: page).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -81,11 +91,10 @@ final class MangasListViewModel {
     }
     
     func getMangasByGenre(genre: String) async {
-        guard !isLoading else { return }
         isLoading = true
         
         do {
-            let mangas = try await interactor.getListMangasByGenre(genre: genre, page: page).items
+            let mangas = try await getMangaListGenreUseCase.getMangaByGenre(genre: genre, page: page).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -98,11 +107,10 @@ final class MangasListViewModel {
     }
     
     func getMangasByTheme(theme: String) async {
-        guard !isLoading else { return }
         isLoading = true
         
         do {
-            let mangas = try await interactor.getListMangasByTheme(theme: theme, page: page).items
+            let mangas = try await getMangaListThemeUseCase.getMangasByTheme(theme: theme, page: page).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -168,7 +176,7 @@ final class MangasListViewModel {
     
     func getDemographics() async {
         do {
-            let demographics = try await interactor.getDemographics().sorted()
+            let demographics = try await getMangaListDemographicUseCase.getDemographics().sorted()
             await MainActor.run {
                 self.demographics = demographics
             }
@@ -179,7 +187,7 @@ final class MangasListViewModel {
     
     func getGenres() async {
         do {
-            let genres = try await interactor.getGenres().sorted()
+            let genres = try await getMangaListGenreUseCase.getGenres().sorted()
             await MainActor.run {
                 self.genres = genres
             }
@@ -190,7 +198,7 @@ final class MangasListViewModel {
         
     func getThemes() async {
         do {
-            let themes = try await interactor.getThemes().sorted()
+            let themes = try await getMangaListThemeUseCase.getThemes().sorted()
             await MainActor.run {
                 self.themes = themes
             }

@@ -119,7 +119,7 @@ extension MainView {
 }
 
 extension MangasListViewModel {
-    static let preview = MangasListViewModel(interactor: PreviewData())
+    static let preview = MangasListViewModel()
 }
 
 extension MangasListView {
@@ -201,6 +201,10 @@ extension MangasCollectionView {
             }
             .environment(vm)
     }
+}
+
+extension MangaDetailViewModel {
+    static let preview = MangaDetailViewModel()
 }
 
 extension MangaDetailView {
