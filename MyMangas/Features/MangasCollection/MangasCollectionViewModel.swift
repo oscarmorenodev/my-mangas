@@ -6,15 +6,15 @@ final class MangasCollectionViewModel {
     var displayError = false
     var errorMessage = ""
     
-    private let dataService: DataInteractor
+    private let interactor: DataInteractor
     
-    init(dataService: DataInteractor = DataService.shared) {
-        self.dataService = dataService
+    init(interactor: DataInteractor = DataService.shared) {
+        self.interactor = interactor
     }
     
     func loadCollection() async {
         do {
-            let collection = try await dataService.getCollection()
+            let collection = try await interactor.getCollection()
             await MainActor.run {
                 self.mangas = collection
             }
@@ -25,7 +25,7 @@ final class MangasCollectionViewModel {
     
     func addOrUpdateManga(_ manga: UserMangaCollectionRequest) async {
         do {
-            try await dataService.addOrUpdateMangaCollection(manga)
+            try await interactor.addOrUpdateMangaCollection(manga)
             await loadCollection()
         } catch {
             await handleError(error)
@@ -34,7 +34,7 @@ final class MangasCollectionViewModel {
     
     func deleteManga(id: Int) async {
         do {
-            try await dataService.deleteMangaFromCollection(id: id)
+            try await interactor.deleteMangaFromCollection(id: id)
             await loadCollection()
         } catch {
             await handleError(error)

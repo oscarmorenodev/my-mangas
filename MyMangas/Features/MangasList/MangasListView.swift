@@ -3,9 +3,7 @@ import SwiftUI
 struct MangasListView: View {
     @Environment(MangasListViewModel.self) var vm
     @State var selected: MangaItemViewModel?
-    @State var searchText = ""
     @State var showFilters = false
-    @State var showSheet: Bool = false
     @State var selectedCategory = ""
     @State var loading = false
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)

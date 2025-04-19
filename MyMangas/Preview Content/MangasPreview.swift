@@ -179,3 +179,19 @@ extension UserMangaCollectionRequest {
         readingVolume: 42
     )
 }
+
+extension MangasCollectionViewModel {
+    static let preview = MangasCollectionViewModel(interactor: PreviewData())
+}
+
+extension MangasCollectionView {
+    static var preview: some View {
+        let vm = MangasCollectionViewModel.preview
+        
+        return MangasListView()
+            .task {
+                _ = await vm.loadCollection()
+            }
+            .environment(vm)
+    }
+}
