@@ -13,8 +13,10 @@ final class MangasListViewModel {
     var category: Category = .demographic
     var categoryValues = [String]()
     var selectedCategory = ""
+    var isLoading = false
     
     @ObservationIgnored var page: Int = 0
+    @ObservationIgnored private var loadedIds = Set<String>()
     
     init(interactor: DataInteractor = DataService.shared) {
         self.interactor = interactor
@@ -28,62 +30,98 @@ final class MangasListViewModel {
     }
     
     func getMangas() async {
+        guard !isLoading else { return }
+        isLoading = true
+        
         do {
             let mangas = try await interactor.getListMangas(page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
+                appendUniqueMangas(mangas)
                 page += 1
+                isLoading = false
             }
         } catch {
             await handleError(error)
+            isLoading = false
         }
     }
     
     func getBestMangas() async {
+        guard !isLoading else { return }
+        isLoading = true
+        
         do {
             let mangas = try await interactor.getBestMangas(page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
+                appendUniqueMangas(mangas)
                 page += 1
+                isLoading = false
             }
         } catch {
             await handleError(error)
+            isLoading = false
         }
     }
     
     func getMangasByDemographic(demographic: String) async {
+        guard !isLoading else { return }
+        isLoading = true
+        
         do {
             let mangas = try await interactor.getListMangasByDemographic(demographic: demographic, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
+                appendUniqueMangas(mangas)
                 page += 1
+                isLoading = false
             }
         } catch {
             await handleError(error)
+            isLoading = false
         }
     }
     
     func getMangasByGenre(genre: String) async {
+        guard !isLoading else { return }
+        isLoading = true
+        
         do {
             let mangas = try await interactor.getListMangasByGenre(genre: genre, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
+                appendUniqueMangas(mangas)
                 page += 1
+                isLoading = false
             }
         } catch {
             await handleError(error)
+            isLoading = false
         }
     }
     
     func getMangasByTheme(theme: String) async {
+        guard !isLoading else { return }
+        isLoading = true
+        
         do {
             let mangas = try await interactor.getListMangasByTheme(theme: theme, page: page).items
             await MainActor.run {
-                self.mangas += mangas.map {MangaItemViewModel(manga: $0, inCollection: false)}
+                appendUniqueMangas(mangas)
                 page += 1
+                isLoading = false
             }
         } catch {
             await handleError(error)
+            isLoading = false
+        }
+    }
+    
+    private func appendUniqueMangas(_ newMangas: [Manga]) {
+        let uniqueMangas = newMangas.filter { manga in
+            !loadedIds.contains(String(manga.id))
+        }
+        
+        uniqueMangas.forEach { manga in
+            loadedIds.insert(String(manga.id))
+            mangas.append(MangaItemViewModel(manga: manga, inCollection: false))
         }
     }
     
@@ -96,7 +134,7 @@ final class MangasListViewModel {
             return false
         }
 
-        return index + 2 == mangas.count
+        return index + 5 >= mangas.count && !isLoading
     }
     
     func toggleBestMangas() async {
@@ -111,6 +149,7 @@ final class MangasListViewModel {
     
     func clearList() {
         mangas.removeAll()
+        loadedIds.removeAll()
         page = 0
     }
     
@@ -166,5 +205,4 @@ final class MangasListViewModel {
             self.displayError.toggle()
         }
     }
-    
 }
