@@ -4,6 +4,7 @@ struct MangasSearchView: View {
     @Bindable var vm: MangasSearchViewModel
     @State var selected: MangaItemViewModel?
     @State var loading = false
+    let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
     var body: some View {
         NavigationStack {
@@ -11,7 +12,7 @@ struct MangasSearchView: View {
                 LoadingView(loading: $loading)
             } else {
                 ScrollView {
-                    LazyVStack {
+                    LazyVGrid(columns: [gridItem]) {
                         ForEach(vm.searchResults, id: \.id) { manga in
                             MangaItemView(manga: manga)
                                 .onTapGesture {
