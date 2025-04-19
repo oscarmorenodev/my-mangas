@@ -10,7 +10,7 @@ protocol DataInteractor {
     func getDemographics() async throws -> [String]
     func getGenres() async throws -> [String]
     func getThemes() async throws -> [String]
-    func createUser(user: Users) async throws -> Users
+    func createUser(user: User) async throws -> Bool
     func login(email: String, password: String) async throws -> String
     func renewToken() async throws -> String
     func addOrUpdateMangaCollection(_ manga: UserMangaCollectionRequest) async throws
@@ -124,8 +124,8 @@ extension DataService {
 
 // MARK: POST Methods
 extension DataService {
-    func createUser(user: Users) async throws -> Users {
-        try await postData(request: .post(url: .createUser()), payload: user, responseType: Users.self)
+    func createUser(user: User) async throws -> Bool {
+        try await postData(request: .post(url: .createUser()), payload: user, responseType: Bool.self)
     }
     
     func login(email: String, password: String) async throws -> String {

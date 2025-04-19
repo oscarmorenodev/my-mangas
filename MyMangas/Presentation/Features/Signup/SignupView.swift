@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SignupView: View {
     @Environment(AppStateManager.self) var appStateManager
-    @Environment(SignupViewModel.self) var presenter
+    @Environment(SignupViewModel.self) var vm
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
@@ -27,9 +27,9 @@ struct SignupView: View {
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 50)
             Button {
-                if presenter.validateCredentials(email, password) {
+                if vm.validateCredentials(email, password) {
                     Task {
-                        email = await presenter.createUser(email, password).email
+                        await vm.createUser(email, password)
                     }
                     activeAlert = .success
                     showAlert = true

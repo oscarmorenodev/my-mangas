@@ -46,8 +46,8 @@ struct PreviewData: DataInteractor {
         return try JSONDecoder().decode(T.self, from: data)
     }
     
-    func createUser(user: Users) async throws -> Users {
-        Users(email: "usercreatedok@test.com", password: "12345678")
+    func createUser(user: User) async throws -> Bool {
+        true
     }
     
     func login(email: String, password: String) async throws -> String {
@@ -169,7 +169,10 @@ extension LoginViewModel {
 }
 
 extension SignupViewModel {
-    static var preview = SignupViewModel()
+    static var preview: SignupViewModel {
+        let mockUseCase = CreateUserUseCase(repository: MockUserRepository())
+        return SignupViewModel(createUserUseCase: mockUseCase)
+    }
 }
 
 extension UserMangaCollectionRequest {
@@ -218,4 +221,18 @@ extension MangaDetailView {
 
 extension MangaItemView {
     static let preview = MangaItemView(manga: MangaItemViewModel.preview)
+}
+
+private class MockUserRepository: UserRepositoryProtocol {
+    func createUser(user: User) async throws {
+        true
+    }
+    
+    func login(email: String, password: String) async throws -> String {
+        "token_simulado_123456"
+    }
+    
+    func renewToken() async throws -> String {
+        "token_renovado_123456"
+    }
 }

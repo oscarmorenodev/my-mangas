@@ -51,8 +51,8 @@ struct RemoteUserDataSource: UserDataSourceProtocol {
         return authenticatedRequest
     }
     
-    func createUser(user: Users) async throws -> Users {
-        try await postData(request: .post(url: .createUser()), payload: user, responseType: Users.self)
+    func createUser(user: User) async throws {
+        _ = try await postData(request: .post(url: .createUser()), payload: user, responseType: Bool.self)
     }
     
     func login(email: String, password: String) async throws -> String {

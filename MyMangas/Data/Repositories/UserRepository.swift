@@ -7,7 +7,7 @@ struct UserRepository: UserRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    func createUser(user: Users) async throws -> Users {
+    func createUser(user: User) async throws {
         try await remoteDataSource.createUser(user: user)
     }
     

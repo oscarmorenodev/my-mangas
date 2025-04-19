@@ -2,27 +2,26 @@ import Foundation
 
 @Observable
 final class SignupViewModel {
-    let interactor: DataInteractor
+    private let createUserUseCase: CreateUserUseCase
     var displayError = false
     var errorMessage = ""
+    var isLoading = false
     
-    init(interactor: DataInteractor = DataService.shared) {
-        self.interactor = interactor
+    init(createUserUseCase: CreateUserUseCase = CreateUserUseCase()) {
+        self.createUserUseCase = createUserUseCase
     }
     
     func validateCredentials (_ email: String, _ password: String) -> Bool {
         validateCredentialsFormat(email, password) && validateCredentialsAreNotEmpty(email, password)
     }
     
-    func createUser (_ email: String, _ password: String) async -> Users {
-        let user = Users(email: email, password: password)
+    func createUser (_ email: String, _ password: String) async {
+        let user = User(email: email, password: password)
         do {
-            let userCreated = try await interactor.createUser(user: user)
-            return userCreated
+            try await createUserUseCase.execute(user: user)
         } catch {
             await handleError(error)
         }
-        return Users(email: "", password: "")
     }
     
     private func validateCredentialsAreNotEmpty (_ email: String, _ password: String) -> Bool {
