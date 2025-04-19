@@ -49,8 +49,8 @@ struct MangasCollectionView: View {
     
     private var detailOverlay: some View {
         Group {
-            if let selected {
-                MangaDetailView(selected: .constant(selected))
+            if selected != nil {
+                MangaDetailView(selected: $selected)
             }
         }
     }

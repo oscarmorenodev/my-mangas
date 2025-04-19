@@ -8,7 +8,6 @@ struct MangasListView: View {
     @State var selectedCategory = ""
     let gridItem = GridItem(.adaptive(minimum: 150), alignment: .center)
     
-    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -46,18 +45,17 @@ struct MangasListView: View {
                 }
             }
             .opacity(selected == nil ? 1.0 : 0.0)
-            .overlay(
-                Group {
-                    if let selected {
-                        MangaDetailView(selected: .constant(selected))
-                    }
-                }
-            )
+            
+            if selected != nil {
+                MangaDetailView(selected: $selected)
+                    .transition(.opacity)
+            }
         }
         .animation(.smooth(duration: 0.15), value: selected)
     }
 }
 
 #Preview {
-    MangasListView.preview
+    MangasListView()
+        .environment(MangasListViewModel())
 }

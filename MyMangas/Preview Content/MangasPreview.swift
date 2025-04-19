@@ -207,7 +207,7 @@ extension MangaDetailView {
     static var preview: some View {
         let vm = MangasListViewModel.preview
         
-        return MangaDetailView(selected: .constant(MangaItemViewModel.preview))
+        return MangaDetailView(selected: .constant(MangaItemViewModel.preview as? T))
             .environment(vm)
     }
 }
