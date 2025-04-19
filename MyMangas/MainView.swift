@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct MainView: View {
-    @Environment(MangasListViewModel.self) var vm
     @Environment(AppStateManager.self) var appStateManager
     @State var searchVM = MangasSearchViewModel()
     
