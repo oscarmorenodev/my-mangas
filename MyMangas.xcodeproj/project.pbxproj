@@ -16,7 +16,6 @@
 		5545C28E2DB425F500BC4E9F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2882DB425F500BC4E9F /* MainView.swift */; };
 		5545C28F2DB425F500BC4E9F /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2862DB425F500BC4E9F /* AppStateView.swift */; };
 		5545C2902DB425F500BC4E9F /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2852DB425F500BC4E9F /* AppStateManager.swift */; };
-		5545C2912DB425F500BC4E9F /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5545C2872DB425F500BC4E9F /* Config.xcconfig */; };
 		5545C2A52DB4260200BC4E9F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2952DB4260200BC4E9F /* Error.swift */; };
 		5545C2A62DB4260200BC4E9F /* MangaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2A12DB4260200BC4E9F /* MangaRepository.swift */; };
 		5545C2A72DB4260200BC4E9F /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545C2A22DB4260200BC4E9F /* UserRepository.swift */; };
@@ -93,7 +92,6 @@
 		55332C802DB14BA200C751B9 /* MangaAddToCollectionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaAddToCollectionFormViewModel.swift; sourceTree = "<group>"; };
 		5545C2852DB425F500BC4E9F /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		5545C2862DB425F500BC4E9F /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
-		5545C2872DB425F500BC4E9F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5545C2882DB425F500BC4E9F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		5545C2892DB425F500BC4E9F /* MyMangasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangasApp.swift; sourceTree = "<group>"; };
 		5545C28A2DB425F500BC4E9F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 		5562F7C02DB432460050782B /* mangasPreview.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mangasPreview.json; sourceTree = "<group>"; };
 		5562F7C12DB432460050782B /* MangasPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasPreview.swift; sourceTree = "<group>"; };
 		5562F7C22DB432460050782B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5562F7CC2DB435E40050782B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/oscar/Developer/my-mangas/MyMangas/Resources/Info.plist"; sourceTree = "<absolute>"; };
 		5562F7CE2DB439770050782B /* GetMangaListDemograhicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMangaListDemograhicUseCase.swift; sourceTree = "<group>"; };
 		5562F7D02DB43A030050782B /* GetMangaListGenreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMangaListGenreUseCase.swift; sourceTree = "<group>"; };
 		5562F7D22DB43A050050782B /* GetMangaListThemeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMangaListThemeUseCase.swift; sourceTree = "<group>"; };
@@ -193,7 +190,6 @@
 			children = (
 				5545C2852DB425F500BC4E9F /* AppStateManager.swift */,
 				5545C2862DB425F500BC4E9F /* AppStateView.swift */,
-				5545C2872DB425F500BC4E9F /* Config.xcconfig */,
 				5545C2882DB425F500BC4E9F /* MainView.swift */,
 				5545C2892DB425F500BC4E9F /* MyMangasApp.swift */,
 				5545C28A2DB425F500BC4E9F /* SplashView.swift */,
@@ -432,7 +428,6 @@
 			children = (
 				5545C3022DB4268F00BC4E9F /* Assets.xcassets */,
 				5562F7C32DB432460050782B /* PreviewContent */,
-				5562F7CC2DB435E40050782B /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -631,7 +626,6 @@
 				559ED8F32B963031007581DF /* README.md in Resources */,
 				5562F7C42DB432460050782B /* mangasPreview.json in Resources */,
 				5562F7C52DB432460050782B /* Preview Assets.xcassets in Resources */,
-				5545C2912DB425F500BC4E9F /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,10 +843,9 @@
 				DEVELOPMENT_TEAM = FW8P39ZPC3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyMangas/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -870,7 +863,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_CREATION_TOKEN = "sLGH38NhEJ0_anlIWwhsz1-LarClEohiAHQqayF0FY";
 			};
 			name = Debug;
 		};
@@ -885,7 +877,6 @@
 				DEVELOPMENT_TEAM = FW8P39ZPC3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyMangas/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -906,7 +897,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_CREATION_TOKEN = "sLGH38NhEJ0_anlIWwhsz1-LarClEohiAHQqayF0FY";
 			};
 			name = Release;
 		};
