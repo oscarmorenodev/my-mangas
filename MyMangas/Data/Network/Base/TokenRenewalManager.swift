@@ -56,7 +56,7 @@ class TokenRenewalManager {
         }
         
         do {
-            let _ = try await DataService.shared.renewToken()
+            let _ = try await RenewTokenUseCase.shared.execute()
             return true
         } catch TokenError.renewalFailed {
             try? TokenManager.deleteToken()
