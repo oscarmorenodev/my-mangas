@@ -1,26 +1,28 @@
 import Foundation
 
-@MainActor
-final class MangaAddToCollectionFormViewModel: ObservableObject {
-    @Published var completeCollection = false {
+@Observable
+final class MangaAddToCollectionFormViewModel {
+    var completeCollection = false {
         didSet {
             if completeCollection {
                 volumesOwned = Array(1...numberOfVolumes)
             }
         }
     }
-    @Published var volumesOwned: [Int] = []
-    @Published var readingVolume: Int?
-    @Published var error: String?
+    var volumesOwned: [Int] = []
+    var readingVolume: Int?
+    var error: String?
     
     let mangaId: Int
     let numberOfVolumes: Int
-    let interactor: DataInteractor
+    private let getMangaCollectionUseCase: GetMangaCollectionUseCase
     
-    init(mangaId: Int, numberOfVolumes: Int, interactor: DataInteractor = DataService.shared) {
+    init(mangaId: Int,
+         numberOfVolumes: Int,
+         getMangaCollectionUseCase: GetMangaCollectionUseCase = GetMangaCollectionUseCase()) {
         self.mangaId = mangaId
         self.numberOfVolumes = numberOfVolumes
-        self.interactor = interactor
+        self.getMangaCollectionUseCase = getMangaCollectionUseCase
     }
     
     func addToCollection() async {
@@ -32,7 +34,7 @@ final class MangaAddToCollectionFormViewModel: ObservableObject {
         )
         
         do {
-            try await interactor.addOrUpdateMangaCollection(request)
+            try await getMangaCollectionUseCase.addOrUpdateMangaCollection(request)
         } catch {
             self.error = error.localizedDescription
         }
@@ -40,7 +42,7 @@ final class MangaAddToCollectionFormViewModel: ObservableObject {
     
     func removeOfCollection(id: Int) async {
         do {
-            try await interactor.deleteMangaFromCollection(id: id)
+            try await getMangaCollectionUseCase.deleteMangaFromCollection(id: id)
         } catch {
             self.error = error.localizedDescription
         }

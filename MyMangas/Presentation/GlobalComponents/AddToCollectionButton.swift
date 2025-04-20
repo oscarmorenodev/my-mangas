@@ -1,7 +1,7 @@
 import SwiftUI
 
 fileprivate struct AddToCollectionButton: ViewModifier {
-    @Environment(MangasListViewModel.self) private var vm
+    @Environment(MangasListViewModel.self) private var mangaListVM
     let manga: MangaItem
     @State private var showCollectionForm = false
     let size: CGSize
@@ -29,7 +29,7 @@ fileprivate struct AddToCollectionButton: ViewModifier {
                 .offset(x: offset.x, y: offset.y)
             }
             .sheet(isPresented: $showCollectionForm) {
-                MangaAddToCollectionFormView(mangaId: manga.id, numberOfVolumes: manga.volumes)
+                MangaAddToCollectionFormView(vm: MangaAddToCollectionFormViewModel(mangaId: manga.id, numberOfVolumes: manga.volumes))
             }
     }
 }

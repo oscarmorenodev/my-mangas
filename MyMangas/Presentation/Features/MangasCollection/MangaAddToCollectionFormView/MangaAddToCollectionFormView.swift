@@ -1,12 +1,8 @@
 import SwiftUI
 
 struct MangaAddToCollectionFormView: View {
-    @StateObject private var vm: MangaAddToCollectionFormViewModel
+    @Bindable var vm: MangaAddToCollectionFormViewModel
     @Environment(\.dismiss) private var dismiss
-    
-    init(mangaId: Int, numberOfVolumes: Int) {
-        _vm = StateObject(wrappedValue: MangaAddToCollectionFormViewModel(mangaId: mangaId, numberOfVolumes: numberOfVolumes))
-    }
     
     var body: some View {
         NavigationStack {
@@ -83,5 +79,5 @@ struct MangaAddToCollectionFormView: View {
 }
 
 #Preview {
-    MangaAddToCollectionFormView(mangaId: 1, numberOfVolumes: 5)
+    MangaAddToCollectionFormView(vm: MangaAddToCollectionFormViewModel(mangaId: 1, numberOfVolumes: 5))
 }

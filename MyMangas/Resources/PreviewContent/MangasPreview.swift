@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PreviewData: DataInteractor {
+struct PreviewData {
     let urlMangasPreview = Bundle.main.url(forResource: "mangasPreview", withExtension: "json")!
     
     func getListMangas(page: Int = 1) async throws -> Mangas {
@@ -191,7 +191,7 @@ extension UserMangaCollectionResponse {
 }
 
 extension MangasCollectionViewModel {
-    static let preview = MangasCollectionViewModel(interactor: PreviewData())
+    static let preview = MangasCollectionViewModel()
 }
 
 extension MangasCollectionView {
