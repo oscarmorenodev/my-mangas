@@ -15,13 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create Config file
+      - name: Build
         env:
           USER_CREATION_TOKEN: ${{ secrets.USER_CREATION_TOKEN }}
-        run: |
-          echo "USER_CREATION_TOKEN = $USER_CREATION_TOKEN" > MyMangas/Config.xcconfig
-
-      - name: Build
         run: |
           xcodebuild build \
             -scheme "MyMangas" \
@@ -29,3 +25,4 @@ jobs:
             -destination "generic/platform=iOS" \
             CODE_SIGN_IDENTITY=- \
             AD_HOC_CODE_SIGNING_ALLOWED=YES
+            USER_CREATION_TOKEN=$USER_CREATION_TOKEN
