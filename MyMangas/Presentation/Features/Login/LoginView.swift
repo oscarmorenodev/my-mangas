@@ -55,6 +55,7 @@ struct LoginView: View {
             Button("Not account yet? Sign up") {
                 appStateManager.state = .signup
             }
+            .padding(.bottom, UIDevice.current.userInterfaceIdiom == .vision ? 20 : 0)
             .disabled(isLoading)
         }
     }
