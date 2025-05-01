@@ -88,4 +88,5 @@ struct MangaDetailView<T: MangaItem>: View {
 
 #Preview {
     MangaDetailView(selected: .constant(MangaItemViewModel.preview))
+        .environment(MangasListViewModel.preview)
 }

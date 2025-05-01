@@ -5,7 +5,11 @@ extension String {
         if self.isEmpty {
             return URL(string: "https://fakeurl.com")!
         } else {
-            return URL(string: String(self.dropFirst().dropLast()))!
+            var urlString = self
+            if urlString.hasPrefix("\"") && urlString.hasSuffix("\"") {
+                urlString = String(urlString.dropFirst().dropLast())
+            }
+            return URL(string: urlString) ?? URL(string: "https://fakeurl.com")!
         }
     }
 }

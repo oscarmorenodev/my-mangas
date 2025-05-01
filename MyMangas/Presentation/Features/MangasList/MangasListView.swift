@@ -56,6 +56,5 @@ struct MangasListView: View {
 }
 
 #Preview {
-    MangasListView()
-        .environment(MangasListViewModel())
+    MangasListView.preview
 }
