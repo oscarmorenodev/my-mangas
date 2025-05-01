@@ -18,9 +18,6 @@ struct MangaDetailView<T: MangaItem>: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                                 .frame(height: 420)
-                                .addToCollectionButton(manga: manga,
-                                                   size: CGSize(width: 70, height: 70),
-                                                   offset: (x: 120, y: 190))
                         } placeholder: {
                             Image(systemName: SystemImage.placeholder.rawValue)
                                 .resizable()
@@ -37,6 +34,9 @@ struct MangaDetailView<T: MangaItem>: View {
                                 .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
                                 .frame(height: 250)
                         }
+                        .addToCollectionButton(manga: manga,
+                                           size: CGSize(width: 70, height: 70),
+                                           offset: (x: 120, y: 190))
                         Text(manga.title)
                             .font(.title)
                             .bold()
@@ -64,6 +64,7 @@ struct MangaDetailView<T: MangaItem>: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? 100 : 0)
             }
             Button {
                 selected = nil
