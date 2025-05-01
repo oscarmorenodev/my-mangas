@@ -64,6 +64,7 @@ struct MangaDetailView<T: MangaItem>: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? 100 : 0)
             }
             Button {
                 selected = nil
