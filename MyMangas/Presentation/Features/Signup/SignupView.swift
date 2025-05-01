@@ -64,6 +64,7 @@ struct SignupView: View {
             Button("Account created? Login") {
                 appStateManager.state = .nonLogged
             }
+            .padding(.bottom, UIDevice.current.userInterfaceIdiom == .vision ? 20 : 0)
         }
     }
 }

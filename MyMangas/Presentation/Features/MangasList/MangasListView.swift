@@ -35,6 +35,7 @@ struct MangasListView: View {
                                 }
                         }
                     }
+                    .padding(.all, UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
