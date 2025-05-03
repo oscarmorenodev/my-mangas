@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 @Observable
 final class MangasListViewModel {
@@ -21,6 +22,7 @@ final class MangasListViewModel {
     
     @ObservationIgnored var page: Int = 0
     @ObservationIgnored private var loadedIds = Set<String>()
+    @ObservationIgnored private var itemsPerPage: Int
     
     init(getMangaListPageUseCase: GetMangaListPageUseCase = GetMangaListPageUseCase(),
          getMangaListBestUseCase: GetMangaListBestUseCase = GetMangaListBestUseCase(),
@@ -32,6 +34,8 @@ final class MangasListViewModel {
         self.getMangaListDemographicUseCase = getMangaListDemographicUseCase
         self.getMangaListGenreUseCase = getMangaListGenreUseCase
         self.getMangaListThemeUseCase = getMangaListThemeUseCase
+        
+        self.itemsPerPage = UIDevice.current.userInterfaceIdiom != .phone ? 30 : 10
     }
     
     func fetchData() async {
@@ -46,7 +50,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await getMangaListPageUseCase.execute(page: page).items
+            let mangas = try await getMangaListPageUseCase.execute(page: page, limit: itemsPerPage).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -63,7 +67,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await getMangaListBestUseCase.execute(page: page).items
+            let mangas = try await getMangaListBestUseCase.execute(page: page, limit: itemsPerPage).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -78,7 +82,7 @@ final class MangasListViewModel {
     func getMangasByDemographic(demographic: String) async {
         isLoading = true
         do {
-            let mangas = try await getMangaListDemographicUseCase.getMangasByDemograhpic(demographic: demographic, page: page).items
+            let mangas = try await getMangaListDemographicUseCase.getMangasByDemograhpic(demographic: demographic, page: page, limit: itemsPerPage).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -94,7 +98,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await getMangaListGenreUseCase.getMangaByGenre(genre: genre, page: page).items
+            let mangas = try await getMangaListGenreUseCase.getMangaByGenre(genre: genre, page: page, limit: itemsPerPage).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1
@@ -110,7 +114,7 @@ final class MangasListViewModel {
         isLoading = true
         
         do {
-            let mangas = try await getMangaListThemeUseCase.getMangasByTheme(theme: theme, page: page).items
+            let mangas = try await getMangaListThemeUseCase.getMangasByTheme(theme: theme, page: page, limit: itemsPerPage).items
             await MainActor.run {
                 appendUniqueMangas(mangas)
                 page += 1

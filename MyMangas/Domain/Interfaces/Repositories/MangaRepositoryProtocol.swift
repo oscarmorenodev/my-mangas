@@ -1,11 +1,11 @@
 import Foundation
 
 protocol MangaRepositoryProtocol {
-    func getListMangas(page: Int) async throws -> Mangas
-    func getBestMangas(page: Int) async throws -> Mangas
-    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas
-    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas
-    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas
+    func getListMangas(page: Int, limit: Int) async throws -> Mangas
+    func getBestMangas(page: Int, limit: Int) async throws -> Mangas
+    func getListMangasByDemographic(demographic: String, page: Int, limit: Int) async throws -> Mangas
+    func getListMangasByGenre(genre: String, page: Int, limit: Int) async throws -> Mangas
+    func getListMangasByTheme(theme: String, page: Int, limit: Int) async throws -> Mangas
     func searchMangas(_ query: String, page: Int) async throws -> Mangas
     func getDemographics() async throws -> [String]
     func getGenres() async throws -> [String]

@@ -5,7 +5,7 @@ struct GetMangaListBestUseCase {
         self.repository = repository
     }
     
-    func execute(page: Int) async throws -> Mangas {
-        try await repository.getBestMangas(page: page)
+    func execute(page: Int, limit: Int) async throws -> Mangas {
+        try await repository.getBestMangas(page: page, limit: limit)
     }
 }

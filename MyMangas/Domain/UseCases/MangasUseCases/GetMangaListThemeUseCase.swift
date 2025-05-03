@@ -5,8 +5,8 @@ struct GetMangaListThemeUseCase {
         self.repository = repository
     }
     
-    func getMangasByTheme(theme: String, page: Int) async throws -> Mangas {
-        try await repository.getListMangasByTheme(theme: theme, page: page)
+    func getMangasByTheme(theme: String, page: Int, limit: Int) async throws -> Mangas {
+        try await repository.getListMangasByTheme(theme: theme, page: page, limit: limit)
     }
     
     func getThemes() async throws -> [String] {

@@ -5,8 +5,8 @@ struct GetMangaListDemographicUseCase {
         self.repository = repository
     }
     
-    func getMangasByDemograhpic(demographic: String, page: Int) async throws -> Mangas {
-        try await repository.getListMangasByDemographic(demographic: demographic, page: page)
+    func getMangasByDemograhpic(demographic: String, page: Int, limit: Int) async throws -> Mangas {
+        try await repository.getListMangasByDemographic(demographic: demographic, page: page, limit: limit)
     }
     
     func getDemographics() async throws -> [String] {

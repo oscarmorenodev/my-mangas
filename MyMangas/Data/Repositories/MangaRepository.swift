@@ -7,24 +7,24 @@ struct MangaRepository: MangaRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    func getListMangas(page: Int) async throws -> Mangas {
-        try await remoteDataSource.getListMangas(page: page)
+    func getListMangas(page: Int, limit: Int) async throws -> Mangas {
+        try await remoteDataSource.getListMangas(page: page, limit: limit)
     }
     
-    func getBestMangas(page: Int) async throws -> Mangas {
-        try await remoteDataSource.getBestMangas(page: page)
+    func getBestMangas(page: Int, limit: Int) async throws -> Mangas {
+        try await remoteDataSource.getBestMangas(page: page, limit: limit)
     }
     
-    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas {
-        try await remoteDataSource.getListMangasByDemographic(demographic: demographic, page: page)
+    func getListMangasByDemographic(demographic: String, page: Int, limit: Int) async throws -> Mangas {
+        try await remoteDataSource.getListMangasByDemographic(demographic: demographic, page: page, limit: limit)
     }
     
-    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas {
-        try await remoteDataSource.getListMangasByGenre(genre: genre, page: page)
+    func getListMangasByGenre(genre: String, page: Int, limit: Int) async throws -> Mangas {
+        try await remoteDataSource.getListMangasByGenre(genre: genre, page: page, limit: limit)
     }
     
-    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas {
-        try await remoteDataSource.getListMangasByTheme(theme: theme, page: page)
+    func getListMangasByTheme(theme: String, page: Int, limit: Int) async throws -> Mangas {
+        try await remoteDataSource.getListMangasByTheme(theme: theme, page: page, limit: limit)
     }
     
     func searchMangas(_ query: String, page: Int) async throws -> Mangas {

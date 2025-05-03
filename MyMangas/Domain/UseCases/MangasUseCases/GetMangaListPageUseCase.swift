@@ -7,7 +7,7 @@ struct GetMangaListPageUseCase {
         self.repository = repository
     }
     
-    func execute(page: Int) async throws -> Mangas {
-        try await repository.getListMangas(page: page)
+    func execute(page: Int, limit: Int) async throws -> Mangas {
+        try await repository.getListMangas(page: page, limit: limit)
     }
 } 
