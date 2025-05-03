@@ -6,74 +6,72 @@ struct MangaDetailView<T: MangaItem>: View {
     @State private var loaded = false
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .topTrailing) {
-                ScrollView {
-                    LazyVStack {
-                        if let manga = selected {
-                            AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
-                                cover
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 250, height: 420)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                                    .frame(height: 420)
-                            } placeholder: {
-                                Image(systemName: SystemImage.placeholder.rawValue)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(width: 150, height: 230)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .foregroundStyle(Color.white.opacity(0.8))
-                                    .background {
-                                        Rectangle()
-                                            .fill(Color.blue.opacity(0.5))
-                                    }
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                                    .frame(height: 250)
-                            }
-                            .addToCollectionButton(manga: manga,
+        ZStack(alignment: .topTrailing) {
+            ScrollView {
+                LazyVStack {
+                    if let manga = selected {
+                        AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
+                            cover
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 250, height: 420)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
+                                .frame(height: 420)
+                        } placeholder: {
+                            Image(systemName: SystemImage.placeholder.rawValue)
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(width: 150, height: 230)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .foregroundStyle(Color.white.opacity(0.8))
+                                .background {
+                                    Rectangle()
+                                        .fill(Color.blue.opacity(0.5))
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
+                                .frame(height: 250)
+                        }
+                        .addToCollectionButton(manga: manga,
                                                size: CGSize(width: 70, height: 70),
                                                offset: (x: 80, y: 100))
-                            .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
-                            Text(manga.title)
-                                .font(.title)
+                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                        Text(manga.title)
+                            .font(.title)
+                            .bold()
+                        VStack {
+                            Text("Authors")
                                 .bold()
-                            VStack {
-                                Text("Authors")
-                                    .bold()
-                                ForEach(manga.authors, id: \.self) {
-                                    Text($0)
-                                }
+                            ForEach(manga.authors, id: \.self) {
+                                Text($0)
                             }
-                            .padding()
-                            Text(manga.synopsis)
-                                .padding()
                         }
+                        .padding()
+                        Text(manga.synopsis)
+                            .padding()
                     }
-                    .padding(.horizontal)
                 }
-                Button {
-                    selected = nil
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.largeTitle)
-                }
-                .padding(.trailing)
-                .buttonStyle(.plain)
-                .foregroundStyle(Color.primary.opacity(0.5))
-                .offset(x: !loaded ? 100 : selected != nil ? 0 : 100,
-                        y: UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
+                .padding(.horizontal)
             }
-            .animation(.smooth(duration: 0.15), value: loaded)
-            .onAppear {
-                loaded = true
-                if let manga = selected {
-                    viewModel.loadMangaDetail(mangaId: manga.id)
-                }
+            Button {
+                selected = nil
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.largeTitle)
+            }
+            .padding(.trailing)
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.primary.opacity(0.5))
+            .offset(x: !loaded ? 100 : selected != nil ? 0 : 100,
+                    y: UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
+        }
+        .animation(.smooth(duration: 0.15), value: loaded)
+        .onAppear {
+            loaded = true
+            if let manga = selected {
+                viewModel.loadMangaDetail(mangaId: manga.id)
             }
         }
     }
