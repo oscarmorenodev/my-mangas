@@ -56,7 +56,7 @@ struct MangaAddToCollectionFormView: View {
                     }
                 }
             }
-            .navigationTitle("Add to Collection")
+            .navigationTitle("Edit collection")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
