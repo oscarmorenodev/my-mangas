@@ -66,6 +66,7 @@
 		5562F7D32DB43A050050782B /* GetMangaListThemeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562F7D22DB43A050050782B /* GetMangaListThemeUseCase.swift */; };
 		5562F7D52DB43CE00050782B /* GetMangaListBestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562F7D42DB43CE00050782B /* GetMangaListBestUseCase.swift */; };
 		5562F7D72DB4425C0050782B /* CreateUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562F7D62DB4425C0050782B /* CreateUserUseCase.swift */; };
+		556386422DC66D03001EDA8A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 556386412DC66D03001EDA8A /* Localizable.xcstrings */; };
 		556FD18B2BB947A100F3CFA1 /* MangasListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556FD18A2BB947A100F3CFA1 /* MangasListViewModel.swift */; };
 		556FD19F2BB9E3C700F3CFA1 /* MangasListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556FD19E2BB9E3C700F3CFA1 /* MangasListView.swift */; };
 		559ED8F32B963031007581DF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 559ED8F22B963031007581DF /* README.md */; };
@@ -147,6 +148,7 @@
 		5562F7D22DB43A050050782B /* GetMangaListThemeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMangaListThemeUseCase.swift; sourceTree = "<group>"; };
 		5562F7D42DB43CE00050782B /* GetMangaListBestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMangaListBestUseCase.swift; sourceTree = "<group>"; };
 		5562F7D62DB4425C0050782B /* CreateUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserUseCase.swift; sourceTree = "<group>"; };
+		556386412DC66D03001EDA8A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		556FD18A2BB947A100F3CFA1 /* MangasListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasListViewModel.swift; sourceTree = "<group>"; };
 		556FD19E2BB9E3C700F3CFA1 /* MangasListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasListView.swift; sourceTree = "<group>"; };
 		559ED8F22B963031007581DF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				5545C3022DB4268F00BC4E9F /* Assets.xcassets */,
+				556386412DC66D03001EDA8A /* Localizable.xcstrings */,
 				5562F7C32DB432460050782B /* PreviewContent */,
 			);
 			path = Resources;
@@ -600,6 +603,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 554A82202B962FDC009F3325;
 			productRefGroup = 554A822A2B962FDC009F3325 /* Products */;
@@ -618,6 +622,7 @@
 			files = (
 				559ED8F52B96309A007581DF /* .gitignore in Resources */,
 				5545C3062DB4268F00BC4E9F /* Assets.xcassets in Resources */,
+				556386422DC66D03001EDA8A /* Localizable.xcstrings in Resources */,
 				559ED8F32B963031007581DF /* README.md in Resources */,
 				5562F7C42DB432460050782B /* mangasPreview.json in Resources */,
 				5562F7C52DB432460050782B /* Preview Assets.xcassets in Resources */,
@@ -768,6 +773,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -824,6 +830,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
