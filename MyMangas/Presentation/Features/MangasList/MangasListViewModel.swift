@@ -35,7 +35,7 @@ final class MangasListViewModel {
         self.getMangaListGenreUseCase = getMangaListGenreUseCase
         self.getMangaListThemeUseCase = getMangaListThemeUseCase
         
-        self.itemsPerPage = UIDevice.current.userInterfaceIdiom != .phone ? 20 : 10
+        self.itemsPerPage = UIDevice.current.userInterfaceIdiom != .phone ? 30 : 10
     }
     
     func fetchData() async {
