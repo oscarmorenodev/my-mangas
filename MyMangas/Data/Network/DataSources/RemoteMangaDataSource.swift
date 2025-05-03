@@ -51,24 +51,24 @@ struct RemoteMangaDataSource: MangaDataSourceProtocol {
         return authenticatedRequest
     }
     
-    func getListMangas(page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getListMangasUrl(page: page)), type: Mangas.self)
+    func getListMangas(page: Int, limit: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasUrl(page: page, limit: limit)), type: Mangas.self)
     }
     
-    func getBestMangas(page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getListBestMangasUrl(page: page)), type: Mangas.self)
+    func getBestMangas(page: Int, limit: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListBestMangasUrl(page: page, limit: limit)), type: Mangas.self)
     }
     
-    func getListMangasByDemographic(demographic: String, page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getListMangasByDemographicUrl(demographic: demographic, page: page)), type: Mangas.self)
+    func getListMangasByDemographic(demographic: String, page: Int, limit: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByDemographicUrl(demographic: demographic, page: page, limit: limit)), type: Mangas.self)
     }
     
-    func getListMangasByGenre(genre: String, page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getListMangasByGenreUrl(genre: genre, page: page)), type: Mangas.self)
+    func getListMangasByGenre(genre: String, page: Int, limit: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByGenreUrl(genre: genre, page: page, limit: limit)), type: Mangas.self)
     }
     
-    func getListMangasByTheme(theme: String, page: Int) async throws -> Mangas {
-        try await getData(request: .get(url: .getListMangasByThemeUrl(theme: theme, page: page)), type: Mangas.self)
+    func getListMangasByTheme(theme: String, page: Int, limit: Int) async throws -> Mangas {
+        try await getData(request: .get(url: .getListMangasByThemeUrl(theme: theme, page: page, limit: limit)), type: Mangas.self)
     }
     
     func searchMangas(_ query: String, page: Int) async throws -> Mangas {

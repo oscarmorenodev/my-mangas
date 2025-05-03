@@ -53,8 +53,6 @@ struct MangaDetailView<T: MangaItem>: View {
                             Text(manga.synopsis)
                                 .padding()
                         }
-                        
-                        // Resto del contenido sin cambios
                     }
                     .padding(.horizontal)
                 }

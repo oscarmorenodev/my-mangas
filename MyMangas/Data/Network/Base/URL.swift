@@ -4,24 +4,24 @@ let api = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
 
 // MARK: Mangas
 extension URL {
-    static func getListMangasUrl(page: Int) -> URL {
-        getMangasUrl(endpoint: .listMangas, page: page)
+    static func getListMangasUrl(page: Int, limit: Int) -> URL {
+        getMangasUrl(endpoint: .listMangas, page: page, limit: limit)
     }
     
-    static func getListBestMangasUrl(page: Int) -> URL {
-        getMangasUrl(endpoint: .bestMangas, page: page)
+    static func getListBestMangasUrl(page: Int, limit: Int) -> URL {
+        getMangasUrl(endpoint: .bestMangas, page: page, limit: limit)
     }
     
-    static func getListMangasByDemographicUrl(demographic: String, page: Int) -> URL {
-        getMangasUrl(endpoint: .listByDemographic, category: demographic, page: page)
+    static func getListMangasByDemographicUrl(demographic: String, page: Int, limit: Int) -> URL {
+        getMangasUrl(endpoint: .listByDemographic, category: demographic, page: page, limit: limit)
     }
     
-    static func getListMangasByGenreUrl(genre: String, page: Int) -> URL {
-        getMangasUrl(endpoint: .listByGenre, category: genre, page: page)
+    static func getListMangasByGenreUrl(genre: String, page: Int, limit: Int) -> URL {
+        getMangasUrl(endpoint: .listByGenre, category: genre, page: page, limit: limit)
     }
     
-    static func getListMangasByThemeUrl(theme: String, page: Int) -> URL {
-        getMangasUrl(endpoint: .listByTheme, category: theme, page: page)
+    static func getListMangasByThemeUrl(theme: String, page: Int, limit: Int) -> URL {
+        getMangasUrl(endpoint: .listByTheme, category: theme, page: page, limit: limit)
     }
     
     static func getDemographicsUrl() -> URL {
@@ -78,7 +78,7 @@ extension URL {
 
 // MARK: Private
 private extension URL {
-    static func getMangasUrl(endpoint: Endpoint, category: String? = nil, page: Int?) -> URL {
+    static func getMangasUrl(endpoint: Endpoint, category: String? = nil, page: Int?, limit: Int?) -> URL {
         let endpoint = endpoint.rawValue
         var mangasUrl = api.appending(path: endpoint)
         if let category {
@@ -88,6 +88,10 @@ private extension URL {
         if let page {
             let queryItem = URLQueryItem(name: "page", value: String(page))
             urlComponents.queryItems = [queryItem]
+        }
+        if let limit {
+            let queryItem = URLQueryItem(name: "per", value: String(limit))
+            urlComponents.queryItems?.append(queryItem)
         }
         return urlComponents.url!
     }
