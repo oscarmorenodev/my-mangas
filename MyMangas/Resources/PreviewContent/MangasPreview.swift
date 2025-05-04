@@ -224,9 +224,7 @@ extension MangaItemView {
 }
 
 private class MockUserRepository: UserRepositoryProtocol {
-    func createUser(user: User) async throws {
-        true
-    }
+    func createUser(user: User) async throws {}
     
     func login(email: String, password: String) async throws -> String {
         "token_simulado_123456"

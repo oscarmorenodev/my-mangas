@@ -12,7 +12,6 @@ class TokenManager {
             kSecValueData as String: token.data(using: .utf8)!
         ]
         
-        // First try to delete any existing token
         SecItemDelete(query as CFDictionary)
         
         let status = SecItemAdd(query as CFDictionary, nil)
