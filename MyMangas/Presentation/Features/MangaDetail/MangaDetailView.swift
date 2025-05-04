@@ -12,11 +12,7 @@ struct MangaDetailView<T: MangaItem>: View {
                     if let manga = selected {
                         MangaItemView(detailViewMode: true,
                                       manga: manga)
-                        .addToCollectionButton(manga: manga,
-                                               size: CGSize(width: 70,
-                                                            height: 70),
-                                               offset: (x: 130,
-                                                        y: 180))
+                        .addToCollectionButton(manga: manga)
                         .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                         Text(manga.title)
                             .font(.title)
@@ -58,6 +54,8 @@ struct MangaDetailView<T: MangaItem>: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(MangaItemViewModel.preview))
-        .environment(MangasListViewModel.preview)
+    NavigationStack {
+        MangaDetailView(selected: .constant(MangaItemViewModel.preview))
+            .environment(MangasListViewModel.preview)
+    }
 }
