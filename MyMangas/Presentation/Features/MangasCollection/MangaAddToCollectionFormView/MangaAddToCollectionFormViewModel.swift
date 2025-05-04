@@ -12,6 +12,7 @@ final class MangaAddToCollectionFormViewModel {
     var volumesOwned: [Int] = []
     var readingVolume: Int?
     var error: String?
+    var isLoading = false
     
     let mangaId: Int
     let numberOfVolumes: Int
@@ -23,6 +24,27 @@ final class MangaAddToCollectionFormViewModel {
         self.mangaId = mangaId
         self.numberOfVolumes = numberOfVolumes
         self.getMangaCollectionUseCase = getMangaCollectionUseCase
+        
+        Task {
+            await loadMangaCollection()
+        }
+    }
+    
+    func loadMangaCollection() async {
+        isLoading = true
+        do {
+            let collections = try await getMangaCollectionUseCase.getCollection()
+            if let userCollection = collections.first(where: { $0.manga.id == mangaId }) {
+                await MainActor.run {
+                    self.completeCollection = userCollection.completeCollection
+                    self.volumesOwned = userCollection.volumesOwned
+                    self.readingVolume = userCollection.readingVolume
+                }
+            }
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isLoading = false
     }
     
     func addToCollection() async {
