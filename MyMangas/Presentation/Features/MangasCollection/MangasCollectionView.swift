@@ -85,4 +85,5 @@ struct MangasCollectionView: View {
 
 #Preview {
     MangasCollectionView.preview
+        .environment(MangasCollectionViewModel())
 }

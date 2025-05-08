@@ -13,9 +13,10 @@ struct LoginView: View {
             if isLoading {
                 LoadingView(loading: $isLoading)
             } else {
+                LogoView(width: 100, height: 70)
                 Text("Login")
-                    .font(.largeTitle)
-                    .padding(.vertical, 100)
+                    .font(.title)
+                    .padding(.top, 50)
                 VStack {
                     TextField("Email", text: $email)
                         .autocorrectionDisabled()

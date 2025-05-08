@@ -7,6 +7,8 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
+            LogoView()
+                .offset(y: -200)
             LoadingView(loading: $loading)
         }
         .ignoresSafeArea()
@@ -25,4 +27,5 @@ struct SplashView: View {
 #Preview {
     SplashView()
         .environment(MangasListViewModel())
+        .environment(AppStateManager())
 }
