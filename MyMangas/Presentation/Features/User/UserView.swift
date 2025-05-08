@@ -5,12 +5,15 @@ struct UserView: View {
     
     var body: some View {
         VStack {
+            LogoView()
+            Spacer()
             Button {
                 appStateManager.logOut()
             } label: {
                 Text("Logout")
             }
             .buttonStyle(.borderedProminent)
+            .padding(.bottom, 50)
         }
     }
 }

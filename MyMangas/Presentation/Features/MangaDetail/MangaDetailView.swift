@@ -10,33 +10,9 @@ struct MangaDetailView<T: MangaItem>: View {
             ScrollView {
                 LazyVStack {
                     if let manga = selected {
-                        AsyncImage(url: manga.mainPicture.formatedToUrl()) { cover in
-                            cover
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 250, height: 420)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                                .frame(height: 420)
-                        } placeholder: {
-                            Image(systemName: SystemImage.placeholder.rawValue)
-                                .resizable()
-                                .scaledToFit()
-                                .padding()
-                                .frame(width: 150, height: 230)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .foregroundStyle(Color.white.opacity(0.8))
-                                .background {
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.5))
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                                .frame(height: 250)
-                        }
-                        .addToCollectionButton(manga: manga,
-                                               size: CGSize(width: 70, height: 70),
-                                               offset: (x: 80, y: 100))
+                        MangaItemView(detailViewMode: true,
+                                      manga: manga)
+                        .addToCollectionButton(manga: manga)
                         .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                         Text(manga.title)
                             .font(.title)
@@ -78,6 +54,8 @@ struct MangaDetailView<T: MangaItem>: View {
 }
 
 #Preview {
-    MangaDetailView(selected: .constant(MangaItemViewModel.preview))
-        .environment(MangasListViewModel.preview)
+    NavigationStack {
+        MangaDetailView(selected: .constant(MangaItemViewModel.preview))
+            .environment(MangasListViewModel.preview)
+    }
 }

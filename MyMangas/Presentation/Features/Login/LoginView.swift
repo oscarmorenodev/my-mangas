@@ -10,53 +10,58 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            Text("Login")
-                .font(.largeTitle)
-                .padding(.vertical, 100)
-            VStack {
-                TextField("Email", text: $email)
-                    .autocorrectionDisabled()
-                    .textContentType(.emailAddress)
-                    .textInputAutocapitalization(.never)
-                SecureField("Password", text: $password)
-            }
-            .textFieldStyle(.roundedBorder)
-            .padding(.horizontal, 50)
-            Button {
-                Task {
-                    isLoading = true
-                    if await presenter.login(email: email, password: password) {
-                        appStateManager.state = .logged
-                    } else {
-                        showAlert = true
+            if isLoading {
+                LoadingView(loading: $isLoading)
+            } else {
+                LogoView(width: 100, height: 70)
+                Text("Login")
+                    .font(.title)
+                    .padding(.top, 50)
+                VStack {
+                    TextField("Email", text: $email)
+                        .autocorrectionDisabled()
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                    SecureField("Password", text: $password)
+                }
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 50)
+                Button {
+                    Task {
+                        isLoading = true
+                        if await presenter.login(email: email, password: password) {
+                            appStateManager.state = .logged
+                        } else {
+                            showAlert = true
+                        }
+                        isLoading = false
                     }
-                    isLoading = false
+                } label: {
+                    if isLoading {
+                        ProgressView()
+                            .tint(.white)
+                    } else {
+                        Text("Login")
+                    }
                 }
-            } label: {
-                if isLoading {
-                    ProgressView()
-                        .tint(.white)
-                } else {
-                    Text("Login")
+                .buttonStyle(.borderedProminent)
+                .disabled(isLoading)
+                .padding(.top, 50)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text("User or password incorrect"),
+                          dismissButton: .default(Text("OK")) {
+                        email = ""
+                        password = ""
+                    })
                 }
+                Spacer()
+                Button("Not account yet? Sign up") {
+                    appStateManager.state = .signup
+                }
+                .padding(.bottom, UIDevice.current.userInterfaceIdiom == .vision ? 20 : 0)
+                .disabled(isLoading)
             }
-            .buttonStyle(.borderedProminent)
-            .disabled(isLoading)
-            .padding(.top, 50)
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"),
-                      message: Text("User or password incorrect"),
-                      dismissButton: .default(Text("OK")) {
-                    email = ""
-                    password = ""
-                })
-            }
-            Spacer()
-            Button("Not account yet? Sign up") {
-                appStateManager.state = .signup
-            }
-            .padding(.bottom, UIDevice.current.userInterfaceIdiom == .vision ? 20 : 0)
-            .disabled(isLoading)
         }
     }
 }

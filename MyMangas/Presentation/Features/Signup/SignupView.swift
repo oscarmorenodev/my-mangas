@@ -13,9 +13,10 @@ struct SignupView: View {
     
     var body: some View {
         VStack {
+            LogoView(width: 100, height: 70)
             Text("Signup")
-                .font(.largeTitle)
-                .padding(.vertical, 100)
+                .font(.title)
+                .padding(.top, 50)
             VStack {
                 TextField("Email", text: $email)
                     .autocorrectionDisabled()

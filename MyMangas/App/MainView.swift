@@ -37,4 +37,5 @@ struct MainView: View {
 
 #Preview {
     MainView.preview
+        .environment(AppStateManager())
 }

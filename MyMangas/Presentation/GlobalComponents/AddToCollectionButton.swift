@@ -13,33 +13,34 @@ fileprivate struct AddToCollectionButton: ViewModifier {
                 Button {
                     showCollectionForm = true
                 } label: {
-                    ZStack {
-                        Circle()
-                            .frame(width: size.width,
-                                   height: size.height)
-                            .tint(.white)
-                            .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
-                        Image(systemName: "books.vertical.circle.fill")
-                            .resizable()
-                            .frame(width: size.width,
-                                   height: size.height)
-                            .tint(.blue)
-                    }
+                    Image(systemName: "books.vertical.circle.fill")
+                        .resizable()
+                        .frame(width: size.width,
+                               height: size.height)
+                        #if os(visionOS)
+                        .foregroundStyle(.white)
+                        .background(.blue)
+                        #else
+                        .tint(.blue)
+                        .background(.white)
+                        #endif
+                        .clipShape(Circle())
                 }
                 .offset(x: offset.x, y: offset.y)
             }
             .sheet(isPresented: $showCollectionForm) {
-                MangaAddToCollectionFormView(vm: MangaAddToCollectionFormViewModel(mangaId: manga.id, numberOfVolumes: manga.volumes))
+                MangaAddToCollectionFormView(vm: MangaAddToCollectionFormViewModel(mangaId: manga.id,
+                                                                                   numberOfVolumes: manga.volumes))
             }
     }
 }
 
 extension View {
-    func addToCollectionButton(manga: MangaItem,
-                           size: CGSize,
-                           offset: (x: CGFloat, y: CGFloat)) -> some View {
+    func addToCollectionButton(manga: MangaItem) -> some View {
         modifier(AddToCollectionButton(manga: manga,
-                                size: size,
-                                offset: (x: offset.x, y: offset.y)))
+                                       size: CGSize(width: 70,
+                                                    height: 70),
+                                       offset: (x: 130,
+                                                y: 180)))
     }
 }

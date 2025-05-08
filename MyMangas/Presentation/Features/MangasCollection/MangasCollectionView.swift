@@ -31,6 +31,7 @@ struct MangasCollectionView: View {
                 }
                 loadingIndicator
             }
+            .padding(UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
         }
         .opacity(selected == nil ? 1.0 : 0.0)
     }
@@ -84,4 +85,5 @@ struct MangasCollectionView: View {
 
 #Preview {
     MangasCollectionView.preview
+        .environment(MangasCollectionViewModel())
 }
