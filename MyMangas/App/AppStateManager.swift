@@ -15,8 +15,10 @@ class AppStateManager {
         checkAuthentication()
     }
     
-    func startTokenRenewal() async {
-        await TokenRenewalManager.shared.cancelRenewalTask()
+    func startTokenRenewal() {
+        Task {
+            await TokenRenewalManager.shared.cancelRenewalTask()
+        }
         renewalTask = Task {
             await TokenRenewalManager.shared.startTokenRenewal()
         }
@@ -30,7 +32,7 @@ class AppStateManager {
                 await MainActor.run {
                     state = .logged
                 }
-                await startTokenRenewal()
+                startTokenRenewal()
             }
         } else {
             await MainActor.run {
@@ -83,7 +85,7 @@ class AppStateManager {
     func notifyUserLoggedIn() {
         Task {
             state = .logged
-            await startTokenRenewal()
+            startTokenRenewal()
             userLoggedInContinuation?.resume()
             userLoggedInContinuation = nil
         }
