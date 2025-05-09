@@ -15,22 +15,22 @@ class AppStateManager {
         checkAuthentication()
     }
     
-    func startTokenRenewal() {
-        cancelRenewalTask()
+    func startTokenRenewal() async {
+        await TokenRenewalManager.shared.cancelRenewalTask()
         renewalTask = Task {
-            await TokenRenewalManager.startTokenRenewal()
+            await TokenRenewalManager.shared.startTokenRenewal()
         }
     }
     
     func checkTokenStatus() async {
-        if TokenRenewalManager.isAuthenticated {
-            if await TokenRenewalManager.isTokenExpired() {
+        if await TokenRenewalManager.shared.isAuthenticated {
+            if await TokenRenewalManager.shared.isTokenExpired() {
                 await logOut()
             } else {
                 await MainActor.run {
                     state = .logged
                 }
-                startTokenRenewal()
+                await startTokenRenewal()
             }
         } else {
             await MainActor.run {
@@ -48,7 +48,7 @@ class AppStateManager {
     
     func logOut() async {
         try? TokenManager.deleteToken()
-        cancelRenewalTask()
+        await TokenRenewalManager.shared.cancelRenewalTask()
         state = .nonLogged
         
         notifyUserLoggedOut()
@@ -83,7 +83,7 @@ class AppStateManager {
     func notifyUserLoggedIn() {
         Task {
             state = .logged
-            startTokenRenewal()
+            await startTokenRenewal()
             userLoggedInContinuation?.resume()
             userLoggedInContinuation = nil
         }
@@ -99,14 +99,12 @@ class AppStateManager {
         stateCheckTask = nil
     }
     
-    private func cancelRenewalTask() {
-        renewalTask?.cancel()
-        renewalTask = nil
-        TokenRenewalManager.cancelRenewalTask()
-    }
-    
     deinit {
         cancelStateCheckTask()
-        cancelRenewalTask()
+        renewalTask?.cancel()
+        renewalTask = nil
+        Task {
+            await TokenRenewalManager.shared.cancelRenewalTask()
+        }
     }
 }
