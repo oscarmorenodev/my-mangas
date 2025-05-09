@@ -4,6 +4,7 @@ class TokenRenewalManager {
     private static let tokenExpirationDays: Double = 2
     private static let tokenRenewalThresholdDays: Double = 1
     private static var refreshTask: Task<Void, Never>?
+    private static var tokenExpiredContinuation: CheckedContinuation<Void, Never>?
     
     static func getTokenAge() async -> Double? {
         let query: [String: Any] = [
@@ -76,29 +77,13 @@ class TokenRenewalManager {
         }
     }
     
-    static func startTokenRenewal() {
+    static func startTokenRenewal() async {
         cancelRenewalTask()
         refreshTask = Task {
             while !Task.isCancelled {
-                do {
-                    if await isTokenExpired() {
-                        await MainActor.run {
-                            NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                        }
-                        break
-                    }
-                    
-                    if try await renewTokenIfNeeded() {
-                        print("Token renovado exitosamente")
-                    }
-                } catch TokenError.tokenExpired {
-                    print("El token ha expirado y no se pudo renovar")
-                    await MainActor.run {
-                        NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                    }
+                if await isTokenExpired() {
+                    await notifyTokenExpired()
                     break
-                } catch {
-                    print("Error durante la renovación del token: \(error.localizedDescription)")
                 }
                 
                 try? await Task.sleep(nanoseconds: 30 * 60 * 1_000_000_000)
@@ -110,10 +95,23 @@ class TokenRenewalManager {
         refreshTask?.cancel()
         refreshTask = nil
     }
+    
+    static func waitForTokenExpired() async {
+        await withCheckedContinuation { continuation in
+            tokenExpiredContinuation = continuation
+        }
+    }
+    
+    private static func notifyTokenExpired() async {
+        await MainActor.run {
+            tokenExpiredContinuation?.resume()
+            tokenExpiredContinuation = nil
+        }
+    }
 }
 
 extension Notification.Name {
     static let tokenExpired = Notification.Name("tokenExpired")
     static let userLoggedIn = Notification.Name("userLoggedIn")
     static let userLoggedOut = Notification.Name("userLoggedOut")
-} 
+}
