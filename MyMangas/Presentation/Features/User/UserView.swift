@@ -8,7 +8,9 @@ struct UserView: View {
             LogoView()
             Spacer()
             Button {
-                appStateManager.logOut()
+                Task {
+                    await appStateManager.logOut()
+                }
             } label: {
                 Text("Logout")
             }

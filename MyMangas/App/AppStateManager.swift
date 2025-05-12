@@ -4,76 +4,109 @@ import Foundation
 class AppStateManager {
     var state: AppState = .loading
     
-    init() {
-        setupNotificationObservers()
-    }
+    private var stateCheckTask: Task<Void, Never>?
+    private var renewalTask: Task<Void, Never>?
     
-    private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleTokenExpired),
-            name: .tokenExpired,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleUserLoggedIn),
-            name: .userLoggedIn,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleUserLoggedOut),
-            name: .userLoggedOut,
-            object: nil
-        )
+    private var tokenExpiredContinuation: CheckedContinuation<Void, Never>?
+    private var userLoggedInContinuation: CheckedContinuation<Void, Never>?
+    private var userLoggedOutContinuation: CheckedContinuation<Void, Never>?
+    
+    init() {
+        checkAuthentication()
     }
     
     func startTokenRenewal() {
-        TokenRenewalManager.startTokenRenewal()
+        Task {
+            await TokenRenewalManager.shared.cancelRenewalTask()
+        }
+        renewalTask = Task {
+            await TokenRenewalManager.shared.startTokenRenewal()
+        }
     }
     
     func checkTokenStatus() async {
-        if TokenRenewalManager.isAuthenticated {
-            if await TokenRenewalManager.isTokenExpired() {
-                logOut()
+        if await TokenRenewalManager.shared.isAuthenticated {
+            if await TokenRenewalManager.shared.isTokenExpired() {
+                await logOut()
             } else {
-                state = .logged
-                TokenRenewalManager.startTokenRenewal()
+                await MainActor.run {
+                    state = .logged
+                }
+                startTokenRenewal()
             }
         } else {
-            state = .nonLogged
+            await MainActor.run {
+                state = .nonLogged
+            }
         }
     }
     
     func checkAuthentication() {
-        Task {
+        cancelStateCheckTask()
+        stateCheckTask = Task {
             await checkTokenStatus()
         }
     }
     
-    func logOut() {
+    func logOut() async {
         try? TokenManager.deleteToken()
-        TokenRenewalManager.cancelRenewalTask()
+        await TokenRenewalManager.shared.cancelRenewalTask()
         state = .nonLogged
+        
+        notifyUserLoggedOut()
     }
     
-    @objc private func handleTokenExpired() {
-        logOut()
+    func waitForTokenExpired() async {
+        await withCheckedContinuation { continuation in
+            tokenExpiredContinuation = continuation
+        }
     }
     
-    @objc private func handleUserLoggedIn() {
-        state = .logged
-        TokenRenewalManager.startTokenRenewal()
+    func waitForUserLoggedIn() async {
+        await withCheckedContinuation { continuation in
+            userLoggedInContinuation = continuation
+        }
     }
     
-    @objc private func handleUserLoggedOut() {
-        logOut()
+    func waitForUserLoggedOut() async {
+        await withCheckedContinuation { continuation in
+            userLoggedOutContinuation = continuation
+        }
+    }
+    
+    func notifyTokenExpired() {
+        Task {
+            await logOut()
+            tokenExpiredContinuation?.resume()
+            tokenExpiredContinuation = nil
+        }
+    }
+    
+    func notifyUserLoggedIn() {
+        Task {
+            state = .logged
+            startTokenRenewal()
+            userLoggedInContinuation?.resume()
+            userLoggedInContinuation = nil
+        }
+    }
+    
+    func notifyUserLoggedOut() {
+        userLoggedOutContinuation?.resume()
+        userLoggedOutContinuation = nil
+    }
+    
+    private func cancelStateCheckTask() {
+        stateCheckTask?.cancel()
+        stateCheckTask = nil
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        cancelStateCheckTask()
+        renewalTask?.cancel()
+        renewalTask = nil
+        Task {
+            await TokenRenewalManager.shared.cancelRenewalTask()
+        }
     }
 }

@@ -1,11 +1,16 @@
 import Foundation
 
-class TokenRenewalManager {
-    private static let tokenExpirationDays: Double = 2
-    private static let tokenRenewalThresholdDays: Double = 1
-    private static var refreshTask: Task<Void, Never>?
+actor TokenRenewalManager {
+    private let tokenExpirationDays: Double = 2
+    private let tokenRenewalThresholdDays: Double = 1
+    private var refreshTask: Task<Void, Never>?
+    private var tokenExpiredContinuation: CheckedContinuation<Void, Never>?
     
-    static func getTokenAge() async -> Double? {
+    static let shared = TokenRenewalManager()
+    
+    private init() {}
+    
+    func getTokenAge() async -> Double? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: "com.mymanga.auth",
@@ -25,21 +30,21 @@ class TokenRenewalManager {
         return Date().timeIntervalSince(modificationDate) / (60 * 60 * 24)
     }
     
-    static func shouldRenewToken() async -> Bool {
+    func shouldRenewToken() async -> Bool {
         guard let tokenAge = await getTokenAge() else {
             return false
         }
         return tokenAge >= tokenRenewalThresholdDays && tokenAge < tokenExpirationDays
     }
     
-    static func isTokenExpired() async -> Bool {
+    func isTokenExpired() async -> Bool {
         guard let tokenAge = await getTokenAge() else {
             return true
         }
         return tokenAge >= tokenExpirationDays
     }
     
-    static func renewTokenIfNeeded() async throws -> Bool {
+    func renewTokenIfNeeded() async throws -> Bool {
         let tokenAge = await getTokenAge()
         
         if tokenAge == nil {
@@ -66,7 +71,7 @@ class TokenRenewalManager {
         }
     }
     
-    static var isAuthenticated: Bool {
+    var isAuthenticated: Bool {
         get {
             do {
                 return try TokenManager.getToken() != nil
@@ -76,29 +81,13 @@ class TokenRenewalManager {
         }
     }
     
-    static func startTokenRenewal() {
+    func startTokenRenewal() async {
         cancelRenewalTask()
         refreshTask = Task {
             while !Task.isCancelled {
-                do {
-                    if await isTokenExpired() {
-                        await MainActor.run {
-                            NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                        }
-                        break
-                    }
-                    
-                    if try await renewTokenIfNeeded() {
-                        print("Token renovado exitosamente")
-                    }
-                } catch TokenError.tokenExpired {
-                    print("El token ha expirado y no se pudo renovar")
-                    await MainActor.run {
-                        NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                    }
+                if await self.isTokenExpired() {
+                    await self.notifyTokenExpired()
                     break
-                } catch {
-                    print("Error durante la renovación del token: \(error.localizedDescription)")
                 }
                 
                 try? await Task.sleep(nanoseconds: 30 * 60 * 1_000_000_000)
@@ -106,14 +95,23 @@ class TokenRenewalManager {
         }
     }
     
-    static func cancelRenewalTask() {
+    func cancelRenewalTask() {
         refreshTask?.cancel()
         refreshTask = nil
     }
+    
+    func waitForTokenExpired() async {
+        await withCheckedContinuation { continuation in
+            tokenExpiredContinuation = continuation
+        }
+    }
+    
+    private func notifyTokenExpired() async {
+        let continuation = tokenExpiredContinuation
+        tokenExpiredContinuation = nil
+        
+        await MainActor.run {
+            continuation?.resume()
+        }
+    }
 }
-
-extension Notification.Name {
-    static let tokenExpired = Notification.Name("tokenExpired")
-    static let userLoggedIn = Notification.Name("userLoggedIn")
-    static let userLoggedOut = Notification.Name("userLoggedOut")
-} 

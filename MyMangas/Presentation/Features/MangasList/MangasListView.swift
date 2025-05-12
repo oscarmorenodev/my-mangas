@@ -53,6 +53,13 @@ struct MangasListView: View {
             }
         }
         .animation(.smooth(duration: 0.15), value: selected)
+        .onAppear {
+            Task {
+                if vm.mangas.isEmpty {
+                    await vm.fetchData()
+                }
+            }
+        }
     }
 }
 

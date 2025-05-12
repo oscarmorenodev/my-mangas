@@ -3,19 +3,25 @@ import Foundation
 @Observable
 final class LoginViewModel {
     private let loginUseCase: LoginUseCase
+    @ObservationIgnored private var appStateManager: AppStateManager?
     var displayError = false
     var errorMessage = ""
     
-    
     init(loginUseCase: LoginUseCase = LoginUseCase()) {
         self.loginUseCase = loginUseCase
+    }
+    
+    func setAppStateManager(_ manager: AppStateManager) {
+        self.appStateManager = manager
     }
     
     func login(email: String, password: String) async -> Bool {
         do {
             let _ = try await loginUseCase.execute(email: email, password: password)
             
-            NotificationCenter.default.post(name: .userLoggedIn, object: nil)
+            await MainActor.run {
+                appStateManager?.notifyUserLoggedIn()
+            }
             
             return true
         } catch {
@@ -30,6 +36,8 @@ final class LoginViewModel {
     func logout() {
         try? TokenManager.deleteToken()
         
-        NotificationCenter.default.post(name: .userLoggedOut, object: nil)
+        Task {
+            await appStateManager?.logOut()
+        }
     }
 }

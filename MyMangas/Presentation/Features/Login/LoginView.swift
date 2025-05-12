@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @Environment(AppStateManager.self) var appStateManager
-    @Environment(LoginViewModel.self) var presenter
+    @Environment(LoginViewModel.self) var vm
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showAlert = false
@@ -29,7 +29,7 @@ struct LoginView: View {
                 Button {
                     Task {
                         isLoading = true
-                        if await presenter.login(email: email, password: password) {
+                        if await vm.login(email: email, password: password) {
                             appStateManager.state = .logged
                         } else {
                             showAlert = true
@@ -62,6 +62,9 @@ struct LoginView: View {
                 .padding(.bottom, UIDevice.current.userInterfaceIdiom == .vision ? 20 : 0)
                 .disabled(isLoading)
             }
+        }
+        .onAppear {
+            vm.setAppStateManager(appStateManager)
         }
     }
 }
