@@ -30,6 +30,10 @@ struct RemoteUserDataSource: UserDataSourceProtocol {
             throw NetworkError.status(response.statusCode)
         }
         
+        if U.self == Bool.self {
+            return true as! U
+        }
+        
         if let token = String(data: data, encoding: .utf8), !token.isEmpty {
             return token as! U
         }
