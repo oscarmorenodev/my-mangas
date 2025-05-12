@@ -420,6 +420,7 @@
 			children = (
 				5545C3022DB4268F00BC4E9F /* Assets.xcassets */,
 				556386412DC66D03001EDA8A /* Localizable.xcstrings */,
+				5562F7C12DB432460050782B /* MangasPreview.swift */,
 				5562F7C32DB432460050782B /* PreviewContent */,
 			);
 			path = Resources;
@@ -460,7 +461,6 @@
 			isa = PBXGroup;
 			children = (
 				5562F7C02DB432460050782B /* mangasPreview.json */,
-				5562F7C12DB432460050782B /* MangasPreview.swift */,
 				5562F7C22DB432460050782B /* Preview Assets.xcassets */,
 			);
 			path = PreviewContent;
