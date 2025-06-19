@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SignupView: View {
     @Environment(AppStateManager.self) var appStateManager
-    @Environment(SignupViewModel.self) var vm
+    @State private var vm = SignupViewModel()
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
@@ -78,5 +78,4 @@ enum ActiveAlert {
 #Preview {
     SignupView()
         .environment(AppStateManager.preview)
-        .environment(SignupViewModel.preview)
 }
